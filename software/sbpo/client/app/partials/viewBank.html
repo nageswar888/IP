@@ -1,0 +1,145 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <div class="modal-header">
+            <h3 class="modal-title text-center" translate="bank.view.heading"></h3>
+        </div>
+
+        <div class="modal-body">
+            <form name="editBankForm" role="form" class="form-horizontal">
+                <div class="row margin-bottom-10x margin-to10x">
+                    <div id="bankNameFlashMsgDiv" flash-message="2000"></div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="account.name.label"></label></div>
+                            <div class="col-sm-8">
+                                <span ng-bind="admin.accountname"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="account.type.label"></label></div>
+                            <div class="col-sm-8">
+                                <span ng-bind="admin.accountType"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div ng-if="admin.accountType==='Cash on Hand'">
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="label.asOfDate"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.asOf"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="account.balance.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.openingBalance | indianAmtMatric"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="admin.accountType==='Bank Account' || admin.accountType==='Credit Card' || admin.accountType==='Debit Card'">
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="account.no.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.accountno"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.name.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.bankname"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.branch.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.branchname"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.ifsc.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.ifsccode"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.address.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.address"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-if="admin.accountType==='Credit Card'">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="creditCard.no.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.creditCardNumber"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6"  ng-if="admin.accountType==='Debit Card'">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="debitCard.no.label"></label></div>
+                                <div class="col-sm-8">
+                                    <span ng-bind="admin.debitCardNumber"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-to10x margin-bottom-10">
+                        <div class="col-md-offset-1 col-md-10">
+                            <div class="col-sm-12 border-box">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-6 lbl-align"><label translate="account.balance.label"></label></div>
+                                        <div class="col-sm-6">
+                                            <span ng-bind="admin.openingBalance | indianAmtMatricInput"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group  ">
+                                        <label class="col-sm-6 lbl-align" translate="label.asOfDate"></label>
+                                        <div class="col-sm-6">
+                                            <span ng-bind="admin.asOf"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-align-center">
+                    <button ng-click="cancelBankDetail()" class="btn redbtn" translate="button.cancel">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

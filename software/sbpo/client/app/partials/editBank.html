@@ -1,0 +1,208 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center">{{'bank.edit.heading'|translate}}</h3>
+        </div>
+        <div id="bankNameFlashMsgDiv" flash-message="2000" class="flash-error-msg-padding"></div>
+
+        <div class="modal-body">
+            <form name="editBankForm" role="form" class="form-horizontal">
+                <div class="row margin-bottom-10x margin-to10x">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="account.name.label"></label></div>
+                            <div class="col-sm-8">
+                                <input type="text" name="accountName" class="form-control mandatory-mark" ng-model="admin.accountname" placeholder="Account name" ng-maxlength="{{admin.accountValidation.default.maxLength}}" required>
+                          <span ng-show="(editBankForm.accountName.$dirty || editBankForm.bankFormSubmitted) && editBankForm.accountName.$error.required" class="text-danger error-msg"
+                                ng-bind="'bank.accountName.required' | translate"></span>
+                          <span ng-show="(editBankForm.accountName.$touched || editBankForm.accountName.$dirty || editBankForm.bankFormSubmitted) && editBankForm.accountName.$error.maxlength"
+                                ng-bind="'max.length.exceed.error.message' | translate:{ maxLimit:admin.accountValidation.default.maxLength, fieldName:'Account name'}" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="account.type.label"></label></div>
+                            <div class="col-sm-8">
+                                <ui-select  ng-model="admin.accountType" name='accountType' theme="bootstrap" class="mandatory-mark" required>
+                                    <ui-select-match placeholder="Select account type" allow-clear="true">{{$select.selected}}</ui-select-match>
+                                    <ui-select-choices repeat="item in accountType track by $index">
+                                        {{item}}
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span ng-show="(editBankForm.accountType.$touched || editBankForm.bankFormSubmitted) && editBankForm.accountType.$error.required"
+                                      ng-bind="'account.type.required' | translate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div ng-if="admin.accountType===cashOnHand">
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="label.asOfDate"></label></div>
+                                <div class="col-sm-8">
+                                    <datepicker date-format="dd-MMM-yyyy">
+                                        <input ng-model="admin.asOf" type="text"  name="asOf" placeholder="As of Date"  class="form-control mandatory-mark text-left"
+                                               ng-pattern="/^(([0-9])|([0-2][0-9])|([3][0-1]))\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\-\d{4}$/" required/>
+                                    </datepicker>
+                                    <span ng-show="(editBankForm.asOf.$dirty || editBankForm.bankFormSubmitted)&& editBankForm.asOf.$error.required" class="text-danger" ng-bind="'asOf.required' | translate"></span>
+                        <span ng-show="(editBankForm.asOf.$touched || editBankForm.userFormSubmitted) && editBankForm.asOf.$error.pattern"
+                              class="text-danger" ng-bind="'date.invalid.msg' | translate"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="account.balance.label"></label></div>
+                                <div class="col-sm-8">
+                                    <input type="text" name="balance"  class="form-control mandatory-mark text-left" maxlength="{{abc.bankBalance}}"
+                                           ng-model="admin.openingBalance" placeholder="Opening balance" indian-matric-converter required>
+                                    <div ng-show="admin.openingBalance">
+                                        <span class="font-italic color-blue">{{admin.openingBalance | filterAmount}} </span>
+                                    </div>
+                                    <span ng-show="(editBankForm.balance.$dirty || editBankForm.bankFormSubmitted) && editBankForm.balance.$error.required" class="text-danger" ng-bind="'bank.balance.required' | translate"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="admin.accountType=== bankAccount || admin.accountType===creditCard || admin.accountType===debitCard">
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="account.no.label"></label></div>
+                                <div class="col-sm-8">
+                                    <input type="text" name="accountNo" ng-maxlength="{{admin.accountValidation.default.maxLength}}" class="form-control mandatory-mark" ng-model="admin.accountno" placeholder="Account number"
+                                           required>
+                                    <span ng-show="(editBankForm.accountNo.$dirty || editBankForm.bankFormSubmitted) && editBankForm.accountNo.$error.required" class="text-danger error-msg"
+                                           ng-bind="'accountNo.required' | translate"></span>
+                                    <span ng-show="(editBankForm.accountNo.$touched || editBankForm.accountNo.accountno.$dirty || editBankForm.adminSubmitted) && editBankForm.accountNo.$error.maxlength" class="text-danger"
+                                          ng-bind="'max.length.exceed.error.message' | translate:{ maxLimit:admin.accountValidation.default.maxLength, fieldName:'Account number'}"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.name.label"></label></div>
+                                <div class="col-sm-8">
+                                    <input type="text" name="bankname" class="form-control mandatory-mark" ng-maxlength="{{admin.accountValidation.default.maxLength}}" ng-model="admin.bankname" placeholder="Bank name" required>
+                        <span ng-show="(editBankForm.bankname.$dirty || editBankForm.bankFormSubmitted) && editBankForm.bankname.$error.required" class="text-danger error-msg"
+                              ng-bind="'bank.bankName.required' | translate"></span>
+                                    <span ng-show="(editBankForm.bankname.$touched || editBankForm.bankname.$dirty || editBankForm.bankFormSubmitted) && editBankForm.bankname.$error.maxlength" class="text-danger"
+                                          ng-bind="'max.length.exceed.error.message' | translate:{ maxLimit:admin.accountValidation.default.maxLength, fieldName:'Bank name'}"></span>
+                                    <!--<span ng-show="editBankForm.bankname.$dirty && editBankForm.bankname.$error.pattern" class="text-danger error-msg"
+                                          ng-bind="'admin.acc.bank.name.alphabet.msg' | translate"></span>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.branch.label"></label></div>
+                                <div class="col-sm-8">
+                                    <input type="text" name="branchname" ng-maxlength="{{admin.accountValidation.default.maxLength}}" class="form-control mandatory-mark" ng-model="admin.branchname" placeholder="Branch name" required>
+                            <span ng-show="(editBankForm.branchname.$dirty || editBankForm.bankFormSubmitted) && editBankForm.branchname.$error.required" class="text-danger error-msg"
+                                  ng-bind="'bank.branch.required' | translate"></span>
+                            <span ng-show="(editBankForm.branchname.$touched || editBankForm.branchname.$dirty || editBankForm.bankFormSubmitted) && editBankForm.branchname.$error.maxlength" class="text-danger"
+                                  ng-bind="'max.length.exceed.error.message' | translate:{ maxLimit:admin.accountValidation.default.maxLength, fieldName:'Bank branch'}"></span>
+                                    <!--<span ng-show="editBankForm.branchname.$dirty && editBankForm.branchname.$error.pattern" class="text-danger error-msg"
+                                          ng-bind="'admin.acc.branch.name.alphabet.msg' | translate"></span>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.ifsc.label"></label></div>
+                                <div class="col-sm-8">
+                                    <input type="text" name="ifsccode" ng-maxlength="{{admin.accountValidation.default.maxLength}}" id='ifsccode' class="form-control mandatory-mark" ng-model="admin.ifsccode" placeholder="Ifsc code" required>
+                             <span ng-show="(editBankForm.ifsccode.$dirty || editBankForm.bankFormSubmitted) && editBankForm.ifsccode.$error.required" class="text-danger error-msg"
+                                   ng-bind="'bank.ifsc.required' | translate"></span>
+                             <span ng-show="(editBankForm.ifsccode.$touched || editBankForm.ifsccode.$dirty || editBankForm.bankFormSubmitted) && editBankForm.ifsccode.$error.maxlength" class="text-danger"
+                                   ng-bind="'max.length.exceed.error.message' | translate:{ maxLimit:admin.accountValidation.default.maxLength, fieldName:'IFSC code'}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="bank.address.label"></label></div>
+                                <div class="col-sm-8">
+                                    <textarea type="text" name="address" id='address' class="form-control mandatory-mark text-left" ng-model="admin.address" placeholder="Address" required ng-maxlength="{{admin.accountValidation.account.address.maxLength}}"></textarea>
+                            <span ng-show="(editBankForm.address.$touched || editBankForm.address.$dirty || editBankForm.bankFormSubmitted) && editBankForm.address.$error.required" class="text-danger error-msg"
+                                  ng-bind="'bank.address.required' | translate"></span>
+                            <span ng-show="(editBankForm.address.$touched || editBankForm.bankFormSubmitted) && editBankForm.address.$error.maxlength"
+                                  class="text-danger" ng-bind="'max.length.exceed.error.message' | translate:{ maxLimit:admin.accountValidation.account.address.maxLength, fieldName:'Bank address'}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="account.balance.label"></label></div>
+                                <div class="col-sm-8">
+                                    <input type="text" name="balance" id='balance' class="form-control mandatory-mark text-left" maxlength="21"
+                                           ng-model="admin.openingBalance" placeholder="Opening balance" indian-matric-converter required>
+                                    <div ng-show="admin.openingBalance">
+                                        <span class="font-italic color-blue">{{admin.openingBalance | filterAmount}} </span>
+                                    </div>
+                                    <span ng-show="(editBankForm.balance.$touched || editBankForm.bankFormSubmitted) && editBankForm.balance.$error.required" class="text-danger" ng-bind="'bank.balance.required' | translate"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="label.asOfDate"></label></div>
+                                <div class="col-sm-8">
+                                    <datepicker date-format="dd-MMM-yyyy">
+                                        <input ng-model="admin.asOf" type="text"  name="asOf" placeholder="As of Date"  class="form-control mandatory-mark text-left" required/>
+                                    </datepicker>
+                                    <span ng-show="(editBankForm.asOf.$touched || editBankForm.asOf.$dirty || editBankForm.bankFormSubmitted) &&  editBankForm.asOf.$error.required" class="text-danger" ng-bind="'asOf.required' | translate"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-if="admin.accountType===creditCard">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="creditCard.no.label"></label></div>
+                                <div class="col-sm-8"><input type="text" name="creditNo" id='creditNo' class="form-control mandatory-mark text-left" ng-model="admin.creditCardNumber"
+                                                             ng-pattern="/^[0-9]{1,20}$/" placeholder="Credit card number" required>
+                                    <span ng-show="(editBankForm.creditNo.$dirty || editBankForm.bankFormSubmitted) && editBankForm.creditNo.$error.required" class="text-danger" ng-bind="'bank.creditno.required' | translate"></span>
+                                    <span ng-show="(editBankForm.creditNo.$dirty || editBankForm.bankFormSubmitted) && editBankForm.creditNo.$error.pattern" class="text-danger" ng-bind="'invalid.card.pattern' | translate:{cardType:'credit'}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6"  ng-if="admin.accountType===debitCard">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="debitCard.no.label"></label></div>
+                                <div class="col-sm-8"><input type="text" name="debitNo" id='debitNo' class="form-control mandatory-mark text-left" ng-model="admin.debitCardNumber"
+                                                             ng-pattern="/^[0-9]{1,20}$/" placeholder="Debit card number" required>
+                                    <span ng-show="(editBankForm.debitNo.$dirty || editBankForm.bankFormSubmitted) && editBankForm.debitNo.$error.required" class="text-danger" ng-bind="'bank.debitno.required' | translate"></span>
+                                    <span ng-show="(editBankForm.debitNo.$dirty || editBankForm.bankFormSubmitted) && editBankForm.debitNo.$error.pattern" class="text-danger" ng-bind="'invalid.card.pattern' | translate:{cardType:'debit'}"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-align-center">
+                    <button type="button" ng-click="editBankDetail(editBankForm)" class="btn btn-submit greenbtn" translate="user.button.edit">
+                    </button>
+
+                    <button ng-click="cancleBankDetail()" class="btn redbtn" translate="button.cancel">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

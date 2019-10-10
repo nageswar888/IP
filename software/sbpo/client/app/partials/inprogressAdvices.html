@@ -1,0 +1,41 @@
+<!--<div id="adviceFilterBox" ng-init="pac.freezeActionIcons()">
+    <div class="sortFilter">-->
+        <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+            <h3 class="text-center "><span ng-bind="'advice.inprogress.label' | translate | camelCase "></span></h3>
+        </div>
+        <div ng-hide="pac.message===null" class="row">
+            <div class="col-md-10 col-md-offset-1"><div id="FlashMsgDiv" flash-message="4000"></div></div>
+        </div>
+        <div class="row margin-top-15 color-grey" ng-if="pac.showMessage">
+            <div class="text-align-center"><h4 ng-bind="pac.noRecordMessage"></h4></div>
+        </div>
+        <div  class="margin-top-15" ng-if=" $root.totalInprogressCount > 0" >
+            <sort-advices group-by-status="pac.groupByStatus"
+                          get-advices-by-status="pac.getAdvicesByStatus(status,sortStatus,groupByStatus)"
+                          current-status="pac.currentStatus"
+                          download-all-advices-by-status ="pac.downloadAllAdvicesByStatus(status,type);">
+            </sort-advices>
+        </div>
+    <!--</div>-->
+    <div class="margin-top-15"ng-if="$root.totalInprogressCount > 0" ><!--class="groupFilter"-->
+        <uib-tabset  active="active">
+            <uib-tab  ng-repeat="tabs in pac.groupByFilters" heading="{{tabs.label | translate}}" ng-click="pac.groupByCriteria(tabs.key)">
+                <div class="row" ng-if="tabs.key === pac.groupByStatus" >
+                    <render-advices group-category="pac.groupByStatus" status="pac.status"
+                                    data="pac.groupByCriteriaList.projects" show-advices-in-table="false"
+                                    get-advices="pac.getAdvicesByStatus(pac.currentStatus, sortStatus, groupCategory, groupedData, projectId, payeeId)"
+                                    group-by-criteria-list="pac.groupByCriteriaList">
+                    </render-advices>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+<!--</div>-->
+<!--
+<li ng-class="[{active: active, disabled: disabled}, classes]" class="uib-tab nav-item ng-scope ng-isolate-scope active" ng-repeat="tabs in pac.groupByFilters"
+    heading="Group By Project" ng-click="pac.groupByCriteria(tabs.key)" role="button" tabindex="0">
+    <a href="" ng-click="select($event)"
+                                                                                                                                                                                                                                                                     class="nav-link ng-binding" uib-tab-heading-transclude="">Group By Project</a> </li>
+
+
+-->

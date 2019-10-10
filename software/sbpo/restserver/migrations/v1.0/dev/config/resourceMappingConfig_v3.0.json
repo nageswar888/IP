@@ -1,0 +1,10 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/user/setPasscode",
+      "roles": [
+        {"name": "ROLE_PAYEE", "permissions": ["post"]}
+      ]
+    }
+  ]
+}

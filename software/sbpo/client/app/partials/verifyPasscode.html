@@ -1,0 +1,50 @@
+<div style="max-width: 700px">
+    <div class="modal-header">
+        <h4 class="modal-title sub-heading" translate="verifyPasscode.label"></h4>
+    </div>
+    <div class="modal-body">
+        <div id="errorFlashMsgDiv" flash-message="4000" class=""></div>
+        <div class="row">
+            <div class="col-sm-10">
+
+            </div>
+        </div>
+
+        <!--passcode fields-->
+        <div class="row">
+            <form name="vm.passCodeForm" role="form" class="form-horizontal formCss" novalidate>
+                <div class="col-sm-10" ng-if="vm.showComment">
+                    <div class="form-group">
+                        <label  class="control-label col-sm-4" translate="button.comment"> </label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control " rows="2" ng-model="vm.comment"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="password" translate="advice.passcode.label"></label>
+                        <div class="col-sm-8">
+                            <input type="password" required placeholder="Enter passcode"  ng-model="vm.passcode"
+                                   id="password" class="form-control mandatory-mark" name="password">
+                             <span ng-show="(vm.passCodeForm.password.$touched || dc.passCodeFormSubmitted) &&
+                                   vm.passCodeForm.password.$error.required" class="text-danger">
+                                 {{'field.required'| translate:'{field:"Passcode"}'}}
+                             </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--passcode fields-->
+
+
+    <div class="modal-footer text-center">
+        <button type="reset" class="btn greenbtn"  ng-click="vm.verifyPasscode()">
+            <span ng-bind="vm.submitLabel"></span>
+        </button>
+        <button type="button" ng-click="vm.closePopup()" class="btn redbtn" translate="button.cancel">
+        </button>
+    </div>
+</div>

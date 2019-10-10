@@ -1,0 +1,123 @@
+<div class="fixedsi-de avide-header sideleft-menu"  id="style-4">
+    <ul class="link-side force-overflow" ng-if="sc.isHomeTab()">
+        <li>
+            <a href="#" class="active" ng-click="$root.backToHomePage()"><i class="fa fa-home" aria-hidden="true"></i><span translate="button.home"></span></a>
+        </li>
+
+        <li>
+            <a ng-if="sc.canViewCreateAdvice()" ng-class="{'active':$root.$state.current.name === 'createAdvice'}"
+               ui-sref="createAdvice" data-toggle="tab">
+                <i class="fa fa-plus-square" aria-hidden="true"></i>
+                <span  translate="header.button.create.advice"></span>
+            </a>
+        </li>
+        <li>
+            <a ng-if="sc.canViewLegacyAdvice()" ng-class="{'active':$root.$state.current.name === 'createLegacyAdvice'}"
+               ui-sref="createLegacyAdvice" data-toggle="tab">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                <span translate="header.button.create.legacy.advice"></span>
+            </a>
+        </li>
+        <li>
+            <a ng-click="sc.getAdviceCount();" ng-class="{'active':$root.$state.current.name === 'advice.pending-approval'}"
+               ng-if="sc.canViewDraftAdvice()" ui-sref="advice.pending-approval({status:'Pending'})" data-toggle="tab">
+                <i ng-if="$root.isInitiatorRole()" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <i ng-if="!$root.isInitiatorRole()" class="fa fa-share-square-o" aria-hidden="true"></i>
+                <span ng-if="$root.isInitiatorRole()" translate="header.button.draft.advice"></span>
+                <span ng-if="!$root.isInitiatorRole()" translate="header.button.pending.advice"></span>
+                (<span ng-bind="$root.pendingCount"></span>)
+            </a>
+        </li>
+        <li>
+            <a ng-click="sc.getAdviceCount();" ng-class="{'active':$root.$state.current.name === 'advice.inprogress'}"
+               ng-if="sc.canViewInprogressAdvice()" ui-sref="advice.inprogress({status: 'Inprogress'})" data-toggle="tab">
+                <i class="fa fa-hourglass-half" aria-hidden="true"></i>
+                <span translate="header.button.progress.advice"></span> (<span ng-bind="$root.totalInprogressCount"></span>)
+            </a>
+        </li>
+        <li>
+            <a ng-click="sc.getAdviceCount();" ng-class="{'active':$root.$state.current.name === 'advice.rejected'}"  ng-if="sc.canViewRejectedAdvice()"
+               ui-sref="advice.rejected({status: 'Rejected'})" data-toggle="tab">
+                <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                <span translate="header.button.rejected.advice"></span> (<span ng-bind="$root.rejectedCount"></span>)
+            </a>
+        </li>
+        <li>
+            <a ng-class="{'active':$root.$state.current.name === 'payeeTable'}"  ng-if="sc.isDisburserRole();"
+               ui-sref="payeeTable" data-toggle="tab">
+                <i class="fa fa-inr" aria-hidden="true"></i>
+                <span translate="button.payee"></span>
+            </a>
+        </li>
+        <li>
+            <a ng-click="sc.getAdviceCount();" ng-class="{'active':$root.$state.current.name === 'searchAdvice'}" ng-if="sc.canViewSearch()"
+               ui-sref="searchAdvice" data-toggle="tab">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <span translate="button.search.advice"></span>
+            </a>
+        </li>
+        <li>
+            <a  ng-class="{'active':$root.$state.current.name === 'paymentHistory'}"
+               ng-if="sc.canViewPaymentHistory()" ui-sref="paymentHistory" data-toggle="tab">
+                <i class="fa fa-history" aria-hidden="true"></i>
+                <span translate="payment.history.label" ></span>
+            </a>
+        </li>
+        <li>
+            <a ng-if="sc.canViewPaymentRequests()" data-toggle="tab">
+                <i class="fa fa-money" aria-hidden="true"></i>
+                <span translate="header.button.list.payment.requests" ></span> (<span ng-class="{pendingPaymentRequestCount: $root.submittedPaymentReqCount > 2 && $root.isInitiatorRole() }" ng-bind="$root.totalPaymentReqCount"></span>)
+            </a>
+            <ul class="pull-right">
+                <li>
+                    <a  ng-class="{'active':$root.$state.current.name === 'inprogressPaymentRequests'}"
+                        ng-if="sc.canViewPaymentRequestTabs()" ui-sref="inprogressPaymentRequests({status: 'SUBMITTED'})" data-toggle="tab"
+                        style="padding-top: 20px">
+                        <i class="fa fa-spinner" aria-hidden="true"></i>
+                        <span translate="header.button.progress.paymentRequests"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ng-class="{'active':$root.$state.current.name === 'inProcessPaymentRequests'}"
+                       ng-if="sc.canViewPaymentRequestTabs()" ui-sref="inProcessPaymentRequests({status: 'APPROVED'})" data-toggle="tab">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        <span translate="header.button.process.paymentRequests" ></span>
+                    </a>
+                </li>
+                <li>
+                    <a ng-class="{'active':$root.$state.current.name === 'rejected'}"
+                       ng-if="sc.canViewPaymentRequestTabs()" ui-sref="rejectedPaymentRequests({status: 'REJECTED'})" data-toggle="tab">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        <span translate="header.button.rejected.paymentRequests" ></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="link-side force-overflow" ng-if="!sc.isHomeTab()">
+        <li>
+            <a href="#" ng-click="$root.backToHomePage()">
+                <i class="fa fa-home" aria-hidden="true"></i><span translate="button.home"></span></a>
+        </li>
+        <li ng-if="$root.isMasterAdmin()">
+            <a  ui-sref="admin.userTable"  ng-class="{'active':$state.current.name === 'admin.userTable'}">
+                <i class="fa fa-user" aria-hidden="true"></i><span translate="button.user"></span></a>
+        </li>
+        <li ng-if="$root.isMasterAdmin()">
+            <a ui-sref="admin.payeetbl" ng-class="{'active':$state.current.name === 'admin.payeetbl'}">
+                <i class="fa fa-inr" aria-hidden="true"></i><span translate="button.payee"></span></a>
+        </li>
+        <li ng-if="$root.isMasterAdmin()">
+            <a ui-sref="admin.banktbl" ng-class="{'active':$state.current.name === 'admin.banktbl'}">
+                <i class="fa fa-university " aria-hidden="true"></i><span translate="button.account"></span></a>
+        </li>
+        <li ng-if="$root.isMasterAdmin()">
+            <a ui-sref="admin.projecttbl" ng-class="{'active':$state.current.name === 'admin.projecttbl'}">
+                <i class="fa fa-folder-open-o" aria-hidden="true"></i><span translate="button.project"></span></a>
+        </li>
+        <li ng-if="$root.isMasterAdmin()">
+            <a ui-sref="admin.settings.virtualledger" ng-class="{'active':$state.current.name === 'admin.settings.virtualledger'}">
+                <i class="fa fa-gear" aria-hidden="true"></i><span translate="sbpo.settings.label"></span></a>
+        </li>
+    </ul>
+</div>

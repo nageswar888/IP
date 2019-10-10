@@ -1,0 +1,12 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/advices/void",
+      "roles": [
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["put"]}
+      ]
+    }
+  ]
+}

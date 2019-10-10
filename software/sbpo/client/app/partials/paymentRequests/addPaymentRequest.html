@@ -1,0 +1,101 @@
+<div class="tab-pane fade in fade active">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <div class="row text-align-center"><h3 translate="button.create.paymentRequest"></h3></div><br>
+        <form name="aprc.createPaymentRequestForm" role="form" ng-submit="aprc.savePaymentRequest()" class="form-horizontal" novalidate>
+            <div class="row">
+                <div id="paymentRequestFlashMessage" flash-message="2000" class=""></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4"  ng-bind="'advice.payee.label' | translate"></label>
+                        <div class="col-sm-7">
+                            <ui-select  ng-model="aprc.paymentRequest.payee" theme="bootstrap" name="payeeName" required>
+                                <ui-select-match placeholder="Select payee" allow-clear="true" class="mandatory-mark">
+                                    {{$select.selected.nickName | camelCase}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="payee in aprc.payees | filter: $select.search" refresh="aprc.getAllPayees($select.search)" refresh-delay="0">
+                                    {{payee.nickName | camelCase}}
+                                </ui-select-choices>
+                                <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                            </ui-select>
+                                <span ng-show ="(aprc.createPaymentRequestForm.payeeName.$touched || aprc.createPaymentRequestForm.$submitted) && aprc.createPaymentRequestForm.payeeName.$error.required" class="text-danger"
+                                      ng-bind="'advice.selectPayee.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="control-label col-xs-4" translate="payment.request.project.label"></label>
+                        <div class="col-xs-8 margin-top-7" ng-model="aprc.paymentRequest.project" name="projName">
+                            <span class="color-dark-green" ng-bind="aprc.project.projectName"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4"  ng-bind="'advice.amountRequested.label'| translate"></label>
+                        <div class="col-sm-7">
+                            <input type="text"  placeholder="Enter amount requested " maxlength="21" ng-model="aprc.paymentRequest.requestedAmount" class="form-control mandatory-mark" name="amt"
+                                   ng-change="aprc.numberTotext(aprc.paymentRequest.requestedAmount)" indian-matric-converter required/>
+                            <div ng-show="aprc.paymentRequest.requestedAmount">
+                                <span class="font-italic color-blue">{{aprc.paymentRequest.requestedAmount | filterAmount}} </span>
+                            </div>
+                                <span ng-show ="(aprc.createPaymentRequestForm.amt.$touched || aprc.createPaymentRequestForm.$submitted) && aprc.createPaymentRequestForm.amt.$error.required" class="text-danger"
+                                      ng-bind="'model.advice.amt.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4"  ng-bind="'advice.paymentType.label'| translate"></label>
+                        <div class="col-sm-7">
+                            <ui-select  ng-model="aprc.paymentRequest.paymentType" name="paymentType" theme="bootstrap" class="mandatory-mark" required>
+                                <ui-select-match placeholder="Select payment type" allow-clear="true">{{$select.selected.value | camelCase}}</ui-select-match>
+                                <ui-select-choices repeat="paymentType in aprc.paymentTypes">
+                                    {{paymentType.value | camelCase}}
+                                </ui-select-choices>
+                                <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                            </ui-select>
+                                <span ng-show ="(aprc.createPaymentRequestForm.paymentType.$touched || aprc.createPaymentRequestForm.$submitted) && aprc.createPaymentRequestForm.paymentType.$error.required" class="text-danger"
+                                      ng-bind="'advice.paymentType.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group ">
+                        <label class="control-label col-sm-4" ><span ng-bind="'advice.purpose.label'| translate"></span></label>
+                        <div class="col-xs-7">
+                            <textarea row="3"  placeholder="Enter purpose"  ng-model="aprc.paymentRequest.purpose" class="form-control" ></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!--comment-->
+                    <div class="form-group">
+                        <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.comment.label'| translate">  </label>
+                        <div class="col-xs-7">
+                            <textarea class="form-control" placeholder="Comment here..." rows="3" ng-model="aprc.paymentRequest.comment" id="comment"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group text-align-center">
+                    <button type="submit" class="btn btn-default btn-submit greenbtn">
+                        <span ng-bind="'button.submit' | translate"></span>
+                    </button>
+                    <button type="reset" class="btn redbtn" ng-click="aprc.cancel();">
+                        <span ng-bind="'button.cancel' | translate"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

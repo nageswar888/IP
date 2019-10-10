@@ -1,0 +1,25 @@
+<div id="customFileds" class="tab-pane fade in fade active">
+    <div id="customsuccessFlashMsgDiv" flash-message="4000" class=""></div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <uib-tabset active="active" class="custom-tabs">
+            <uib-tab heading="{{'category.label' | translate}}" ng-click="cfc.setCostumfield('category')">
+                <div class="row margin-top-10">
+                    <div ng-include="'/app/partials/category/categories.html'"></div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="{{'paymentType.label' | translate}}" ng-click="cfc.setCostumfield('paymentType')">
+                <div class="row margin-top-10">
+                    <div ng-include="'/app/partials/paymenttype/paymentTypes.html'"></div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="{{'upload.stamp.log.label' | translate}}" ng-click="cfc.setCostumfield('uploadStamp')">
+                <div class="row margin-top-10">
+                    <div ng-include="'/app/partials/upload/uploadImage.html'"></div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+
+
+

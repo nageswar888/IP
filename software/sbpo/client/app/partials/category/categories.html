@@ -1,0 +1,84 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-7 col-sm-7 col-xs-7">
+        <form name="cc.forms" class="" role="form"  novalidate>
+            <div class="row">
+                <div id="customFlashMsgDiv" flash-message="4000" class=""></div>
+                <div class="col-sm-12 padding-left-0">
+                    <table class="col-md-12 table-bordered table-striped table-condensed cf padding-none fixed-table">
+                        <thead>
+                        <tr>
+                            <th translate="categories.label"></th>
+                            <th translate="description.label"></th>
+                            <th translate="action.label"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="category in cc.categories track by $index" class="show-hide-content">
+                            <td>
+                                <span ng-if="!category.edit" ng-bind="category.name | camelCase"></span>
+                                <input ng-if="category.edit" type="text" name="category_{{$index}}" id="category"
+                                       class="form-control mandatory-mark text-left"
+                                       ng-model="category.name" placeholder="{{'category.label' | translate}}"
+                                       ng-maxlength="{{cc.categoryNameMaxLen}}" required>
+                         <span ng-show="((cc.forms['category_' + $index].$dirty || cc.forms['category_' + $index].$touched) && category.edit) &&
+                          cc.forms['category_' + $index].$error.maxlength"
+                             class="text-danger" ng-bind="'max.custom.error' | translate:{ max:20}"></span>
+                                <span ng-show="((cc.forms['category_' + $index].$touched  || cc.forms.$submitted ) && cc.forms['category_' + $index].$error.required)"
+                                      class="text-danger"  ng-bind="'label.category.required' | translate"></span>
+                            </td>
+                            <td>
+                                <span ng-if="!category.edit" ng-bind="category.description | camelCase"></span>
+
+                                <textarea ng-if="category.edit"  type="text" rows="1"
+                                                  class="form-control  height-35px text-left"
+                                                  ng-model="category.description"
+                                                  placeholder="{{'description.label' | translate}}">
+                                </textarea>
+                            </td>
+                            <td>
+                                <a ng-if="category.edit" href="" ng-click="cc.removeCategory($index, category);" uib-tooltip="close"
+                                   class="color-red">
+                                    <i class="fa fa-1x fa-times" aria-hidden="true"></i>
+                                </a>
+                                <div ng-if="!category.edit">
+                                    <a href="javascript:;" ng-click="cc.editCategory(category)" uib-tooltip="edit" class="margin-right-5">
+                                        <img src="/app/images/action1.png"/>
+                                    </a>
+                                    <a href="javascript:;" ng-click="cc.deleteCategory(category.id)" uib-tooltip="delete">
+                                        <img src="/app/images/action2.png"/>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row margin-top-10 col-sm-10">
+                <div class="col-sm-6">
+                    <button class="btn btn-default" type="button" uib-tooltip="Add Category" ng-click="cc.addCategory();">
+                        <i class="fa fa-1x fa-plus" aria-hidden="true"></i>&nbsp;<span translate="button.add"></span>
+                    </button>
+                </div>
+                <div class="col-sm-6" ng-if="cc.isContainEditedRows()">
+                    <button class="btn btn-submit btn-xl greenbtn pull-right" uib-tooltip="Save Category" ng-click="cc.saveCategory()">
+                        <i class="glyphicon glyphicon-ok"></i>&nbsp;<span translate="button.save"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5 col-sm-5 col-xs-5">
+        <div class="row bs-example">
+            <div class="col-md-12 col-sm-12 text-center">
+                <i class="fa fa-question-circle fa-2x" aria-hidden="true" uib-tooltip="Help text"></i>
+            </div>
+            <div class="help-text">
+                <ul class="help-list">
+                    <li translate="label.category.help1"></li>
+                    <li translate="label.category.help2"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

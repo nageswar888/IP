@@ -1,0 +1,43 @@
+<div id="customFileds" class="tab-pane fade in fade active">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <uib-tabset active="asc.active" class="custom-tabs">
+            <uib-tab index="0" heading="{{'button.virtual-ledger' | translate}}" ng-click="asc.activeTab()"
+                     ui-sref="admin.settings.virtualledger" >
+                <div class="row margin-top-10" ng-if="asc.active === 0">
+                    <div class="ui-view" id="virtualLedger"></div>
+                </div>
+            </uib-tab>
+            <uib-tab index="5" heading="{{'button.ledger' | translate}}" ng-click="asc.activeTab()"
+                     ui-sref="admin.settings.ledger" >
+                <div class="row margin-top-10" ng-if="asc.active === 5">
+                    <div class="ui-view" id="ledger"></div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1" heading="{{'button.notification' | translate}}" ng-click="asc.activeTab()"
+                     ui-sref="admin.settings.notification" >
+                <div class="row margin-top-10" ng-if="asc.active === 1">
+                    <div class="ui-view" id="notification"></div>
+                </div>
+            </uib-tab>
+            <uib-tab index="2" heading="{{'category.label' | translate}}" ng-click="asc.activeTab()"
+                     ui-sref="admin.settings.category">
+                <div class="row margin-top-10" ng-if="asc.active === 2">
+                    <div class="ui-view" id="category"></div>
+                </div>
+            </uib-tab>
+            <uib-tab index="3" heading="{{'paymentType.label' | translate}}" ng-click="asc.activeTab()"
+                     ui-sref="admin.settings.payment">
+                <div class="row margin-top-10" ng-if="asc.active === 3">
+                    <div class="ui-view" id="payment"></div>
+                </div>
+            </uib-tab>
+            <uib-tab index="4" heading="{{'upload.stamp.log.label' | translate}}"
+                     ng-click="asc.activeTab()" ui-sref="admin.settings.stamp">
+                <div class="row margin-top-10" ng-if="asc.active === 4">
+                    <div class="ui-view padding-bottom-40" id="stamp"></div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+

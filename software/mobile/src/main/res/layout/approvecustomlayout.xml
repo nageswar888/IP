@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:id="@+id/approvecustomlayout"
+    android:background="#f2a35e"
+    android:gravity="center_vertical">
+
+    <!--<ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp" />-->
+
+    <TextView
+        android:text="Passcode :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:textColor="#ffffff"
+        android:paddingStart="10dp"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/passCode"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Comment:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textColor="#ffffff"
+        android:paddingStart="10dp"
+        android:textSize="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
+    <EditText
+        android:layout_height="100dp"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="10"
+        android:ems="10"
+        android:id="@+id/comment"
+        android:background="#fffdfd"
+        android:padding="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="200dp" />
+
+    <EditText
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passCode"
+        android:layout_marginBottom="14dp"
+        android:background="@android:color/background_light"
+        android:layout_height="50dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp"
+        android:layout_width="160dp"
+        android:paddingRight="10dp"
+        android:layout_above="@+id/cancelPopup"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/approvePopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Approve"
+        android:background="#aaff80"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginBottom="16dp"
+        android:paddingRight="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#fd2b2b"
+        android:id="@+id/cancelPopup"
+        android:textColor="@android:color/background_dark"
+        android:layout_alignBaseline="@+id/approvePopup"
+        android:layout_alignBottom="@+id/approvePopup"
+        android:layout_alignLeft="@+id/passCode"
+        android:layout_alignStart="@+id/passCode"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="18dp"
+        android:paddingStart="15dp" />
+</RelativeLayout>

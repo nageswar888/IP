@@ -1,0 +1,48 @@
+<div ng-if="sac.selectedResultTab.key === 'tableView'">
+    <div style="margin-bottom: 5%">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-7">
+                    <!-- TODO: Change condition as per requirement -->
+                        <span ng-if="sac.copiedAdvice.model.payee.nickName">
+                            <label> <span translate="advice.title.payee"></span>:&nbsp;</label>
+                            <span ng-bind="sac.copiedAdvice.model.payee.nickName | camelCase"></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <span ng-if="sac.copiedAdvice.model.project.projectName">
+                            <label><span translate="admin.submenu.project.label"></span>:&nbsp;</label>
+                            <span ng-bind="sac.copiedAdvice.model.project.projectName"></span> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <span>
+                            <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                            <span translate="advice.rs.label"></span>
+                            <span ng-bind="sac.totalAmount | indianAmtMatric"></span>
+                            (<span ng-bind="sac.totalAmount | filterAmount"></span>)
+                        </span>
+                </div>
+                <div class="col-sm-5">
+                    <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                                     download-as-matrix = "sac.downloadAsMatrix(type)"
+                                     advice-count="sac.totalAdviceCount",
+                                     download-limit="sac.downloadLimit",
+                                     graph-query="sac.graphQuery[sac.showGraph]" advice="sac.copiedAdvice"></download-advice>
+                </div>
+                <div class="col-sm-6">
+                    <span class="total-margin-left">
+                        <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+                        <span ng-bind="sac.totalAdviceCount"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row color-grey" ng-if="sac.showMessage">
+            <!-- <div class="text-align-center"><i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i></div>-->
+            <div class="text-align-center"><h4 ng-bind="sac.emptyException"></h4></div>
+        </div>
+        <div id="allAdvices" class="overflow-div margin-top-15" ng-if="!sac.showMessage">
+            <advice-table table-params="sac.selectedResultTab.tableParams"
+                          hide-columns="sac.selectedResultTab.hideColumns"
+                          view-advice-details="sac.viewAdviceDetails(advice)"
+                          download-advice-pdf="sac.downloadAdvicePdf(adviceId)"></advice-table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,196 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div id="userFlashMsgDiv" flash-message="4000" class=""></div>
+    <div class="PRofile col-md-10 col-md-offset-1">
+        <div class="col-md-12">
+            <center>
+                <div class="circleprofile">
+                    <img class="circle" src="/app/images/profile.png" />
+                    <!--<span><a class="editprofile" href="#"><img src="/app/images/editprofile.png" /></a></span>-->
+                </div>
+            </center>
+        </div>
+        <div class="col-md-12 profilestatic">
+            <div class="profilr-die">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="first.name.label"></label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <p>
+                        <a href="#" blur="submit"  e-onChange="apc.editUser();" onaftersave="apc.editUser();" e-maxlength="{{apc.nameLength}}"  e-required  editable-text="apc.user.firstName">{{apc.user.firstName  || "empty" | camelCase}}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="profilr-die">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="middle.name.label"></label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <p>
+                        <a href="#" blur="submit"  e-onChange="apc.editUser();" onaftersave="apc.editUser();" e-maxlength="{{apc.nameLength}}" editable-text="apc.user.middleName">{{apc.user.middleName || "empty" | camelCase}}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="profilr-die">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="last.name.label"></label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <p>
+                        <a href="#" blur="submit"  e-onChange="apc.editUser();" onaftersave="apc.editUser();"  e-maxlength="{{apc.nameLength}}"  e-required  editable-text="apc.user.lastName">{{apc.user.lastName || "empty" | camelCase}}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="profilr-die">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="user.email.label"></label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <p ng-bind="apc.user.email"></p>
+                </div>
+            </div>
+            <div class="profilr-die">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="mobile.label"></label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <p>
+                        <a href="#" blur="submit"  e-onChange="apc.editUser();" onaftersave="apc.editUser();"  e-required  editable-text="apc.user.mobileno" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$">{{apc.user.mobileno || "empty" }}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="profilr-die" ng-if="(apc.user.roles.indexOf('ROLE_PAYEE') < 0)">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="user.signature.label"></label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <div class="row">
+                        <div class="col-md-3" ng-if="apc.user.signature.filetype">
+                            <img class="img-responsive" src="data:{{apc.user.signature.filetype}};
+                        base64,{{apc.user.signature.base64}}" />
+                        </div>
+                        <div class="col-md-1" ng-if="apc.user.signature.filetype">
+                            <a href=""  ng-click="apc.deleteUserSignature(apc.user._id);" uib-tooltip="delete">
+                                <i class="fa fa-1x fa-trash-o icon-delete" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <label id="add-computer-button" for="profileImg" class="upload-input-label-btn" translate="upload.file.label"></label>{{apc.user.signature.filename}}
+                            <input class="form-contro browsel" id="profileImg" type="file" ng-change="apc.editUser();"
+                                   ng-model="apc.user.signature" base-sixty-four-input  data-input="false" style="visibility: hidden">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-12  margin-top-10" ng-controller="changePasswordController as cpc">
+            <div class="profilr-die" ng-hide="cpc.show===true">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="login.pwd.label" >Password</label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <p>
+                        <a style="text-decoration: none" href="#" ng-click="cpc.showPasswordDiv()">**************</a>
+                    </p>
+                </div>
+            </div>
+            <div class="edit-inputs" ng-if="cpc.show===true">
+                <form name="cpc.passwordForm" role="form" class="form-horizontal" ng-submit="cpc.changePassword()" novalidate>
+                    <div id="passwordFlashMsgDiv" flash-message="2000" class=""></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="current.password.label"></label>
+                        <div class="col-xs-12 col-md-9 col-sm-9">
+                            <input name="existingPassword" type="password" ng-model="cpc.existingPassword" required>
+                            <div>
+                                <span ng-show="(cpc.passwordForm.existingPassword.$touched || cpc.passwordForm.passwordFormSubmitted) && cpc.passwordForm.existingPassword.$error.required"
+                                      ng-bind="'password.fileds.required'| translate:{type:'Current'} " class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="new.password.label"></label>
+                        <div class="col-xs-12 col-md-9 col-sm-9">
+                            <input type="password" name="newPassword" ng-model="cpc.password1" required>
+                            <div>
+                                <span ng-show="(cpc.passwordForm.newPassword.$touched || cpc.passwordForm.passwordFormSubmitted) && cpc.passwordForm.newPassword.$error.required"
+                                      ng-bind="'password.fileds.required'| translate:{type:'New'} " class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="retype.password.label"></label>
+                        <div class="col-xs-12 col-md-9 col-sm-9">
+                            <input type="password" name="retypePassword" ng-model="cpc.password2" required>
+                            <div>
+                                <span ng-show="(cpc.passwordForm.retypePassword.$touched || cpc.passwordForm.passwordFormSubmitted) && cpc.passwordForm.retypePassword.$error.required"
+                                      ng-bind="'password.fileds.required'| translate:{type:'Retype'} " class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <div class="colorbtn">
+                                <button type="submit" ng-click=""
+                                        class="btn btn-primary greenbtn" translate="user.button.edit">
+                                </button>
+                                <button type="button" ng-click="cpc.hidePasswordDiv()"
+                                        class="btn  redbtn profilehide" translate="button.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="profilr-die" ng-hide="cpc.showPasscode===true">
+                <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="advice.passcode.label"></label>
+                <div class="col-xs-12 col-md-9 col-sm-9">
+                    <p>
+                        <a style="text-decoration: none" href="#" ng-click="cpc.showPasscodeDiv()">**************</a>
+                    </p>
+                </div>
+            </div>
+            <div class="edit-inputs" ng-if="cpc.showPasscode===true">
+                <form name="cpc.form" role="form" class="form-horizontal" ng-submit="cpc.changePasscode()" novalidate>
+                    <div id="passcodeFlashMsgDiv" flash-message="2000" class=""></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="current.passcode.label"></label>
+                        <div class="col-xs-12 col-md-9 col-sm-9">
+                            <input type="password" name="existingPasscode" ng-model="cpc.existingPasscode" required>
+                            <div>
+                                <span ng-show="(cpc.form.existingPasscode.$touched || cpc.form.passcodeFormSubmitted) && cpc.form.existingPasscode.$error.required"
+                                      ng-bind="'passcode.fileds.required'| translate:{type:'Current'} " class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="new.passcode.label"></label>
+                        <div class="col-xs-12 col-md-9 col-sm-9">
+                            <input type="password" name="newPasscode" ng-model="cpc.passcode1" required>
+                            <div>
+                                <span ng-show="(cpc.form.newPasscode.$touched || cpc.form.passcodeFormSubmitted) && cpc.form.newPasscode.$error.required"
+                                      ng-bind="'passcode.fileds.required'| translate:{type:'New'} " class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-3 text-right-align" translate="retype.passcode.label"></label>
+                        <div class="col-xs-12 col-md-9 col-sm-9">
+                            <input type="password" name="retypePasscode" ng-model="cpc.passcode2" required>
+                            <div>
+                                <span ng-show="(cpc.form.retypePasscode.$touched || cpc.form.passcodeFormSubmitted) && cpc.form.retypePasscode.$error.required"
+                                      ng-bind="'passcode.fileds.required'| translate:{type:'Retype'} " class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <div class="colorbtn">
+                                <button type="submit" class="btn btn-primary greenbtn" translate="user.button.edit">
+                                </button>
+
+                                <button type="button"   ng-click="cpc.hidePasscodeDiv()"
+                                        class="btn btn-primary redbtn profilehide" translate="button.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="row">
+                <a href="" class="col-md-offset-2" translate="forgot.passcode.link" ng-click="apc.forgotPasscode()"></a>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>

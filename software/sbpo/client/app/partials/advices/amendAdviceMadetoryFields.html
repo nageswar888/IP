@@ -1,0 +1,63 @@
+<!--mode of payment-->
+<div class="form-group ">
+    <label class="control-label col-md-4 color-dark-grey"> <span ng-bind="'advice.modeOfPayment.label'| translate"></span></label>
+    <div class="col-xs-7">
+        <ui-select  ng-model="pa.advice.type" class="mandatory-mark" name="paymentMode" theme="bootstrap" ng-change="pa.resetPaymentModeValues();" required>
+            <ui-select-match placeholder="{{'advice.modeOfPayment.label' | translate}}" allow-clear="true">{{$select.selected.value}}</ui-select-match>
+            <ui-select-choices repeat="paymentMode.value as paymentMode in pa.paymentModes | orderBy:'value'">
+                {{paymentMode.text}}
+            </ui-select-choices>
+            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+        </ui-select>
+        <span ng-show ="(pa.amendAdviceForm.paymentMode.$touched || pa.amendAdviceForm.$submitted) && pa.amendAdviceForm.paymentMode.$error.required "
+              class="text-danger" ng-bind="'label.payment.mode.required' | translate"></span>
+    </div>
+</div>
+
+
+<div class="form-group" ng-if="pa.advice.type ===  pa.cashLabel" >
+    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.source.label'| translate">  </label>
+    <div class="col-xs-7">
+        <input type="text"  placeholder="Cash in hand" name="cashInHand" ng-model="pa.advice.others"
+               ng-value="pa.advice.others? pa.advice.others:0" class="form-control mandatory-mark" required id="cashInHand1"
+               ng-change="pa.amountDueNumToText(pa.advice.others)" maxlength="{{pa.amtMaxLength}}" indian-matric-converter>
+        <div ng-show="pa.advice.others">
+            <span class="color-blue font-family-style">{{pa.advice.others | filterAmount}} </span>
+        </div>
+        <span ng-show ="(pa.amendAdviceForm.cashInHand.$touched || pa.amendAdviceForm.$submitted) && pa.amendAdviceForm.cashInHand.$error.required "
+              class="text-danger" ng-bind="'label.cash.hand.required' | translate"></span>
+        <div>
+            <span ng-show ="pa.sourceAmount" class="text-danger" ng-bind="'source.amount.error' | translate"></span>
+        </div>
+
+    </div>
+</div>
+
+<!--Bank-->
+<div class="form-group " ng-if="pa.showBankLabel(pa.advice.type)">
+    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.bankName.label'| translate"></label>
+    <div class="col-xs-7">
+        <ui-select  ng-model="pa.advice.bank" class="mandatory-mark" theme="bootstrap" name="bankName" required>
+            <ui-select-match placeholder="{{'advice.bankName.label' | translate}}" allow-clear="true">{{$select.selected.accountName | camelCase}}</ui-select-match>
+            <ui-select-choices repeat="item._id as item in pa.allBanks  | filter: $select.search | orderBy:'accountName'" refresh="pa.getAllBanks($select.search)" refresh-delay="0">
+                {{item.accountName | camelCase}}
+            </ui-select-choices>
+            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+        </ui-select>
+        <span ng-show ="(pa.amendAdviceForm.bankName.$touched || pa.amendAdviceForm.$submitted) && pa.amendAdviceForm.bankName.$error.required "
+              class="text-danger" ng-bind="'label.bank.acc.name.required' | translate"></span>
+    </div>
+</div>
+
+<!--cheque Number-->
+<div class="form-group" ng-if="pa.showChequeLabel(pa.advice.type)" ng-class="{showPaymentModeDependent:pa.advice.type!=pa.checkLabels[0]}">
+    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.chequeNumber.label'| translate">  </label>
+    <div class="col-xs-7">
+        <input type="text"  placeholder="{{'cheque.number.place.holder' | translate}}"  ng-model="pa.advice.chequeNumber"
+               name="chequeNumber"  class="form-control mandatory-mark" aria-invalid="true"  ng-pattern="pa.validChequeNumber" required>
+        <span ng-show="(pa.amendAdviceForm.chequeNumber.$touched || pa.amendAdviceForm.$submitted) && pa.amendAdviceForm.chequeNumber.$error.pattern"
+              class="text-danger"  ng-bind="'invalid.chequeno.validation' | translate"></span>
+        <span ng-show ="(pa.amendAdviceForm.chequeNumber.$touched || pa.amendAdviceForm.$submitted) && pa.amendAdviceForm.chequeNumber.$error.required "
+              class="text-danger" ng-bind="'cheque.number.required' | translate"></span>
+    </div>
+</div>

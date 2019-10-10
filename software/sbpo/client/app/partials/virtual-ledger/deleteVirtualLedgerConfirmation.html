@@ -1,0 +1,18 @@
+<div class="modal-header text-center">
+    <h4 class="sub-heading modal-title text-center" translate="confirmation.label"></h4>
+</div>
+<form name="deleteLedgerConfirmForm" role="form" novalidate>
+    <div class="modal-body">
+        <div id="ledgerConfirmFlashMsgDiv"  flash-message="2000"></div>
+        <div class="row">
+            <h4 class="text-center" ng-if="$state.current.name === 'admin.settings.virtualledger'" translate="virtual-ledger.name.delete.confirm.msg"></h4>
+            <h4 class="text-center" ng-if="$state.current.name === 'admin.settings.ledger'" translate="ledger.name.delete.confirm.msg"></h4>
+        </div>
+    </div>
+    <div class="modal-footer text-center">
+        <button type="button" ng-click="confirmOk()" class="btn btn-primary greenbtn" translate="button.delete">
+        </button>
+        <button ng-click="cancleConfirmation()" class="btn btn-danger btn-xl" translate="button.cancel">
+        </button>
+    </div>
+</form>

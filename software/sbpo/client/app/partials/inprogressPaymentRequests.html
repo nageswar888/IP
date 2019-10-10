@@ -1,0 +1,86 @@
+<div id="adviceFilterBox" ng-init="pprc.freezeActionIcons()">
+    <div class="row">
+        <div id="FlashMsgDiv" flash-message="4000" class="col-md-offset-1 col-md-9"></div>
+    </div>
+
+    <div class="sortFilter">
+        <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+            <h3 class="text-center "><span ng-bind="'paymentRequest.inprogress.label' | translate | camelCase "></span>
+            </h3>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+            <div class="col-md-7"  ng-if="(pprc.isInitiator && $root.submittedPaymentReqCount > 0)">
+                <!-- ng-if="$root.totalPaymentReqCount > 0"-->
+                <sort-payment-request group-by-status="pprc.groupByCriteria"
+                                      current-status="pprc.currentStatus"
+                                      get-all-payment-request-by-status="pprc.getAllPaymentRequestByStatus(sortCriteria,groupByCriteria,pprc.currentStatus)"
+                                      payment-requests-list="pprc.paymentRequestsList">
+                </sort-payment-request>
+            </div>
+            <div class="col-md-offset-2 col-md-7"  ng-if="(pprc.isPR && $root.submittedPaymentReqCount > 0)">
+                <sort-payment-request group-by-status="pprc.groupByCriteria"
+                                      current-status="pprc.currentStatus"
+                                      get-all-payment-request-by-status="pprc.getAllPaymentRequestByStatus(sortCriteria,groupByCriteria,currentUser,pprc.currentStatus)"
+                                      payment-requests-list="pprc.paymentRequestsList">
+                </sort-payment-request>
+
+            </div>
+            <div class="col-sm-2" ng-if="pprc.canView() && pprc.paymentReqToDelete.length > 0" style="width: 230px">
+                <button class="btn download-drop-down-btn pull-right"  data-ng-click="pprc.deletePaymentRequests();"
+                        ng-disabled="pprc.paymentReqToDelete.length <= 0">
+                    <i class="fa fa-trash-o" aria-hidden="true" ></i>
+                    <span translate="btn.label.delete.all"></span>
+                </button>
+            </div>
+            <div>
+                <div class="btn-group pull-right" ng-if="!$root.enableDisableDownloadButton();" uib-dropdown>
+                    <div uib-dropdown-toggle >
+                        <button class="btn download-drop-down-btn" ng-disabled="$root.enableDisableDownloadButton();">
+                            <i class="fa fa-download" aria-hidden="true" ></i>
+                            <span translate="btn.label.download"></span>
+                        </button>
+                    </div>
+                    <ul class="dropdown-menu download-tab remove-ul-padding" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                        <li role="menuitem" class="li-padding-class">
+                            <div class="font-size-15px" data-ng-click="pprc.download('excel');">
+                                <span translate="download.in.excel"></span> <i class="fa fa-file-excel-o fa-1x" aria-hidden="true"></i>
+                            </div>
+                        </li>
+                        <li role="menuitem" class="li-padding-class">
+                            <div class="font-size-15px" data-ng-click="pprc.download('project-excel');">
+                                <span translate="download.all.request.per.project.excel"></span> <i class="fa fa-file-excel-o fa-1x" aria-hidden="true"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="pprc.isInitiator">
+        <render-payment-requests data="pprc.paymentRequests"
+                                 sort-criteria="pprc.sortCriteria"
+                                 current-status="pprc.currentStatus"
+                                 get-all-payment-request-by-status="pprc.getAllPaymentRequestByStatus(sortCriteria,groupByCriteria,pprc.currentStatus)"
+                                 set-delete-payment-request="pprc.setDeletePaymentRequest(data)"
+                                 can-view-delete="pprc.canView()"
+                                 is-show-no-record-message="pprc.isShowNoRecordMessage"
+                                 select-project-id="pprc.projectId"
+                                 empty-payment-req="pprc.emptyPaymentReq"
+                                 empty-payment-req-project="pprc.emptyPaymentReqProject"
+                                 payment-requests-list="pprc.paymentRequestsList"></render-payment-requests>
+    </div>
+    <!--<div ng-if="pprc.isPR">-->
+    <div ng-if="pprc.isPR && !pprc.isInitiator">
+        <render-payment-requests data="pprc.paymentRequests"
+                                 sort-criteria="pprc.sortCriteria"
+                                 current-status="pprc.currentStatus"
+                                 get-all-payment-request-by-status="pprc.getAllPaymentRequestByStatus(sortCriteria,groupByCriteria,projectId,pprc.currentStatus)"
+                                 set-delete-payment-request="pprc.setDeletePaymentRequest(data)"
+                                 can-view-delete="pprc.canView()"
+                                 is-show-no-record-message="pprc.isShowNoRecordMessage"
+                                 select-project-id="pprc.projectId"
+                                 empty-payment-req="pprc.emptyPaymentReq"
+                                 empty-payment-req-project="pprc.emptyPaymentReqProject"
+                                 payment-requests-list="pprc.paymentRequestsList"></render-payment-requests>
+    </div>
+</div>

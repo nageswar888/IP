@@ -1,0 +1,10 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/paymentRequest/delete",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["delete"]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,659 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/counts/advice",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },{
+      "resource": "/api/advice/:id",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/advices/fetchAdvicesByStatus",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/advices",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/advices/getShortAdvice",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource":"/api/advices",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource":"/api/advices/approve",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["put"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource":"/api/advices/reject",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["put"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/payees/byName",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/payee/userId",
+      "roles": [
+        {"name": "ROLE_PAYEE", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/payees",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/projects",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/projects/byName",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/payee/insert",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/disburserAdviceEmail",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]}
+      ],
+      "disAllowRoles": []
+    },
+    {
+      "resource": "/api/getUserById",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_PAYEE", "permissions": ["post"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/comments",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/comments/:id",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/roles",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/users",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]}
+      ]
+    },
+    {
+      "resource": "/api/users",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_IPASS_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/users",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["put"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["put"]},
+        {"name": "ROLE_IPASS_MASTERADMIN", "permissions": ["put"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["put"]}
+      ]
+    },
+    {
+      "resource": "/api/user/setPasscode",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/banks",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+
+      ]
+    },{
+      "resource": "/api/banks/:id",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]}
+      ]
+    },{
+      "resource": "/api/login/:auth",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["delete"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["delete"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["delete"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["delete"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["delete"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["delete"]},
+        {"name": "ROLE_IPASS_MASTERADMIN", "permissions": ["delete"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["delete"]}
+      ]
+    },
+    {
+      "resource": "/api/payees/:id",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+      ]
+    },
+    {
+      "resource": "/api/projects",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+      ]
+    },
+    {
+      "resource": "/api/projects/:id",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]}
+      ]
+    },
+    {
+      "resource": "/api/banks",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/search",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_PAYEE", "permissions": ["post"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/aggregateByProject",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_PAYEE", "permissions": ["post"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/summaryResults",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/feedbackEmail",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "ROLE_PAYEE", "permissions": ["post"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/edit",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/downloadPdf",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/downloadAll",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/downloadAllPerProject",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/advice/searchByAdviceNumber/",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/organizations",
+      "roles": [
+        {"name": "ROLE_IPASS_MASTERADMIN", "permissions": ["get", "post"]}
+      ]
+    },
+    {
+      "resource": "/api/organizations/updateStatus",
+      "roles": [
+        {"name": "ROLE_IPASS_MASTERADMIN", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/organizations/uploadStamp",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+      ]
+    },
+    {
+      "resource": "/api/organizations/uploadLogo",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+      ]
+    },
+    {
+      "resource": "/api/organizations",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_IPASS_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/user/verifyPassCode",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]}
+      ]
+    },
+    {
+      "resource": "/api/notification/contact",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+
+      ]
+    },
+    {
+      "resource": "/api/admin/getMobileNo",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+
+      ]
+    },
+    {
+      "resource": "/api/admin/getEmailIds",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+
+      ]
+    },
+    {
+      "resource": "/api/notification/email",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]}
+      ]
+    },
+    {
+      "resource": "/api/notification/mobile",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]}
+      ]
+    },
+    {
+      "resource": "/api/notification/changeStatus",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+      ]
+    },
+    {
+      "resource": "/api/notification/listManageNotification",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/:id",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]}
+      ]
+    },
+    {
+      "resource": "/api/customFields",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/customFields/:type",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/customFields",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]}
+      ]
+    },
+    {
+      "resource": "/api/notification/editContact",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]}
+
+      ]
+    },
+    {
+      "resource": "/api/paymentRequest",
+      "roles": [
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["post","get"]}
+      ]
+    },
+    {
+      "resource": "/api/paymentRequester/listProject",
+      "roles": [
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/paymentRequester/listProjectByUserId",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/paymentRequest",
+      "roles": [
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/paymentRequest/reject",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["patch"]}
+      ]
+    },
+    {
+      "resource": "/api/paymentRequest/approve",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["patch"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/listPayeeAdvices",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_PAYEE", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/amend",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete", "patch"]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+<!--NOTE:Not being used-->
+<div id="allAdvices" class="overflow-div padding-left-advice-table">
+    <div ng-dropdown-multiselect="" options="tableColumns" selected-model="Selectedmodel" ng-model="tblHeaders"
+         events="yourEvents" extra-settings="tableColumnSetting" checkboxes="true" group-by="category" class="margin-bottom-10x">
+    </div>
+    <div ng-hide="sac.message===null">
+        <div id="FlashMsgDiv" flash-message="2000"></div>
+    </div>
+    <table id="allAdvicesTable" ng-table="sac.tableParams" class="table table-striped all-advice-table" show-filter="true">
+        <thead>
+        <tr class="search-table-header">
+            <th style="text-align: left"> <a href="" ng-click="sac.order('payee')">Payee</a>  </th>
+            <th style="text-align: left"><a href="" ng-click="sac.order('requestedAmount')">Amount</a></th>
+            <th style="text-align: left"><a href="" ng-click="sac.order('status')">Status</a></th>
+            <th style="text-align: left"><a href="" ng-click="sac.order('project')">Project</a></th>
+            <th class="{{RequestedDate}}" style="text-align: left"><a href="" ng-click="sac.order('requestedDate')">Date of request</a></th>
+            <th class="{{RequestedBy}}" style="text-align: left"><a href="" ng-click="sac.order('requestedBy')">Requested by</a></th>
+            <th class="{{InitiatedBy}}" style="text-align: left"><a href="" ng-click="sac.order('initiatedBy')">Initiated by</a></th>
+            <th class="{{FirstLevelApprover}}" style="text-align: left"><a href="" ng-click="sac.order('firstLevelApprover')">First level approver</a></th>
+            <th class="{{SecondLevelApprover}}" style="text-align: left"><a href="" ng-click="sac.order('secondLevelApprover')">Second level approver</a></th>
+            <th class="{{Disburser}}" style="text-align: left"><a href="" ng-click="sac.order('Disburser')">Disburser</a></th>
+            <th class="{{PaymentType}}" style="text-align: left"><a href="" ng-click="sac.order('paymentType')">Payment type</a></th>
+            <th class="{{BillAmountDue}}" style="text-align: left"><a href="" ng-click="sac.order('billAmountDue')">Bill amount due</a></th>
+            <th class="{{ModeofPayment}}" style="text-align: left"><a href="" ng-click="sac.order('modeofPayment')">Mode of payment</a></th>
+            <th class="{{DateMoneyDisbursed}}" style="text-align: left"><a href="" ng-click="sac.order('dateMoneyDisbursed')">Date money disbursed</a></th>
+            <th class="{{PaymentAdviceNumber}}" style="text-align: left"><a href="" ng-click="sac.order('paymentAdviceNumber')">Payment advice number</a></th>
+            <th  style="text-align: left">Advice</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="advice in sac.data | filter:search | orderBy:sac.predicate:sac.reverse " ng-class-odd="'odd'">
+
+            <td title="'Payee'" filter="{ payee: 'text'}" sortable="'payee'" class="ng-table-fixedcolumn-right" header-class="'ng-table-fixedcolumn-right tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.payee.name | camelCase}}</td>
+
+            <td title="'Requested Amount'" filter="{ requestedAmount: 'text'}" sortable="'requestedAmount'"  header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.requestedAmount | indianAmtMatric}}</td>
+
+            <td title="'Status'" filter="{ adviceStatus: 'text'}" sortable="'adviceStatus'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.adviceStatus | filterStatus}}</td>
+
+            <td title="'Purpose'" filter="{ description: 'text'}" sortable="'description'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.project.projectName}}</td>
+
+            <!--invisible columns list-->
+            <td class="{{RequestedDate}}" title="'Date of Request'" sortable="'requestedDate'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.requestedDate | dateFilter}}</td>
+
+            <td class="{{RequestedBy}}" title="'Requested By'" sortable="'requestedBy'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.requestedBy | camelCase}}</td>
+
+            <td class="{{InitiatedBy}}" title="'Initiated By'" sortable="'initiatedBy'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.initiatedBy | camelCase}}</td>
+
+            <td class="{{FirstLevelApprover}}" title="'First Level Approver'" sortable="'firstLevelApprover'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.thirdLevelApprover.firstName}}</td>
+
+            <td class="{{SecondLevelApprover}}" title="'Second Level Approver'" sortable="'secondLevelApprover'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.secondLevelApprover.firstName | camelCase}}</td>
+
+            <td title="'Disburser'" class="{{Disburser}}" sortable="'disburser'">
+                {{advice.disburser.firstName | camelCase}}</td>
+
+            <td title="'Payment Type'" class="{{PaymentType}}" filter="{ paymentType: 'text'}" sortable="'paymentType'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.paymentType}}</td>
+
+            <td title="'Bill Amount Due'"  class="{{BillAmountDue}}" sortable="'billAmountDue'" header-class="'tableHeader'">
+                {{advice.billAmountDue | indianAmtMatric}}</td>
+
+            <td class="{{ModeofPayment}}" title="'Mode of Payment'" filter="{ type: 'text'}"  sortable="'type'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.type}}</td>
+            <td class="{{DateMoneyDisbursed}}" title="'Date Money Disbursed'" filter="{ disburserDate: 'text'}" sortable="'disburserDate'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.disburserDate}}</td>
+
+            <td class="{{PaymentAdviceNumber}}" ng-hide='paymentAdviceNumberToggle' title="'Payment Advice Number'" filter="{ adviceNumber: 'text'}" sortable="'adviceNumber'" header-class="'tableHeader'" data-ng-click="sac.viewAdviceDetails(advice)">
+                {{advice.adviceNumber}}</td>
+
+            <!--End hide-->
+
+            <td title="'Advice'">
+                <!--<a href="/api/advices/pdf/{{advice._id}}" target="_blank" ng-if="advice.adviceStatus == 'Disbursed'">-->
+                <a href="#" ng-if="advice.adviceStatus == 'Disbursed'" data-ng-click="sac.downloadAdvicePdf(advice._id)">
+                    <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>

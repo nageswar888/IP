@@ -1,0 +1,161 @@
+<div id="adduser" class="tab-pane fade in fade active">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class=" col-md-10 col-md-offset-1">
+            <div id="userFlashMsgDiv" flash-message="2000" class=""></div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center margin-bottom-10">
+                <h3 translate="button.addUser"></h3>
+            </div>
+
+            <form name="auc.form" role="form" ng-submit="auc.submitUser()" class="form-horizontal" novalidate>
+
+                <div class="row top-border padding-top-20x">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4" ng-bind="'first.name.label' | translate"></label>
+                            <div class="col-xs-8">
+                                <input type="text" name="firstName" id="firstName" class="form-control mandatory-mark text-left" ng-model="auc.admin.firstName"
+                                       ng-maxlength="auc.nameLength" placeholder="{{'first.name.label' | translate}}" required>
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength="auc.nameLength" placeholder="{{'first.name.label' | translate}}" required>-->
+                                <span ng-show="(auc.form.firstName.$touched || auc.form.userFormSubmitted) && auc.form.firstName.$error.required"
+                                      ng-bind="'user.firstName.required'| translate " class="text-danger">
+                                </span>
+                                <span ng-show="(auc.form.firstName.$touched || auc.form.userFormSubmitted) && auc.form.firstName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                                <!--<span ng-show="(auc.form.firstName.$touched || auc.form.userFormSubmitted) && auc.form.firstName.$error.pattern" class="text-danger" ng-bind="'admin.user.name.alphabet.msg' | translate"></span>-->
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4"  ng-bind="'last.name.label' | translate"></label>
+                            <div class="col-xs-8">
+                                <input type="text" name="lastName" id='lastName' class="form-control mandatory-mark text-left" ng-model="auc.admin.lastName"
+                                       ng-maxlength="auc.nameLength" placeholder="{{'last.name.label' | translate}}" required>
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength="auc.nameLength" placeholder="{{'last.name.label' | translate}}" required>-->
+                        <span ng-show="(auc.form.lastName.$touched || auc.form.userFormSubmitted) && auc.form.lastName.$error.required" class="text-danger"
+                              ng-bind="'user.lastName.required' | translate"></span>
+                        <span ng-show="(auc.form.lastName.$touched || auc.form.userFormSubmitted) && auc.form.lastName.$error.maxlength"
+                              class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                        <!--<span ng-show="(auc.form.lastName.$touched || auc.form.userFormSubmitted) && auc.form.lastName.$error.pattern"
+                              class="text-danger" ng-bind="'admin.user.lname.alphabet.msg' | translate"></span>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4"  ng-bind="'mobile.label' | translate"></label>
+                            <div class="col-xs-8">
+                                <input type="text" name="mobileno" id='mobileno' class="form-control mandatory-mark text-left" ng-model="auc.admin.mobileno"
+                                       ng-pattern="/^[0-9]{10,10}$/" ng-maxlength="{{auc.phoneNoLength}}" ng-minlength="{{auc.phoneNoLength}}"  placeholder="{{'mobile.no.label' | translate}}" required>
+                        <span ng-show="(auc.form.mobileno.$touched || auc.form.userFormSubmitted ) && auc.form.mobileno.$error.required" class=" text-danger"
+                              ng-bind="'mobno.required' | translate"></span>
+                        <span ng-show="(auc.form.mobileno.$touched || auc.form.userFormSubmitted) && auc.form.mobileno.$error.pattern"
+                              class="text-danger"  ng-bind="'Invalid.mob' | translate"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4"  ng-bind="'user.signature.label' |translate"></label>
+                            <div class="col-xs-8">
+                                <label id="add-computer-button" for="fileupload-example-3" class="upload-input-label-btn">Upload file
+                                </label>{{auc.admin.signature.filename}}
+                                <input ng-change="auc.checkImageFormat()" type="file" name="signature" class="form-control browsel"  id="fileupload-example-3"
+                                       ng-model="auc.admin.signature" base-sixty-four-input  data-input="false" style="visibility: hidden">
+                                <span ng-if="auc.isImageFormat" class="text-danger"  ng-bind="'signature.format.image.error' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4"  ng-bind="'middle.name.label'|translate"></label>
+                            <div class="col-xs-8">
+                                <input type="text" name="middleName" id='middleName' class="form-control  text-left" ng-model="auc.admin.middleName"
+                                        ng-maxlength="auc.nameLength" placeholder="Middle name" >
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/"  ng-maxlength="auc.nameLength" placeholder="Middle name" >-->
+                                <!--<span ng-show="(auc.form.middleName.$touched || auc.form.userFormSubmitted) && auc.form.middleName.$error.pattern"
+                                      class="text-danger" ng-bind="'admin.user.mname.alphabet.msg' | translate"></span>-->
+                                <span ng-show="(auc.form.middleName.$touched || auc.form.userFormSubmitted) && auc.form.middleName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4"  ng-bind="'user.email.label' | translate"></label>
+                            <div class="col-xs-8">
+                                <input type="email" name="email" id='email' class="form-control mandatory-mark text-left" ng-model="auc.admin.email" placeholder="Email id"
+                                       ng-minlength="{{auc.emailMinLength}}"    required>
+                        <span ng-show="(auc.form.email.$touched || auc.form.userFormSubmitted ) && auc.form.email.$error.required" class="text-danger"
+                              ng-bind="'email.required' | translate"></span>
+                         <span ng-show="(auc.form.email.$touched || auc.form.userFormSubmitted ) && auc.form.email.$error.email"
+                               class="text-danger" ng-bind="'invalid.email.message' | translate" class=" text-danger"></span>
+                         <span ng-show="(auc.form.email.$touched || auc.form.userFormSubmitted ) && auc.form.email.$error.minlength"
+                               class="text-danger"  ng-bind="'invalid.email.minlength' | translate"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4"  ng-bind="'user.roles.label' | translate"></label>
+                            <div class="col-xs-8">
+                                <ui-select name="roles" ng-model="auc.admin.role" class="mandatory-mark" multiple theme="bootstrap" required>
+                                    <ui-select-match  allow-clear="true" placeholder="Select role">{{$item.label}}</ui-select-match>
+                                    <ui-select-choices repeat="item.key as item in auc.allRoles | filter: $select.search | orderBy:'label'">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                </ui-select>
+                        <span ng-show="(auc.form.roles.$touched || auc.form.userFormSubmitted) && auc.form.roles.$error.required"
+                              class="text-danger"  ng-bind="'user.invalid.role' | translate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="auc.isPaymentRequester">
+                            <label class="control-label col-xs-4"  ng-bind="'user.project.label' | translate"></label>
+                            <div class="col-xs-8">
+                                <ui-select  ng-model="auc.admin.project" name="projName" theme="bootstrap" class="mandatory-mark" required>
+                                    <ui-select-match placeholder="Select project" allow-clear="true">{{$select.selected.projectName}}</ui-select-match>
+                                    <ui-select-choices repeat="item in auc.projects | filter: $select.search" refresh="auc.getAllProjects($select.search)" refresh-delay="0">
+                                        <span ng-bind="item.projectName"></span>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                </ui-select>
+                                <div ng-show="auc.form.projName.$touched || auc.form.projName.$dirty ">
+                                    <span ng-show ="auc.form.projName.$error.required" class="text-danger" ng-bind="'advice.selectProject.errMsg' | translate"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group text-align-center">
+                    <div class="col-xs-offset-3 col-xs-6">
+                        <button type="submit" class="btn btn-primary greenbtn" >
+                            <span translate="button.save"></span>
+                        </button>
+
+                        <button type="reset" class="btn  redbtn" ui-sref="admin.userTable">
+                            <span translate="button.cancel"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group text-align-center">
+                     <button type="submit" class="btn btn-submit greenbtn" >
+                         <i class="glyphicon glyphicon-ok"></i> {{'button.save' | translate}}
+                     </button>
+
+                     <button type="reset" class="btn btn-danger redbtn" ui-sref="admin.userTable">
+                         <i class="glyphicon glyphicon-remove"></i>{{'button.cancel'|translate}}
+                     </button>
+
+                 </div>-->
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>

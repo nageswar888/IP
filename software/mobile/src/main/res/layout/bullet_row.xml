@@ -1,0 +1,11 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:text="TextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableLeft="@drawable/bullet"
+    android:id="@+id/bullet_row"
+    android:background="@android:color/background_light"
+    android:textSize="18sp"
+    android:textStyle="bold" />
+
+    <!--android:drawableLeft="@drawable/bullet_point"-->

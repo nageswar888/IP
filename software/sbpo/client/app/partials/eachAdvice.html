@@ -1,0 +1,38 @@
+<div class="col-md-1 sub-advice-card-check-box"  ng-if="rac.canView();">
+    <input type="checkbox" class="margin-0" ng-if="rac.canView();"
+           ng-click="rac.deleteAdvices();rac.enableDisableParentChekBox(rac.adviceCardSelection[adviceDetails._id],parentIndex);"
+           ng-model="rac.adviceCardSelection[adviceDetails._id]"  />
+</div>
+<div uib-accordion-group class="each-org group-by-color" ng-class="{'tab-expanded':adviceDetails.open}"
+     is-open="adviceDetails.open">
+    <uib-accordion-heading>
+        <div class="sub-card-padding col-md-12" ng-class="{'left-border':rac.canView()}">
+            <div class="col-md-4 advice-card-payee-header" ng-if="rac.groupCategory==='project'">
+                <b ng-if="adviceDetails.payee.user !== undefined" class="advicename" ng-bind="adviceDetails.payee.user | nameFilter | camelCase">
+                </b>
+                <span ng-if="rac.viewPendingCardButton(adviceDetails.adviceStatus);" class='pulse-button'></span>
+            </div>
+            <div class="col-md-4 advice-card-payee-header" ng-if="rac.groupCategory==='payee'">
+                <b class="advicename" ng-bind="adviceDetails.project.projectName">
+                </b>
+                <span ng-if="rac.viewPendingCardButton(adviceDetails.adviceStatus);" class='pulse-button'></span>
+            </div>
+            <div class="col-md-3">
+                <div class="color-red" ng-if="adviceDetails.adviceStatus=='Level 2 Rejected' || adviceDetails.adviceStatus=='Level 3 Rejected' || adviceDetails.adviceStatus=='Disburser Rejected'" ng-bind="adviceDetails.adviceStatus | camelCase"></div>
+            </div>
+            <div class="col-md-5 advice-card-money-header">
+        <span>
+            <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;
+            <span class="noprice" ng-bind="adviceDetails.requestedAmount | indianAmtMatric"></span>&nbsp;
+            (<span ng-bind="adviceDetails.requestedAmount | filterAmount"></span>)
+            <span id="advice-priorit" ng-if="adviceDetails.adviceStatus !== $root.adviceStatusDisbursed[0]">
+                <i id="high-priority" class="fa fa-h-square fa-2x"title="High-Priority" aria-hidden="true" ng-if="adviceDetails.urgent === true"></i>
+            </span>
+        </span>
+            </div>
+        </div>
+    </uib-accordion-heading>
+    <div class="" ng-if="adviceDetails.open">
+        <render-advice advice="adviceDetails" status="rac.status" group-category="rac.groupCategory"></render-advice>
+    </div>
+</div>

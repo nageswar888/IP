@@ -1,0 +1,70 @@
+<div id="accountdetail" class="tab-pane fade in fade active avide-footer">
+    <div class="col-md-12 col-sm-12 col-xs-12 padding-none">
+        <div id="bankFlashMsgDiv" flash-message="2000" class=""></div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 padding-none margin-bottom-10">
+            <div class="col-md-6 padding-left-0">
+                <span class="col-md-3 padding-left-0 padding-right-0" ng-bind="'admin.account.total'  | translate:{ total:abc.totalAccounts}"></span>
+            </div>
+            <div class="col-md-6 padding-right-0">
+                <button type="submit" class="btn btn-primary greenbtn pull-right" ui-sref="admin.bank">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;
+                    <span translate="button.add.account"></span>
+                </button>
+            </div>
+        </div>
+
+        <div id="no-more-tables deatail-table">
+            <!--class="table"-->
+            <table ng-table="abc.tableParams" show-filter="!abc.noRecordMessage" class="col-md-12 table-bordered table-striped table-condensed cf padding-none">
+                <tr ng-repeat="bank in $data" ng-if="!abc.noRecordMessage">
+                    <td title="'Account Name'" filter="{ accountName: 'text'}" sortable="'accountName'"
+                        ng-bind="bank.accountName | camelCase"></td>
+
+                    <td title="'Account Type'" filter="{ accountType: 'text'}" sortable="'accountType'"
+                        ng-bind="bank.accountType"></td>
+
+                    <td title="'Account No.'" filter="{ accountNo: 'text'}" sortable="'accountNo'"
+                        ng-bind="bank.accountNo"></td>
+
+                    <td title="'Bank Name'" filter="{ bankName: 'text'}" sortable="'bankName'"
+                        ng-bind="bank.bankName"></td>
+
+                    <td title="'Action'" ng-disabled="true" class="text-center table-action">
+
+                            <a href="" ng-click="abc.editBank(bank)" uib-tooltip="edit" class="action-button">
+                                <img  src="/app/images/action1.png" >
+                            </a>
+
+                            <a href="" ng-click="abc.viewBank(bank)" uib-tooltip="view details" class="action-button">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </a>
+
+                            <a href="" ng-click="abc.deleteBank(bank)" uib-tooltip="delete" class="action-button">
+                                <img src="/app/images/action2.png">
+                            </a>
+
+                    </td>
+                </tr>
+                <tr ng-if="abc.isDataExist">
+                    <td class="color-grey text-align-center" colspan="6">
+                        <h4 translate="bank.record.notFound"></h4>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

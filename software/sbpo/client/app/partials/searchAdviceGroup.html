@@ -1,0 +1,65 @@
+<div ng-if="sac.selectedResultTab.key === 'groupView'">
+    <div style="margin-bottom: 5%">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                     <span>
+                            <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                            <span translate="advice.rs.label"></span>
+                            <span ng-bind="sac.groupViewTotalAmount | indianAmtMatric"></span>
+                            (<span ng-bind="sac.groupViewTotalAmount | filterAmount"></span>)
+                        </span>
+                </div>
+                <div class="col-sm-5">
+                    <form class="form-horizontal" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                                <span translate="advice.group.by.label"></span>
+                            </label>
+                            <div class="col-xs-8">
+                                <ui-select  ng-model="sac.selectedResultTab.selectedGroupOption" theme="bootstrap" on-select="sac.selectedResultTab.onSelect(sac.copiedAdvice, true)">
+                                    <ui-select-match allow-clear="false" placeholder="Select project"><span ng-bind="$select.selected.label | translate"></span></ui-select-match>
+                                    <ui-select-choices repeat="option in sac.selectedResultTab.groupOptions | filter:$select.search | orderBy:'key'">
+                                        <span ng-bind="option.label | translate"></span>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-3">
+                    <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                                     download-as-matrix = "sac.downloadAsMatrix(type)"
+                                     advice-count="sac.totalAdviceCount",
+                                     download-limit="sac.downloadLimit",
+                                     graph-query="sac.graphQuery[sac.showGraph]" advice="sac.copiedAdvice"></download-advice>
+                </div>
+                <div class="col-sm-12">
+                    <span class="total-margin-left">
+                        <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+                        <span ng-bind="sac.totalAdviceCount"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row color-grey" ng-if="sac.showMessage">
+            <!-- <div class="text-align-center"><i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i></div>-->
+            <div class="text-align-center"><h4 ng-bind="sac.emptyException"></h4></div>
+        </div>
+        <div class="overflow-div">
+            <render-advices group-category="sac.selectedResultTab.groupCategory" show-total-amount="true"
+                            group-by-seleted-criteria="sac.selectedResultTab.selectedGroupOption"
+                            data="sac.selectedResultTab.data"  show-advices-in-table="true"
+                            get-advices="sac.fetchGroupedAdvices(groupedData, projectId, payeeId, paymentTypeId, categoryId, parentIndex)"
+                            view-advice-details="sac.viewAdviceDetails(advice)"
+                            download-advice-pdf="sac.downloadAdvicePdf(adviceId)"
+                            search-advices="sac.searchGroupedAdvices(typeObj, fromDate, toDate, payeeId, projectId, status, adviceNum, paymentTypeId,
+                                       categoryId, sortCriteria, groupByCriteria, afterSuccess, fromAmount, toAmount, isFeatchCount,ledgerId,virtualLedgerId,state,bankId)"
+                            group-by-criteria-list="sac.groupByCriteriaList"
+                            search-params="sac.searchParams">
+            </render-advices>
+        </div>
+    </div>
+</div>

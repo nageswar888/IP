@@ -1,0 +1,25 @@
+{
+  "resource-mapping":[
+    {
+      "resource": "/api/virtualLedgers/byName",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/virtualLedgers/save",
+      "roles": [
+        {"name" : "ROLE_INITIATOR","permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]}
+      ]
+    }
+  ]
+}

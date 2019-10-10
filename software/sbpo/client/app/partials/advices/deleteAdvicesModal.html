@@ -1,0 +1,29 @@
+<div class="">
+    <form class="form-horizontal" name="deleteAdvicesConfirmationForm" ng-submit="deleteAdvises();" novalidate>
+        <div class="modal-header">
+            <h4 class="sub-heading modal-title" translate="confirmation.label"></h4>
+        </div>
+        <div class="modal-body text-center">
+            <div id="advicesFlashMsgDiv" flash-message="2000"></div>
+            <p ng-bind="'delete.advices.confirmation' | translate:{ advicesCount:ids.length}"></p>
+            <div class="row pass-code">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <label translate="advice.passcode.label"> </label>
+                    </div>
+                    <div class="form-group col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        <input type="password" name="passCode" placeholder="Enter passcode"  ng-model="passcode" class="form-control mandatory-mark" required>
+                        <span ng-show="((deleteAdvicesConfirmationForm.passCode.$touched || deleteAdvicesConfirmationForm.$submitted) && deleteAdvicesConfirmationForm.$error.required)"
+                              ng-bind="'passcode.filed.required'| translate " class="text-danger margin-right-55">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default greenbtn"  translate="button.submit" type="submit" ></button>
+            <button class="btn btn-default redbtn" type="button" translate="button.cancel" ng-click="closePopup();" ></button>
+        </div>
+    </form>
+</div>

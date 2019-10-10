@@ -1,0 +1,242 @@
+<div id="top">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+            <h3 class="text-center" translate="advice.header.search.label"></h3>
+        </div>
+
+        <div id="searchFlashMsgDiv" flash-message="2000"></div>
+
+        <div id="menu1" class="tab-pane fade active in">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <form name="searchForm"  class="form-horizontal" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4">
+                                    <span translate="search.payee.label"></span>
+                                </label>
+                                <div class="col-xs-8">
+                                    <div class="" ng-if="$root.isPayee() === false">
+                                        <ui-select  ng-model="sac.advice.model.payee" name="payeeName">
+                                            <ui-select-match placeholder="Select payee" allow-clear="true">
+                                                <span ng-bind="$select.selected.nickName | camelCase"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="payee in sac.payees | filter:$select.search" refresh="sac.getAllPayees($select.search)" refresh-delay="0">
+                                                <span ng-bind="payee.nickName | camelCase"></span>
+                                            </ui-select-choices>
+                                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                        </ui-select>
+                                    </div>
+                                    <div class="" ng-if="$root.isPayee() === true">
+                                        <!--Update sac.advice.model.payee on load -->
+                                        <div class="col-xs-7 padding-top-5px" ng-bind="$root.getCurrentLoggedInUser() | nameFilter | camelCase"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label col-xs-4 " ng-bind="'advice.ledger.label'| translate">  </label>
+                                <div class="col-xs-8">
+                                    <ui-select  ng-model="sac.advice.model.ledger" theme="bootstrap" name="ledger" id="ledger" >
+                                        <ui-select-match placeholder="{{'advice.ledger.label' | translate}}" allow-clear="true">{{$select.selected.name | camelCase}}</ui-select-match>
+                                        <ui-select-choices repeat="ledger in sac.virtualLedgerOptionNames  | filter: $select.search" refresh-delay="0" refresh="sac.getAllVirtualLedgers($select.search,'ledger')">
+                                            <span ng-bind="ledger.name | camelCase"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label col-xs-4" ng-bind="'advice.virtual.ledger.label'| translate">  </label>
+                                <div class="col-xs-8">
+                                    <ui-select  ng-model="sac.advice.model.virtualLedger" theme="bootstrap" name="virtualLedger" id="virtualLedger" >
+                                        <ui-select-match placeholder="{{'advice.virtual.ledger.label' | translate}}" allow-clear="true">{{$select.selected.name | camelCase}}</ui-select-match>
+                                        <ui-select-choices repeat="virtualLedger in sac.virtualLedgerOptionNames  | filter: $select.search" refresh-delay="0" refresh="sac.getAllVirtualLedgers($select.search,'virtualledger')">
+                                            <span ng-bind="virtualLedger.name | camelCase"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4">
+                                    <span translate="advice.project.label"></span>
+                                </label>
+                                <div class="col-xs-8">
+                                    <!--<input type="text" required="" placeholder="Enter Purpose"  ng-model="pa.advice.selectedPurpose" class="form-control" >-->
+                                    <ui-select  ng-model="sac.advice.model.project" theme="bootstrap"
+                                                on-select="sac.hideProjectName()">
+                                        <ui-select-match allow-clear="true" placeholder="Select project">
+                                            <span ng-bind="$select.selected.projectName | camelCase"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="project in sac.projects | filter:$select.search" refresh="sac.getAllProjects($select.search)"
+                                                           uib-popover="{{sac.hovered}}" popover-placement="bottom-right" popover-trigger="'mouseenter'"
+                                                           on-highlight="sac.getProjectFullName(project.projectName)"
+                                                           refresh-delay="0">
+                                            <span ng-bind="project.projectName  | camelCase"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4"><span translate="date.range.label"></span></label>
+                                <div class="col-xs-8">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <datepicker date-format="dd-MMM-yyyy" class="input-width">
+                                            <input ng-model="sac.advice.model.fromDate" class="form-control" type="text" placeholder="From" name="fromDate"
+                                                   onkeydown="return false" ng-change="sac.setDateRangeFalse();" />
+                                        </datepicker>
+                                    <span class="input-group-addon" style="background-color: transparent;border: 0;padding:2px;">
+                                        <b><span>-</span></b>
+                                    </span>
+                                        <datepicker date-format="dd-MMM-yyyy" class="input-width">
+                                            <input ng-model="sac.advice.model.toDate" type="text" class="form-control" placeholder="To" name="toDate" onkeydown="return false" ng-change="sac.setDateRangeFalse();"/>
+                                        </datepicker>
+                                    </div>
+                                    <!--                                <div ng-show="searchForm.$submitted || searchForm.fromDate.$touched || searchForm.toDate.$touched" >
+                                                                    <span ng-show="searchForm.fromDate.$error.required || searchForm.toDate.$error.required"
+                                                                          class="text-danger error-margin" translate="search.date.required.error"></span>
+                                                                    </div>-->
+                                    <div ng-show="searchForm.$submitted || searchForm.fromDate.$touched" >
+                                        <span ng-show="sac.invalidRange" class="text-danger error-margin" translate="date.range.validation.message"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4 ">
+                                    <span translate="approve.payment.advice.number.label"></span>
+                                </label>
+                                <div class="col-xs-8">
+                                    <input type="text" name="adviceNum" class="form-control text-left" ng-model="sac.advice.model.adviceNum"
+                                           ng-maxlength="20"  translate translate-attr-placeholder="approve.payment.advice.number.label" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4">
+                                    <span translate="advice.title.paymentType"></span>
+                                </label>
+                                <div class="col-xs-8">
+                                    <ui-select  ng-model="sac.advice.model.paymentType" name="paymentTypeName">
+                                        <ui-select-match placeholder="Select payment type" allow-clear="true">
+                                            <span ng-bind="$select.selected.name"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="paymentType in sac.paymentTypes | filter:$select.search | orderBy:'name'">
+                                            <span ng-bind="paymentType.name"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4">
+                                    <span translate="advice.category.label"></span>
+                                </label>
+                                <div class="col-xs-8">
+                                    <!--<input type="text" required="" placeholder="Enter Purpose"  ng-model="pa.advice.selectedPurpose" class="form-control" >-->
+                                    <ui-select  ng-model="sac.advice.model.category" theme="bootstrap">
+                                        <ui-select-match allow-clear="true" placeholder="Select category">
+                                            <span ng-bind="$select.selected.name"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="category in sac.categories | filter:$select.search | orderBy:'name'">
+                                            <span ng-bind="category.name"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4"><span translate="amount.range.label"></span></label>
+                                <div class="col-xs-8">
+                                    <div class="input-daterange input-group" >
+                                        <input ng-model="sac.advice.model.fromAmount" class="form-control" type="text" placeholder="From" name="fromAmount"
+                                               ng-change="sac.setAmountRangeFalse();" indian-matric-converter/>
+                                    <span class="input-group-addon" style="background-color: transparent;border: 0;padding:2px;">
+                                        <b><span>-</span></b>
+                                    </span>
+                                        <input ng-model="sac.advice.model.toAmount" type="text" class="form-control" placeholder="To" name="toAmount"
+                                               ng-change="sac.setAmountRangeFalse();" indian-matric-converter/>
+                                    </div>
+                                    <div ng-show="searchForm.$submitted || searchForm.fromDate.$touched" >
+                                        <span ng-show="sac.invalidAmountRange" class="text-danger error-margin" translate="amount.range.validation.message"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-xs-4" translate="search.advice.status.label"></label>
+                                <div class="col-xs-8 margin-top-7">
+                                    <span class="color-dark-green" ng-bind="sac.advice.model.status"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group ">
+                                <label class="control-label col-md-4 color-dark-grey" ng-bind="'admin.submenu.bank.label'| translate"></label>
+                                <div class="col-xs-8">
+                                    <ui-select  ng-model="sac.advice.model.bank" name="bankName" theme="bootstrap"  ng-keyup="sac.getAllBanks($select.search,$event)" >
+                                        <ui-select-match placeholder="{{'advice.bankName.label' | translate}}" allow-clear="true">
+                                            <span ng-bind="$select.selected.accountName | camelCase"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="bank in sac.allBanks  | filter: $select.search  | orderBy:'name'">
+                                            {{bank.accountName | camelCase}}
+                                        </ui-select-choices>
+                                        <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-5 col-xs-6">
+                            <button type="submit" class="btn greenbtn" ng-click="sac.searchByDate(sac.advice,searchForm);sac.showSearchData('second')" translate="search.btn.label"></button>
+                            <button type="reset" class="btn btn-warning" ng-click="sac.resetSearchAdviceForm()">
+                                <span ng-bind="'button.reset' | translate"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <uib-tabset active="sac.selectedResultTabKey" ng-show="sac.isSearchData" >
+                        <uib-tab ng-repeat="eachTab in sac.resultTabs" heading="{{eachTab.title | translate}}" id="second"
+                                 ng-click="eachTab.onSelect(sac.copiedAdvice);sac.showSearchData('second')" index="eachTab.key">
+                            <div ng-include="eachTab.templateUrl" class="margin-top-15"></div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+                <div class="row text-center margin-top-15" ng-show="!sac.isSearchData && sac.isDataSearched">
+                    <h4 class="grey-color" translate="search.advice.notFound"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8 col-sm-8 col-xs-8">
+        </div>
+        <back-top scroll-speed=600 button-theme="light">Scroll top</back-top>
+    </div>
+</div>

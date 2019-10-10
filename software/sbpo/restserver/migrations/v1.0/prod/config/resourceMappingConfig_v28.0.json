@@ -1,0 +1,10 @@
+{
+  "resource-mapping":[
+    {
+      "resource": "/api/users",
+      "roles": [
+        {"name": "ROLE_VIEWER", "permissions": ["put"]}
+      ]
+    }
+  ]
+}

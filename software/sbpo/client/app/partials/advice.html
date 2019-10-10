@@ -1,0 +1,132 @@
+<div id="discollapseOne" class="panel-collapse collapse in">
+    <!--<div class="panel-body">-->
+    <div class="col-md-12 col-sm-12 col-xs-12 " >
+        <h2 class="advicecode">
+            <span class="advicecode" translate="advice.number.label"></span>
+            <span ng-bind="rsac.advice.adviceNumber"></span>
+        </h2>
+        <div class="col-md-offset-1 col-md-10 col-sm-10 col-xs-10 advice-card">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.card.requestOf.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.requestedBy | camelCase"></p>
+                    </div>
+                </div>
+                <div class="row form-group" ng-if="rsac.groupCategory=='project'">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="admin.submenu.project.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.project.projectName"></p>
+                    </div>
+                </div>
+                <div class="row form-group" ng-if="rsac.groupCategory=='payee'">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.payee.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.payee.user | nameFilter | camelCase"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.card.pay.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.paymentType.name | camelCase"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.requestedDate.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.requestedDate | dateFilter"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="adviceCard.initiatedBy.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.initiatedBy"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.card.payThrough.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.type"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.category.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.category.name"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.description.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-if="rsac.advice.description.length < 100" ng-bind="rsac.advice.description | camelCase"></p>
+                        <p ng-if="rsac.advice.description.length > 100" class="purpose" ng-bind="rsac.advice.description | camelCase"
+                           uib-popover="{{rsac.advice.description}}" popover-placement="bottom-left" popover-trigger="'mouseenter'">
+                        </p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.ledger.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rsac.advice.ledger.name | camelCase"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10 col-sm-10 col-xs-10">
+            <div class="row form-group">
+                <label class="text-right col-md-3 col-sm-3 col-xs-3 " translate="button.comments"></label>
+                <div class="col-md-9 col-sm-9 col-xs-9" ng-if="rsac.advice.comments.length==0">
+                    <p class="font-family-style grey-color" translate="advice.text.noComment"></p>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9 comment-font-style" >
+                    <div class="col-md-12 col-lg-12 col-sm-12" ng-hide="rsac.advice.comments.length==0" ng-repeat="comments in rsac.advice.comments | limitTo:rsac.limit">
+                        <i><a class="text-decuration-none" href="#"><b>{{comments.user.firstName | camelCase}} {{comments.user.lastName | camelCase}}</b></a> {{'comment.added.text'|translate}} {{comments.createdDate | dateFilterwithTime}}</i><br>
+                        <p class="font-family-style color-grey" ng-bind="comments.text | camelCase"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <a ng-if="rsac.advice.comments.length>2 && rsac.limit!==rsac.advice.comments.length" style="text-decoration: none;" href="#" ng-click="rsac.limitChange(rsac.advice.comments.length)" translate="comment.more.link"></a>
+                        <a ng-if="rsac.limit===rsac.advice.comments.length && rsac.advice.comments.length!=2" style="text-decoration: none;" href="#" ng-click="rsac.limitChange(2)" translate="coment.less.link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-align-center advice-card-progress" ng-if="(rsac.status == 'Pending')">
+        <button type="button" class="btn btn-submit greenbtn" ng-if="$root.isInitiatorRole() && rsac.advice.adviceStatus == 'Draft'" ng-click="rsac.submitModal(rsac.advice)" translate="button.submit"></button>
+        <button type="button" class="btn btn-submit greenbtn" ng-if="($root.isDesRole && rsac.advice.adviceStatus == 'Level 3 Approved')" ng-click="rsac.disburseredModal(rsac.advice)" translate="button.disburse"></button>
+        <button type="button" class="btn btn-submit greenbtn" ng-if="($root.isLevel2ApproverRole &&  rsac.advice.adviceStatus == 'Submitted')" ng-click="rsac.approveModal(rsac.advice)" translate="button.approve"></button>
+        <button type="button" class="btn btn-submit greenbtn" ng-if="($root.isLevel3ApproverRole &&  rsac.advice.adviceStatus == 'Level 2 Approved')" ng-click="rsac.approveModal(rsac.advice)" translate="button.approve"></button>
+        <button type="button" class="btn btn-submit redbtn" ng-if="(($root.isDesRole || $root.isLevel2ApproverRole || $root.isLevel3ApproverRole) && rsac.advice.adviceStatus)" ng-click="rsac.voidModal(rsac.advice)" translate="button.void"></button>
+        <button type="button" class="btn btn-danger redbtn" ng-if="$root.canAmendOrReject() && rsac.advice.adviceStatus !='Draft'" ng-click="rsac.rejectModal(rsac.advice)" translate="button.reject"></button>
+        <button type="button" class="btn btn-amend" ng-if="$root.canAmendOrReject();" ng-click="rsac.viewAdvice(rsac.advice)" translate="button.amend"></button>
+        <button type="button" class="btn btn-default btn-comment" ng-if="($root.canComment())" ng-click="rsac.commentModal(rsac.advice)" translate="button.comment"></button>
+        <button type="button" class="btn btn-danger redbtn" ng-if="$root.isInitiatorRole() &&  rsac.advice.adviceStatus == 'Draft'" ng-click="rsac.deleteAdvice(rsac.advice)" translate="user.button.delete"></button>
+    </div>
+    <div class="row text-align-center advice-card-progress" ng-if="(rsac.status == 'Rejected')">
+        <button type="button" class="btn btn-danger redbtn" ng-if="$root.isMasterAdmin();" ng-click="rsac.deleteAdvice(rsac.advice)" translate="user.button.delete"></button>
+        <button type="button" class="btn btn-default btn-comment" ng-if="($root.canComment())" ng-click="rsac.commentModal(rsac.advice)" translate="button.comment"></button>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 libreadcrumb" ng-if="(rsac.status != 'Pending') && (rsac.status !='Disbursed') && (rsac.status !='Rejected')">
+        <div class="btn-group btn-breadcrumb">
+            <a href="#" class="btn btn-default" ng-class="{'active':rsac.advice.adviceStatus == 'Submitted'}"
+               ng-bind="rsac.inprogressText(rsac.advice.adviceStatus).intText"></a>
+            <a href="#" class="btn btn-default" ng-class="{'active':rsac.advice.adviceStatus == 'Level 2 Approved'}"
+               ng-bind="rsac.inprogressText(rsac.advice.adviceStatus).level2Text"></a>
+            <a href="#" class="btn btn-default" ng-class="{'active':rsac.advice.adviceStatus == 'Level 3 Approved'}"
+               ng-bind="rsac.inprogressText(rsac.advice.adviceStatus).level3Text"></a>
+            <a href="#" class="btn btn-default"
+               ng-bind="rsac.inprogressText(rsac.advice.adviceStatus).disbText"></a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

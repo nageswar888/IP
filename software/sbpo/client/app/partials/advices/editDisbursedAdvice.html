@@ -1,0 +1,282 @@
+<div class="row margin-bottom-10">
+    <div class="col-md-12 text-align-center">
+        <h3 translate="label.edit.disbursed.advice"></h3>
+    </div>
+</div>
+<div class="col-md-offset-8 col-md-4 create-advice-default-text font-italic color-grey margin-bottom-10">
+    <div>Initiated by : <span ng-bind="eac.advice.initiatedBy"></span></div>
+    <div> Created on : <span ng-bind="eac.advice.requestedDate | dateFilterWithAMPM"></span></div>
+    <!--  <div> Advice Number : <span>{{pa.advice.adviceNumber}}</span></div>-->
+</div>
+<div class="row">
+    <div id="FlashMsgDiv" flash-message="4000" class="col-md-offset-1 col-md-9"></div>
+</div>
+
+<div class="add-advice-parent">
+    <form name="newAdviceForm" class="new-advice-form form-horizontal" novalidate>
+        <div class="row advice-form-parent">
+            <div class="col-md-5">
+                <div class="form-group payee-autocomplete">
+                    <label class="control-label col-md-4 color-dark-grey">
+                        <span ng-bind="'advice.payee.label'| translate"></span>
+                    </label>
+                    <div class="col-md-7">
+                        <ui-select  ng-model="eac.advice.payee" theme="bootstrap" name="payeeName" required>
+                            <ui-select-match placeholder="Select payee" allow-clear="true" class="mandatory-mark">
+                                {{$select.selected.nickName | camelCase}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="payee in eac.payees | filter: $select.search" refresh="eac.getAllPayees($select.search)" refresh-delay="0">
+                                {{payee.nickName | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                        <div ng-show="eac.isFormSave || newAdviceForm.payeeName.$touched || newAdviceForm.payeeName.$dirty ">
+                            <span ng-show ="newAdviceForm.payeeName.$error.required" class="text-danger" ng-bind="'advice.selectPayee.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Amount requested-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.amountRequested.label'| translate"></span></label>
+                    <div class="col-xs-7">
+                        <input type="text"  placeholder="Enter amount requested " maxlength="21" ng-model="eac.advice.requestedAmount" class="form-control mandatory-mark" name="amt"
+                               ng-change="eac.numberTotext(eac.advice.requestedAmount)" indian-matric-converter required/>
+                        <div ng-show="eac.advice.requestedAmount">
+                            <span class="font-italic color-blue">{{eac.advice.requestedAmount | filterAmount}} </span>
+                        </div>
+                        <div ng-show="eac.isFormSave || newAdviceForm.amt.$touched || newAdviceForm.amt.$dirty">
+                            <span ng-show="newAdviceForm.amt.$error.required" class="text-danger" ng-bind="'model.advice.amt.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--payment type-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.paymentType.label' | translate"></span></label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="eac.advice.paymentType" theme="bootstrap" ng-change="eac.setPaymentTypeHidenValueEmpty()"
+                                    name="paymentType">
+                            <ui-select-match placeholder="Select payment type" allow-clear="true">{{$select.selected.value | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="paymentType.key as paymentType in eac.paymentTypes | orderBy:'value'">
+                                {{paymentType.value | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                </div>
+
+
+                <!--Amount Due-->
+                <div class="form-group  " ng-class="{isBillpayment:eac.advice.paymentType.key!='BILL_PAYMENT'}">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.billAmtDue.label'| translate"></span>
+                    </label>
+                    <div class="col-xs-7">
+                        <input type="text"  placeholder="Enter bill amount due" maxlength="21" ng-model="eac.advice.billAmountDue" class="form-control "
+                               ng-change="eac.amountDueNumToText(eac.advice.billAmountDue)" indian-matric-converter>
+                        <div ng-show="eac.advice.billAmountDue">
+                            <span class="color-blue font-family-style">{{eac.advice.billAmountDue | filterAmount}} </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--purpose-->
+                <div class="form-group  ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.purpose.label'| translate"></span></label>
+                    <div class="col-xs-7">
+                        <textarea row="3"  placeholder="Enter purpose"  ng-model="eac.advice.description" class="form-control" ></textarea>
+                    </div>
+
+                </div>
+                <!--comment-->
+                <div class="form-group">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.comment.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <textarea class="form-control" placeholder="Comment here..." rows="3" ng-model="eac.advice.comment" id="comment"></textarea>
+                    </div>
+                </div>
+                <!--left col-->
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.ledger.label'| translate">  </label>
+                    <div class="col-md-7">
+                        <ui-select  ng-model="eac.advice.ledger" theme="bootstrap" name="ledger" id="ledger" >
+                            <ui-select-match placeholder="{{'advice.ledger.label' | translate}}" allow-clear="true">{{$select.selected.name | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="ledger in eac.virtualLedgerOptionNames  | filter: $select.search" refresh-delay="0" refresh="eac.getAllVirtualLedgers($select.search)">
+                                <span ng-bind="ledger.name | camelCase"></span>
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-sm btn-default greenbtn add-payee-button" ng-click="eac.addNewLedger()"> <b>QL</b> <i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+                <!--Project Name-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.project.label'| translate"></span></label>
+                    <div class="col-md-7">
+                        <!--<input type="text" required="" placeholder="Enter Purpose"  ng-model="eac.advice.selectedPurpose" class="form-control" >-->
+                        <ui-select  ng-model="eac.advice.project" name="projName" theme="bootstrap" class="mandatory-mark" required>
+                            <ui-select-match placeholder="Select project" allow-clear="true">{{$select.selected.projectName | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="purposeObj in eac.projects | filter: $select.search | orderBy:'projectName'" refresh="eac.getAllProjects($select.search)" refresh-delay="0">
+                                {{purposeObj.projectName | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+
+                        <div ng-show="eac.isFormSave || newAdviceForm.projName.$touched || newAdviceForm.projName.$dirty ">
+                            <span ng-show ="newAdviceForm.projName.$error.required" class="text-danger" ng-bind="'advice.selectProject.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--requested by-->
+                <div class="form-group ">
+                    <label class="control-label col-sm-4 color-dark-grey" ng-bind="'advice.requestedBy.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <input type="text"  placeholder="Requested by"  ng-model="eac.advice.requestedBy" class="form-control"/>
+                    </div>
+                </div>
+
+                <!--category-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.category.label' | translate"></span></label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="eac.advice.category" theme="bootstrap" name="category">
+                            <ui-select-match placeholder="Select category" allow-clear="true">{{$select.selected.value | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="category.key as category in eac.categories | orderBy:'value'">
+                                {{category.value | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <!--mode of payment-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey"> <span ng-bind="'advice.modeOfPayment.label'| translate"></span></label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="eac.advice.type" class="mandatory-mark" name="paymentMode" theme="bootstrap" ng-change="eac.setPaymentModeHidenValueEmpty()" required>
+                            <ui-select-match placeholder="{{'advice.modeOfPayment.label' | translate}}" allow-clear="true">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="paymentMode in eac.paymentModes  | orderBy">
+                                {{paymentMode}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                        <div ng-show="eac.isFormSave || newAdviceForm.paymentMode.$touched || newAdviceForm.paymentMode.$dirty ">
+                            <span ng-show ="newAdviceForm.paymentMode.$error.required" class="text-danger" ng-bind="'label.payment.mode.required' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group" ng-if="eac.advice.type === 'Cash'" >
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.source.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <input type="text"  placeholder="Cash in hand" name="cashInHand" ng-model="eac.advice.others"
+                               ng-value="eac.advice.others?eac.advice.others:0" class="form-control mandatory-mark" required id="cashInHand1"
+                               ng-change="eac.amountDueNumToText(eac.advice.others)" maxlength="{{eac.amtMaxLength}}" indian-matric-converter>
+                        <div ng-show="eac.advice.others">
+                            <span class="color-blue font-family-style" ng-class="{'text-danger' : eac.invalidCashAmount===true }">{{eac.advice.others | filterAmount}} </span>
+                        </div>
+                        <div ng-show="eac.isFormSave || newAdviceForm.cashInHand.$touched || newAdviceForm.cashInHand.$dirty ">
+                            <span ng-show ="newAdviceForm.cashInHand.$error.required" class="text-danger" ng-bind="'label.cash.hand.required' | translate"></span>
+                        </div>
+                        <div>
+                            <span ng-show ="eac.sourceAmount" class="text-danger" ng-bind="'source.amount.error' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Bank-->
+                <div class="form-group " ng-if="eac.showBankLabel(eac.advice.type)">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.bankName.label'| translate"> Bank </label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="eac.advice.bank" class="mandatory-mark" theme="bootstrap" name="bankName" required="">
+                            <ui-select-match placeholder="{{'advice.bankName.label' | translate}}" allow-clear="true">{{$select.selected.accountName | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="item._id as item in eac.allBanks  | filter: $select.search | orderBy:'accountName'" refresh="eac.getAllBanks($select.search)" refresh-delay="0">
+                                {{item.accountName  | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                        <div ng-show="eac.isFormSave || newAdviceForm.bankName.$touched || newAdviceForm.bankName.$dirty ">
+                            <span ng-show ="newAdviceForm.bankName.$error.required" class="text-danger" ng-bind="'label.bank.acc.name.required' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--cheque Number-->
+                <div class="form-group" ng-if="eac.showChequeLabel(eac.advice.type)" ng-class="{showPaymentModeDependent:eac.advice.type!='Cheque'}">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.chequeNumber.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <input type="text"  placeholder="{{'cheque.number.place.holder' | translate}}"  ng-model="eac.advice.chequeNumber"
+                               name="chequeNumber"  class="form-control mandatory-mark" aria-invalid="true"  ng-pattern="eac.validChequeNumber" required>
+                        <span ng-show="newAdviceForm.chequeNumber.$touched && newAdviceForm.chequeNumber.$error.pattern"
+                              class="text-danger"  ng-bind="'invalid.chequeno.validation' | translate"></span>
+                        <div ng-show="eac.isFormSave || newAdviceForm.chequeNumber.$touched || newAdviceForm.chequeNumber.$dirty ">
+                            <span ng-show ="newAdviceForm.chequeNumber.$error.required" class="text-danger"
+                                  ng-bind="'cheque.number.required' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.disburse.date.label'| translate">  </label>
+                    <div class="col-md-7">
+                        <datepicker date-format="dd-MMM-yyyy" >
+                            <input ng-model="eac.advice.disburserDate" type="text" class="form-control"
+                                   placeholder="Disbursed Date"
+                                   name="disburseDate" onkeydown="return false"
+                            />
+                        </datepicker>
+                    </div>
+                </div>
+
+                <!--urgent advice-->
+                <!--<div class="form-group" ng-class="">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'mark.advice.urgent.label'| translate">  </label>
+                    <div class="col-md-7">
+                        <ui-select  ng-model="eac.advice.urgent" theme="bootstrap">
+                            <ui-select-match placeholder="{{'advice.priority.label' | translate}}" allow-clear="true">{{$select.selected.key}}</ui-select-match>
+                            <ui-select-choices repeat="item.value as item in eac.advicePriority  | filter: $select.search track by $index" refresh-delay="0">
+                                <span ng-bind="item.key"></span>
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                </div>-->
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12" ng-class="">
+                <label class="control-label col-md-2 color-dark-grey comment-alignment"  translate="advice.existing.comments">  </label>
+                <div class="col-md-9 col-sm-9 col-xs-9 no-comments-msg-align" ng-if="!eac.advice.comments.length">
+                    <p class="font-family-style grey-color" translate="advice.text.noComment"></p>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <div class="col-md-12 col-lg-12 col-sm-12" ng-hide="eac.advice.comments.length==0" ng-repeat="comments in eac.advice.comments | limitTo:eac.limit">
+                        <i><a class="text-decuration-none" href="#">
+                            <b ng-bind="eac.getFullName(comments.user)  | camelCase"></b></a>
+                            {{'comment.added.text'|translate}} {{comments.createdDate | dateFilterwithTime}}</i><br>
+                        <p class="font-family-style color-grey" ng-bind="comments.text | camelCase"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <a ng-if=" eac.advice.comments.length>eac.limit && eac.limit!==eac.advice.comments.length" class="text-decoration-none" href="#" ng-click="eac.limitChange(eac.advice.comments.length)" translate="comment.more.link"></a>
+                        <a ng-if="eac.limit===eac.advice.comments.length && eac.advice.comments.length!==eac.validation.comments.maxLimit" class="text-decoration-none" href="#" ng-click="eac.limitChange(eac.validation.comments.maxLimit)" translate="coment.less.link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="col-xs-offset-5 col-md-1">
+                    <button type="button" class="btn greenbtn"  ng-click="eac.saveAdvice(eac.advice, newAdviceForm)"><span ng-bind="'button.save' | translate"></span></button>
+                </div>
+                <div class="col-md-1"><button type="button" class="btn redbtn" ng-click="eac.cancelEditDisbursement()" >
+                    <span ng-bind="'button.cancel' | translate"></span></button>
+                </div>
+            </div>
+        </div><br>
+    </form>
+</div>

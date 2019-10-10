@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/showAdvice1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="com.example.lenovo.ipaas_1.ShowAdvice"
+    tools:showIn="@layout/activity_show_advice"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center_horizontal"
+    android:background="@android:color/background_light">
+
+    <!--tools:showIn="@layout/activity_show_advice"-->
+
+    <TextView
+        android:id="@+id/paymentAdvice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Payment Advice"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Payee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/paymentAdvice"
+        android:textColor="#060606"
+        android:textSize="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Payee"
+        android:textColor="#060606"
+        android:textSize="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/requested_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/amount"
+        android:textColor="#060606"
+        android:textSize="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/requested_by"
+        android:textColor="#060606"
+        android:textSize="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
+
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/project"
+        android:text="Comments/Notes:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/rejectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/approveButton"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:background="#ff4d4d"
+        android:text="Reject" />
+
+    <ImageView
+        android:id="@+id/tick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rejectButton"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/tick" />
+
+    <ImageButton
+        android:id="@+id/nextAdvice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rejectButton"
+        android:layout_alignStart="@+id/rejectButton"
+        android:layout_alignTop="@+id/previousAdvice"
+        android:background="@android:color/background_light"
+        android:src="@drawable/nextbutton"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/approved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tick"
+        android:layout_centerHorizontal="true"
+        android:background="#33cc33"
+        android:text="Approved"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/previousAdvice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/approveButton"
+        android:layout_alignRight="@+id/approveButton"
+        android:layout_below="@+id/approveButton"
+        android:layout_marginTop="14dp"
+        android:background="@android:color/background_light"
+        android:src="@drawable/backbutton"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/approveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:background="#33cc33"
+        android:text="Approve"
+        android:layout_below="@+id/textView9"
+        android:layout_toLeftOf="@+id/approved"
+        android:layout_toStartOf="@+id/approved" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/textView9"
+        android:layout_marginTop="12dp"
+        android:id="@+id/commentsList" />
+
+</RelativeLayout>

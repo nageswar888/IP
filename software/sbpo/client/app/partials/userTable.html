@@ -1,0 +1,50 @@
+<div id="usedetail" class="tab-pane fade in fade active">
+    <div class="col-md-12 col-sm-12 col-xs-12 padding-none">
+        <div id="userFlashMsgDiv" flash-message="2000" class=""></div>
+        <div class="col-md-12 col-sm-12 col-xs-12 padding-none margin-bottom-10">
+            <div class="col-md-6 padding-left-0">
+                <span class="col-md-3 padding-left-0 padding-right-0" ng-bind="'admin.user.total'  | translate:{ total:auc.totalUsers}"></span>
+            </div>
+            <div class="col-md-6 padding-right-0">
+                <button type="submit" class="btn btn-primary greenbtn pull-right" ui-sref="admin.user">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;
+                    <span translate="button.addUser"></span>
+                </button>
+            </div>
+        </div>
+        <div id="no-more-tables deatail-table">
+            <table ng-table="auc.tableParams" show-filter="!auc.noRecordMessage" class="col-md-12 table-bordered table-striped table-condensed cf padding-none">
+                <tr ng-repeat="user in $data" ng-if="!auc.noRecordMessage">
+                    <td title="'User Name'" filter="{ firstName: 'text'}" sortable="'firstName'">
+                        {{user.firstName +' '+user.lastName | camelCase}}</td>
+
+                    <td title="'Email Id'" filter="{ email: 'text'}" sortable="'email'" ng-bind="user.email"></td>
+
+                    <td title="'Mobile Number'" filter="{ phoneNumber: 'text'}" sortable="'phoneNumber'" ng-bind="user.phoneNumber"></td>
+
+                    <td title="'Roles'" sortable="'roles'" ng-bind="user.roles | rolesFilter"></td>
+
+                    <td title="'Active/ Inactive'" ng-bind="user.enabled | enabledFilter"></td>
+
+                    <td title="'Action'" class="text-center table-action">
+                        <a href="" ng-click="auc.editUser(user)" uib-tooltip="edit" class="padding-right-10">
+                            <img  src="/app/images/action1.png" >
+                        </a>
+                        <a href="" ng-click="auc.deleteUser(user)" class="font-18 toggle-btn">
+                            <i class="fa fa-toggle-on color-blue" aria-hidden="true" ng-show="user.enabled"></i>
+                            <i class="fa fa-toggle-off color-blue" aria-hidden="true" ng-show="!user.enabled"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-if="auc.isDataExist">
+                    <td class="color-grey text-align-center" colspan="6">
+                        <h4 translate="user.record.notFound"></h4>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+

@@ -1,0 +1,30 @@
+<div class="edit-form-width">
+    <div class="modal-header text-center">
+        <h3 class="modal-title" ng-bind="'edit.email.label' | translate"></h3>
+    </div>
+    <form name="editEmaiIdForm" role="form" class="form-horizontal" novalidate>
+        <div class="modal-body">
+            <div id="errorFlashMsgDiv" flash-message="4000" class=""></div>
+            <div class="row">
+                <div class="col-sm-8 col-md-offset-1">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">Email id</label>
+                        <div class="col-xs-9">
+                            <input type="email" name="editEmail" id='editEmail' class="form-control text-left" ng-model="email" placeholder="{{'email.label' | translate}}"
+                                   ng-minlength="4" required>
+                            <span ng-show="editEmaiIdForm.editEmail.$touched  && editEmaiIdForm.editEmail.$error.required" translate="email.required" class="text-danger"></span>
+                            <span ng-show="(editEmaiIdForm.addEmail.$touched || editEmaiIdForm.addEmail.$dirty) && editEmaiIdForm.addEmail.$error.email" class="text-danger" translate="invalid.email.message"></span>
+                            <span ng-show="(editEmaiIdForm.addEmail.$touched || editEmaiIdForm.adminSubmitted) && editEmaiIdForm.addEmail.$error.minlength" class="text-danger" translate="invalid.email.minlength"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer text-center">
+            <button type="button" ng-click="editEmail(editEmaiIdForm)" class="btn greenbtn" translate="button.save">
+            </button>
+            <button ng-click="cancleEditForm()" class="btn redbtn" translate="button.cancel">
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">iPaas</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_display_home">DisplayHome</string>
+    <string name="title_activity_pending_advices">PendingAdvices</string>
+    <string name="title_activity_show_advices">ShowAdvices</string>
+    <string name="title_activity_show_advice">ShowAdvice</string>
+    <string name="url">http://52.90.224.76/</string>
+    <!--<string name="url">http://192.168.2.20:3000/</string>-->
+
+    <!--<string name="login_url">http://52.90.224.76/login</string>
+    <string name="fetchAdvices_url">http://52.90.224.76/api/advices/fetchAdvicesByStatus</string>
+    <string name="approve_url">http://52.90.224.76/api/advices/approve/</string>
+    <string name="reject_url">"http://52.90.224.76/api/advices/reject/</string>
+    <string name="search_url">"http://52.90.224.76/api/advices/summaryResults/</string>
+    <string name="advices_url">http://52.90.224.76/api/advices</string>
+    <string name="getPayees_url">http://52.90.224.76/api/payees</string>
+    <string name="getProjects_url">http://52.90.224.76/api/projects</string>
+    <string name="getComments_url">http://52.90.224.76/api/comments/</string>-->
+
+
+    <string name="title_activity_search_advice">SearchAdvice</string>
+
+</resources>

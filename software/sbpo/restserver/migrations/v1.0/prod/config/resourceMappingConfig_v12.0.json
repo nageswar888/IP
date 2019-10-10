@@ -1,0 +1,17 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/count/advice",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]},
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_VIEWER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]},
+        {"name": "ROLE_PAYEE", "permissions": ["get"]}
+      ]
+    }
+  ]
+}

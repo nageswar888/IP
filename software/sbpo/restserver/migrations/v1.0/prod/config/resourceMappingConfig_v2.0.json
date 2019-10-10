@@ -1,0 +1,16 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/advices/listPayeeAdvices",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put"]}
+      ]
+    },
+    {
+      "resource": "/api/feedbackEmail",
+      "roles": [
+        {"name": "ROLE_IPASS_MASTERADMIN", "permissions": ["post", "get", "put"]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/advices",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["get","delete"]}
+      ]
+    },
+    {
+      "resource": "/api/advices/void",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["put"]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+<div id="projectaccount" class="tab-pane fade in fade active">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-10 col-md-offset-1">
+            <div id="projectFlashMsgDiv" flash-message="2000" class=""></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center margin-bottom-10">
+                <h3 translate="button.add.project"></h3>
+            </div>
+
+            <form name="apc.form" role="form" class="form-horizontal" ng-submit="apc.submitProject()"  novalidate>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3" ng-bind="'project.name.label' | translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="projectname" id="projectname" class="form-control mandatory-mark text-left"
+                                       ng-model="apc.admin.projectname" placeholder="{{'project.name.label' | translate}}"
+                                       ng-maxlength="{{apc.projectNameMaxlen}}" required>
+                                <span ng-show="(apc.form.projectname.$touched || apc.form.projectFormSubmitted) && apc.form.projectname.$error.required"
+                                      class="text-danger" translate="project.name.required"></span>
+                                <span ng-show="(apc.form.projectname.$touched || apc.form.projectFormSubmitted) && apc.form.projectname.$error.maxlength"
+                                      class="text-danger" ng-bind="'max.custom.error' | translate:{ max:apc.projectNameMaxlen}"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-3" ng-bind="'project.startDate.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <datepicker date-format="dd-MMM-yyyy">
+                                    <input ng-model="apc.admin.startdate" type="text" placeholder="{{'project.startDate.label' | translate}}" name="startdate" class="form-control mandatory-mark text-left"
+                                           ng-pattern="/^(([0-9])|([0-2][0-9])|([3][0-1]))\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\-\d{4}$/" required/>
+                                </datepicker>
+                                <span ng-show="apc.form.startdate.$dirty && apc.form.startdate.$error.required" class="text-danger" ng-bind="'startDate.required' | translate"></span>
+                        <span ng-show="(apc.form.startdate.$touched || apc.form.userFormSubmitted) && apc.form.startdate.$error.pattern"
+                              class="text-danger" ng-bind="'date.invalid.msg' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3"  ng-bind="'project.location.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="projectlocation" id='projectlocation' class="form-control mandatory-mark text-left"
+                                       ng-model="apc.admin.projectlocation" placeholder="{{'project.location.label' | translate}}"
+                                       ng-maxlength="apc.projectLocationMaxlen" ng-minlength="apc.projectLocationMinlen" required>
+                                <span ng-show="(apc.form.projectlocation.$touched || apc.form.projectFormSubmitted) && apc.form.projectlocation.$error.required"
+                                      class="text-danger" translate="project.location.required"></span>
+                                <span ng-show="(apc.form.projectlocation.$touched || auc.form.projectFormSubmitted) && apc.form.projectlocation.$error.maxlength"
+                                      class="text-danger"  ng-bind="'max.custom.error' | translate:{ max:apc.projectLocationMaxlen}"></span>
+                                <span ng-show="(apc.form.projectlocation.$touched || auc.form.projectFormSubmitted) && apc.form.projectlocation.$error.minlength"
+                                      class="text-danger"  ng-bind="'min.custom.error' | translate:{ min:apc.projectLocationMinlen}"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-3" translate="project.endDate.label"></label>
+                            <div class="col-xs-9">
+                                <datepicker date-format="dd-MMM-yyyy">
+                                    <input ng-model="apc.admin.enddate" type="text"  name="enddate" placeholder="{{'project.endDate.label' | translate}}"
+                                           class="form-control text-left" ng-change="apc.setDateRangeFalse();"
+                                           ng-pattern="/^(([0-9])|([0-2][0-9])|([3][0-1]))\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\-\d{4}$/" />
+                                </datepicker>
+                                <span ng-show="(apc.form.enddate.$touched || apc.form.userFormSubmitted) && apc.notMatch" class="text-danger">Please check end date</span>
+                        <span ng-show="(apc.form.enddate.$touched || apc.form.userFormSubmitted) && apc.form.enddate.$error.pattern"
+                              class="text-danger" ng-bind="'date.invalid.msg' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h4 translate="add.emails.mobiles.label" class="sub-heading margin-top-15 text-center"></h4>
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-30">
+                        <!--for email-->
+                        <div class="col-sm-6 padding-left-0 form-group">
+                            <table class="col-md-12 table-bordered table-striped table-condensed cf padding-none ">
+                                <thead>
+                                <tr>
+                                    <th translate="user.email.label"></th>
+                                    <th translate="action.label"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr ng-repeat="email in apc.emailGroup track by $index" class="show-hide-content">
+                                    <td class="head-con show-hide-content col-md-9">
+                                        <input type="email" name="addEmail" id='addEmail' class="form-control text-left"
+                                               ng-model="email.contact" placeholder="{{'email.label' | translate}}"
+                                               ng-minlength="4" required>
+                                    </td>
+                                    <td>
+                                        <a href="" ng-click="apc.removeContact($index, email, apc.emailGroup, 'email');" uib-tooltip="close"
+                                           class="color-red">
+                                            <i class="fa fa-1x fa-times" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10 form-group">
+                                <div class="col-md-6">
+                                    <button class="btn btn-default" type="button" uib-tooltip="add email" ng-click="apc.addEmail()" aria-hidden="true">
+                                        <i class="fa fa-1x fa-plus" aria-hidden="true"></i>&nbsp;<span translate="button.add"></span>
+                                    </button>
+                                </div>
+                                <div ng-if="apc.isContainEditedRows(apc.emailGroup)" class="col-md-6 text-right">
+                                    <button class="btn btn-primary greenbtn" ng-click="apc.saveContact(apc.emailGroup,'email')">Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--For Mobile-->
+                        <div class="col-sm-5 form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf padding-none ">
+                                    <thead>
+                                    <tr>
+                                        <th translate="mobile.no.label"></th>
+                                        <th translate="action.label"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="mobile in apc.phoneGroup track by $index" class="show-hide-content">
+                                        <td>
+                                            <!--<span ng-if="!mobile.edit" ng-bind="mobile.contact"></span>-->
+                                            <input  type="text" name="addPhoneno" id='addPhoneno' class="form-control text-left"
+                                                    ng-model="mobile.contact" placeholder="{{'mobile.no.label' | translate}}"
+                                                    ng-minlength="10" ng-maxlength="10" ng-pattern="/^[0-9]{10,10}$/"
+                                                    required>
+                                        </td>
+
+                                        <td>
+                                            <a href="" ng-click="apc.removeContact($index, mobile ,apc.phoneGroup, 'mobile');" uib-tooltip="close"
+                                               class="color-red">
+                                                <i class="fa fa-1x fa-times" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                <div class="col-md-6">
+                                    <button type="button" uib-tooltip="add mobile no." class="btn btn-default" ng-click="apc.addMobile()" aria-hidden="true">
+                                        <i class="fa fa-1x fa-plus" aria-hidden="true"></i>&nbsp;<span translate="button.add"></span>
+                                    </button>
+                                </div>
+                                <div ng-if="apc.isContainEditedRows(apc.phoneGroup)" class="col-md-6 text-right">
+                                        <button class="btn btn-primary greenbtn" ng-click="apc.saveContact(apc.phoneGroup,'mobile')">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-xs-offset-5 col-xs-6">
+                        <div class="colorbtn projectbtn">
+                            <button type="submit"
+                                    class="btn btn-primary greenbtn"
+                                    translate="project.button.add" >
+                            </button>
+                            <button type="reset"
+                                    class="btn btn-primary redbtn"
+                                    ui-sref="admin.projecttbl" translate="button.cancel">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

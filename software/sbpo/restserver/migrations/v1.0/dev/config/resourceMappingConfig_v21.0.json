@@ -1,0 +1,10 @@
+{
+  "resource-mapping":[
+    {
+      "resource": "/api/virtualLedgers/byName",
+      "roles": [
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["get"]}
+      ]
+    }
+  ]
+}

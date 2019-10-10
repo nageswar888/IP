@@ -1,0 +1,28 @@
+<div class="row" ng-if="sac.selectedResultTab.key === 'graphByProjectView'">
+    <div class="col-sm-12">
+        <span>
+            <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+            <span translate="advice.rs.label"></span>
+            <span ng-bind="sac.totalProjectAmount | indianAmtMatric"></span>
+            (<span ng-bind="sac.totalProjectAmount | filterAmount"></span>)
+        </span>
+    </div>
+    <div class="col-sm-8">
+        <span class="total-margin-left">
+            <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+            <span ng-bind="sac.totalAdviceCount"></span>
+        </span>
+    </div>
+    <div class="col-sm-7">
+        <div class="col-md-12">
+            <nvd3 options="sac.pieChartOtion" data="sac.pieChartData"></nvd3>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                         download-as-matrix = "sac.downloadAsMatrix(type)"
+                         advice-count="sac.totalAdviceCount",
+                         download-limit="sac.downloadLimit",
+                         graph-query="sac.graphQuery[sac.showGraph]" advice="sac.copiedAdvice"></download-advice>
+    </div>
+</div>

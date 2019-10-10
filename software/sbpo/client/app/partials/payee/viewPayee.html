@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center" translate="payee.view.heading"></h3>
+        </div>
+        <div id="payeeEditFlashMsgDiv" flash-message="2000" class="flash-error-msg-padding"></div>
+
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" ng-bind="'first.name.label' | translate"></label>
+                            <div class="col-sm-8">
+                                <span ng-if="payee.user.firstName" ng-bind="payee.user.firstName"></span>
+                                <span ng-if="(payee.user.firstName === ''||payee.user.firstName === undefined|| payee.user.firstName === null) " translate="not.specified"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"  ng-bind="'last.name.label' | translate"></label>
+                            <div class="col-sm-8">
+                                <span ng-if="payee.user.lastName" ng-bind="payee.user.lastName"></span>
+                                <span ng-if="(payee.user.lastName === ''||payee.user.lastName === undefined|| payee.user.lastName === null) " translate="not.specified"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"  ng-bind="'mobile.label' | translate"></label>
+                            <div class="col-sm-8">
+                                <span ng-if="payee.user.phoneNumber" ng-bind="payee.user.phoneNumber"></span>
+                                <span ng-if="(payee.user.phoneNumber === ''||payee.user.phoneNumber === undefined|| payee.user.phoneNumber === null) " translate="not.specified"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" translate="user.nickName.label"></label>
+                            <div class="col-sm-8">
+                                <span ng-if="payee.nickName" ng-bind="payee.nickName"></span>
+                                <span ng-if="(payee.nickName === ''||payee.nickName === undefined|| payee.nickName === null) " translate="not.specified"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"  ng-bind="'middle.name.label'|translate"></label>
+                            <div class="col-sm-8">
+                                <span ng-if="payee.user.middleName" ng-bind="payee.user.middleName"></span>
+                                <span ng-if="(payee.user.middleName === ''||payee.user.middleName === undefined|| payee.user.middleName === null) " translate="not.specified"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" translate="user.email.label"></label>
+                            <div class="col-sm-8">
+                                <span ng-if="payee.user.email" ng-bind="payee.user.email"></span>
+                                <span ng-if="(payee.user.email === ''||payee.user.email === undefined|| payee.user.email === null) " translate="not.specified"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"  ng-bind="'admin.payee.num.label'|translate"></label>
+                            <div class="col-sm-8">
+                                <span ng-if="payee.payeeNumber" ng-bind="payee.payeeNumber"></span>
+                                <span ng-if="(payee.payeeNumber === ''||payee.payeeNumber === undefined|| payee.payeeNumber === null) " translate="not.specified"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br/>
+                    <h4><span ng-bind="'payee.edit.bank.details.label' | translate"></span></h4>
+                    <br/>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <label class="control-label col-sm-3" translate="admin.payee.bank.name.label"></label>
+                        <div class="col-sm-8">
+                            <span ng-if="payee.bankName" ng-bind="payee.bankName"></span>
+                            <span ng-if="(payee.bankName === ''||payee.bankName === undefined|| payee.bankName === null) " translate="not.specified"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-sm-3" translate="admin.payee.bank.branch.label"></label>
+                        <div class="col-sm-8">
+                            <span ng-if="payee.bankBranch" ng-bind="payee.bankBranch"></span>
+                            <span ng-if="(payee.bankBranch === ''||payee.bankBranch === undefined|| payee.bankBranch === null) " translate="not.specified"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <label class="control-label col-sm-3" translate="admin.payee.ifsc.code.label"></label>
+                        <div class="col-sm-8">
+                            <span ng-if="payee.ifscCode" ng-bind="payee.ifscCode"></span>
+                            <span ng-if="(payee.ifscCode === ''||payee.ifscCode === undefined|| payee.ifscCode === null) " translate="not.specified"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-sm-3" translate="admin.payee.account.num.label"></label>
+                        <div class="col-sm-8">
+                            <span ng-if="payee.accountNumber" ng-bind="payee.accountNumber"></span>
+                            <span ng-if="(payee.accountNumber === ''||payee.accountNumber === undefined|| payee.accountNumber === null) " translate="not.specified"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-align-center">
+                <button ng-click="cancel()" class="btn redbtn" translate="button.cancel"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

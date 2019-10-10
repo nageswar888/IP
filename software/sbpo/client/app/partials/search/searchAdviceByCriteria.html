@@ -1,0 +1,248 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <form name="searchForm"  class="form-horizontal" novalidate>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="control-label col-xs-3">
+                        <span translate="search.payee.label"></span>
+                    </label>
+                    <div class="col-xs-9">
+                        <div class="" ng-if="$root.isPayee() === false">
+                            <ui-select  ng-model="sac.advice.model.payee" name="payeeName" ng-change="sac.showhidetable">
+                                <ui-select-match placeholder="Select payee" allow-clear="true">
+                                    {{$select.selected.nickName | camelCase}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="payee in sac.payees | filter:$select.search" refresh="sac.getAllPayees($select.search)" refresh-delay="0">
+                                    {{payee.nickName | camelCase}}
+                                </ui-select-choices>
+                                <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                            </ui-select>
+                        </div>
+                        <div class="" ng-if="$root.isPayee() === true">
+                            <!--Update sac.advice.model.payee on load -->
+                            <div class="col-xs-7 padding-top-5px" ng-bind="$root.getCurrentLoggedInUser().firstName+' '+$root.getCurrentLoggedInUser().middleName+' '+$root.getCurrentLoggedInUser().lastName | camelCase"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="control-label col-xs-3"><span translate="date.range.label"></span></label>
+                    <div class="col-xs-9">
+                        <div class="input-daterange input-group" id="datepicker">
+                            <datepicker date-format="dd-MMM-yyyy" class="input-width">
+                                <input ng-model="sac.advice.model.fromDate" class="form-control mandatory-mark " type="text" placeholder="From" name="fromDate"
+                                       onkeydown="return false" ng-change="sac.setDateRangeFalse();" required/>
+                            </datepicker>
+                            <span class="input-group-addon" style="background-color: transparent;border: 0;padding:2px;"></span>
+                            <datepicker date-format="dd-MMM-yyyy" class="input-width">
+                                <input ng-model="sac.advice.model.toDate" type="text" class="form-control mandatory-mark" placeholder="To" name="toDate" onkeydown="return false" ng-change="sac.setDateRangeFalse();" required/>
+                            </datepicker>
+                        </div>
+                    </div>
+                    <div ng-show="searchForm.$submitted || searchForm.fromDate.$touched || searchForm.toDate.$touched" >
+            <span ng-show="searchForm.fromDate.$error.required || searchForm.toDate.$error.required"
+                  class="text-danger error-margin" translate="search.date.required.error"></span>
+                    </div>
+                    <div ng-show="searchForm.$submitted && searchForm.fromDate.$touched" >
+                        <span ng-show="sac.invalidRange" class="text-danger error-margin" translate="search.date.range.error"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="control-label col-xs-3">
+                        <span ng-bind="'advice.project.label'| translate"></span>
+                    </label>
+                    <div class="col-xs-9">
+                        <!--<input type="text" required="" placeholder="Enter Purpose"  ng-model="pa.advice.selectedPurpose" class="form-control" >-->
+                        <ui-select  ng-model="sac.advice.model.project" theme="bootstrap" ng-change="sac.showhidetable">
+                            <ui-select-match allow-clear="true" placeholder="Select project">{{$select.selected.projectName}}</ui-select-match>
+                            <ui-select-choices repeat="project in sac.projects | filter:$select.search" refresh="sac.getAllProjects($select.search)" refresh-delay="0">
+                                <span ng-bind="project.projectName"></span>
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="control-label col-xs-3" translate="search.advice.status.label"></label>
+                    <div class="col-xs-9">
+                        <span class="grenn" ng-bind="sac.advice.model.status"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="control-label col-md-3 ">
+                        <span translate="approve.payment.advice.number.label"></span>
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" name="adviceNum" class="form-control text-left" ng-model="sac.advice.model.adviceNum"
+                               ng-maxlength="20"  placeholder="{{'approve.payment.advice.number.label' | translate}}" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-5 col-xs-6">
+                <button type="submit" class="btn greenbtn" ng-click="sac.searchByDate(sac.advice,searchForm)" translate="search.btn.label"></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+        <button class="btn btn-success {{sac.btnGraphClass}}" ng-click="sac.graphView()"  ng-show="sac.isSearchData">
+            <i class="fa fa-bar-chart" aria-hidden="true" translate="graph.btn.label"></i>
+        </button>
+        <button class="btn btn-success tbl-btn-matgin {{sac.btnTableClass}}" ng-click="sac.tableView()"  ng-show="sac.isSearchData">
+            <i class="fa fa-table" aria-hidden="true" translate="advice.table.btn.label"></i>
+        </button>
+    </div>
+
+    <hr class="hr-margin-top"/>
+    <!--Data for display graph-->
+    <ul class="cd-breadcrumb" id="graph-breadcrum" ng-show="sac.bradcrum">
+        <li  ng-show="sac.graphQuery.year" class="f-left">
+            <a href="#" class=" {{sac.years}}"
+               data-toggle="fadein"
+               ng-click="sac.backToYearGraph();"
+               translate="graph.breadcrumb.years.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.month" class="f-left">
+            <a href="#" class="left-margin {{sac.months}}"
+               ng-click="sac.bactToMonthGraph();"
+               translate="graph.breadcrumb.months.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.weeks" class="f-left">
+            <a href="#" class=" {{sac.weeks}}"
+               ng-click="sac.bactToWeekGraph();"
+               translate="graph.breadcrumb.weeks.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.week" class="f-left">
+            <a href="#" class=" {{sac.days}}"
+               ng-click="sac.bactToDayGraph();"
+               translate="graph.breadcrumb.days.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.day" class="f-left">
+            <a href="#" class=" {{sac.day}}"
+               ng-click="sac.bactToPerDayAdviceGraph();"
+               translate="graph.breadcrumb.day.label"></a></li>
+        <span class="clearfix"></span>
+    </ul>
+
+    <!--Years graph-->
+    <div class="row fadeout" ng-show="(sac.showHideYearGraph && sac.showGraph==='year') ">
+        <span class="total-margin-left">
+            <label> {{'advice.totalAmount.label' | translate}}:&nbsp;</label>{{'advice.rs.label' | translate}}{{sac.totalAmount | indianAmtMatric}}
+                <download-advice download-all-per-project="sac.downloadAllPerProject(type)" graph-query="sac.graphQuery[sac.showGraph]" advice="sac.advice"></download-advice>
+        </span>
+        <div class="graphdiv row">
+            <div class="col-md-7">
+                <nvd3 options="sac.yearOptions" data="sac.yearsGraphData"></nvd3>
+            </div>
+            <div class="col-md-5">
+                <nvd3 options="sac.pieChartOtion" data="sac.pieChartData"></nvd3>
+            </div>
+        </div>
+    </div>
+
+    <!--year graph-->
+    <div class=" fadeout" id="yearGraph" ng-show="(sac.showHideMonthGraph && sac.showGraph==='month')">
+        <span class="total-margin-left">
+            <label> {{'advice.totalAmount.label' | translate}}:&nbsp;</label>{{'advice.rs.label' | translate}}{{sac.totalAmount | indianAmtMatric}}
+            <download-advice download-all-per-project="sac.downloadAllPerProject(type)" graph-query="sac.graphQuery[sac.showGraph]" advice="sac.advice"></download-advice>
+        </span>
+        <div class="graphdiv row">
+            <div class="col-md-7">
+                <nvd3 options="sac.options" data="sac.yearData"></nvd3>
+            </div>
+            <div class="col-md-5">
+                <nvd3 options="sac.pieChartOtion" data="sac.pieChartData"></nvd3>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Weeks graph-->
+    <div class="row fadeout" id="weeksGraph" ng-show="(sac.showHideWeekGraph && sac.showGraph==='weeks')">
+        <span class="total-margin-left">
+            <label> {{'advice.totalAmount.label' | translate}}:&nbsp;</label>{{'advice.rs.label' | translate}}{{sac.totalAmount | indianAmtMatric}}
+                <download-advice download-all-per-project="sac.downloadAllPerProject(type)" graph-query="sac.graphQuery[sac.showGraph]" advice="sac.advice"></download-advice>
+        </span>
+        <div class="col-md-12">
+            <div class="float-left back-btn-marginleft" >
+            </div>
+            <div class="float-left">
+                <!--<h3 class="grap-heading float-left"> Week Graph</h3>-->
+            </div>
+        </div>
+        <div class="graphdiv row">
+            <div class="col-md-7">
+                <nvd3 options='sac.monthOptions' data='sac.monthData'></nvd3>
+            </div>
+            <div class="col-md-5">
+                <nvd3 options="sac.pieChartOtion" data="sac.pieChartData"></nvd3>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Week graph-->
+    <div class="row fadeout" id="weekGraph" ng-show="(sac.showHideDayGraph && sac.showGraph==='week')">
+        <span class="total-margin-left">
+            <label> {{'advice.totalAmount.label' | translate}}:&nbsp;</label>{{'advice.rs.label' | translate}}{{sac.totalAmount | indianAmtMatric}}
+            <download-advice download-all-per-project="sac.downloadAllPerProject(type)" graph-query="sac.graphQuery[sac.showGraph]" advice="sac.advice"></download-advice>
+        </span>
+        <div class="col-md-12">
+            <div class="float-left backto-weeks-btn-marginleft" >
+            </div>
+            <div class="float-left">
+                <h3 class="grap-heading float-left"> </h3>
+            </div>
+        </div>
+        <!--<h3 class="" style="margin-left: 7% !important;"> {{sac.weekGraphheading}}</h3>-->
+        <div class="graphdiv row">
+            <div class="col-md-7">
+                <nvd3 options='sac.weekOptions' data='sac.weekData'></nvd3>
+            </div>
+            <div class="col-md-5">
+                <nvd3 options="sac.pieChartOtion" data="sac.pieChartData"></nvd3>
+            </div>
+        </div>
+    </div>
+
+    <!--Per Day graph-->
+    <div class="row fadeout" id="dayGraph"   ng-show="(sac.showHidePerDayAdviceGraph && sac.showGraph==='day')">
+        <span class="total-margin-left">
+            <label> {{'advice.totalAmount.label' | translate}}:&nbsp;</label>{{'advice.rs.label' | translate}}{{sac.totalAmount | indianAmtMatric}}
+            <download-advice download-all-per-project="sac.downloadAllPerProject(type)" graph-query="sac.graphQuery[sac.showGraph]" advice="sac.advice"></download-advice>
+        </span>
+        <div class="col-md-12">
+            <div class="float-left backto-weeks-btn-marginleft" >
+            </div>
+            <div class="float-left">
+                <h3 class="grap-heading float-left"></h3>
+            </div>
+        </div>
+        <div class="graphdiv row">
+            <div class="col-md-7">
+                <nvd3 options='sac.perDayOptions' data='sac.perDayGraphData'></nvd3>
+            </div>
+            <div class="col-md-5">
+                <nvd3 options="sac.pieChartOtion" data="sac.pieChartData"></nvd3>
+            </div>
+        </div>
+    </div>
+
+    <!--End Data for display graph-->
+    <div class="row color-grey" ng-if="sac.showMessage">
+        <!-- <div class="text-align-center"><i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i></div>-->
+        <div class="text-align-center"><h4 ng-bind="sac.emptyException"></h4></div>
+    </div>
+    <div ng-include="'/app/partials/searchAdviceTable.html'" style="margin-bottom: 5%">
+
+    </div>
+</div>

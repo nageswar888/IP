@@ -1,0 +1,24 @@
+<div class="col-md-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form name="searchForm" class="form-horizontal" novalidate ng-submit="sac.searchByAdviceNumber(sac.adviceno)" >
+
+            <div class="form-group ">
+                <label class="control-label col-xs-3">
+                    <span translate="approve.payment.advice.number.label"></span>
+                </label>
+                <div class="col-xs-9">
+                    <input type="text" name="adviceno" id="adviceno" class="form-control text-left mandatory-mark" ng-model="sac.adviceno"
+                           ng-maxlength="20"  placeholder="{{'approve.payment.advice.number.label' | translate}}" required>
+                <span ng-show="((sac.forms.$submitted || sac.forms.adviceno.$touched) && sac.forms.adviceno.$error.required)"
+                      translate="payment.advice.number.required" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-offset-5 col-xs-6">
+                    <button type="submit" class="btn greenbtn" translate="search.btn.label"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

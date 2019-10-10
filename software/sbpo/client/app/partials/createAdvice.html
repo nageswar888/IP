@@ -1,0 +1,302 @@
+<div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+    <h3 class="text-center" ng-if="$root.$state.current.name === 'createAdvice'" translate="advice.header.label"></h3>
+    <h3 class="text-center" ng-if="$root.$state.current.name === 'createLegacyAdvice'" translate="header.button.create.legacy.advice"></h3>
+</div>
+
+<div class="add-advice-parent">
+    <!--<div class="row">-->
+    <div class="col-md-offset-8 col-md-4 create-advice-default-text font-italic color-grey margin-bottom-10">
+        <div>Initiated by :<span>{{pa.advice.initiater}}</span></div>
+        <div> Created on : <span>{{pa.advice.requestedDate | dateFilterWithAMPM}}</span></div>
+        <!--  <div> Advice Number : <span>{{pa.advice.adviceNumber}}</span></div>-->
+    </div>
+    <!-- </div>-->
+    <!--<div ng-show="pa.isMendatoryFieldsSelected" class="medatory-msg col-lg-offset-5"><span class="text-danger">Please Select Mandatory Fields</span></div>-->
+    <div class="row">
+        <div id="FlashMsgDiv" flash-message="2000" class="col-md-offset-1 col-md-9"></div>
+    </div>
+    <form name="newAdviceForm" class="new-advice-form form-horizontal" novalidate>
+        <div class="row advice-form-parent">
+            <div class="col-md-5">
+                <div class="form-group payee-autocomplete">
+                    <label class="control-label col-md-4 color-dark-grey">
+                        <span ng-bind="'advice.payee.label'| translate"></span>
+                    </label>
+                    <div class="col-md-7">
+                        <ui-select  ng-model="pa.advice.payee" theme="bootstrap" name="payeeName" ng-keyup="pa.getAllPayees($select.search,$event)" required>
+                            <ui-select-match placeholder="Select payee" allow-clear="true" class="mandatory-mark">
+                                {{$select.selected.nickName | camelCase}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="payee in pa.payees | filter: $select.search" >
+                                {{payee.nickName | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                        <div ng-show="pa.isFormSave || newAdviceForm.payeeName.$touched || newAdviceForm.payeeName.$dirty ">
+                            <span ng-show ="newAdviceForm.payeeName.$error.required" class="text-danger" ng-bind="'advice.selectPayee.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-sm btn-default greenbtn add-payee-button" ng-click="pa.addNewPayee()"> <b>Q</b> <i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <!--Amount requested-->
+                <div class="form-group ">
+
+
+
+
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.amountRequested.label'| translate"></span></label>
+                    <div class="col-xs-7">
+                        <input type="text"  placeholder="Enter amount requested " maxlength="{{pa.amtMaxLength}}" ng-model="pa.advice.requestedAmt" class="form-control mandatory-mark" name="amt"
+                               ng-change="pa.numberTotext(pa.advice.requestedAmt)" indian-matric-converter required/>
+                        <div ng-show="pa.advice.requestedAmt">
+                            <span class="font-italic color-blue" ng-class="{'text-danger' : pa.invalidAmount===true }">{{pa.advice.requestedAmt | filterAmount}} </span>
+                        </div>
+                        <div ng-show="pa.isFormSave || newAdviceForm.amt.$touched">
+                            <span ng-show="newAdviceForm.amt.$error.required" class="text-danger" ng-bind="'model.advice.amt.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--payment type-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.paymentType.label' | translate"></span></label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="pa.advice.paymentType" theme="bootstrap" ng-change="pa.setPaymentTypeHidenValueEmpty()" ng-click="pa.getAllPaymentTypes();">
+                            <ui-select-match placeholder="Select payment type" allow-clear="true">{{$select.selected.value | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="paymentType.key as paymentType in pa.paymentTypes | orderBy:'value'">
+                                {{paymentType.value | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                </div>
+
+
+                <!--Amount Due-->
+                <div class="form-group  " ng-class="{isBillpayment:pa.advice.paymentType.key!='BILL_PAYMENT'}">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.billAmtDue.label'| translate"></span>
+                    </label>
+                    <div class="col-xs-7">
+                        <input type="text"  placeholder="Enter bill amount due" maxlength="{{pa.billAmtMaxLength}}" ng-model="pa.advice.billAmountDue" class="form-control "
+                               ng-change="pa.amountDueNumToText(pa.advice.billAmountDue)" indian-matric-converter>
+                        <div ng-show="pa.advice.billAmountDue">
+                            <span class="color-blue font-family-style" ng-class="{'text-danger' : pa.invalidBillAmount===true }">{{pa.advice.billAmountDue | filterAmount}} </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--purpose-->
+                <div class="form-group  ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.purpose.label'| translate"></span></label>
+                    <div class="col-xs-7">
+                        <textarea ng-maxlength="pa.purposeLength" row="3"  placeholder="Enter purpose"  ng-model="pa.advice.selectedPurpose" class="form-control" name="purpose"></textarea>
+                         <span ng-show="(newAdviceForm.purpose.$touched || newAdviceForm.userFormSubmitted) && newAdviceForm.purpose.$error.maxlength"
+                               class="text-danger" ng-bind="'max.custom.error' | translate:{ max:pa.purposeLength}"></span>
+                    </div>
+
+                </div>
+                <!--comment-->
+                <div class="form-group">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.comment.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <textarea class="form-control" placeholder="Comment here..." rows="3" ng-model="pa.advice.comment" id="comment"></textarea>
+                    </div>
+                </div>
+
+                <!--left col-->
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.ledger.label'| translate">  </label>
+                    <div class="col-md-7">
+                        <ui-select  ng-model="pa.advice.ledger" theme="bootstrap" name="ledger" id="ledger" ng-keyup="pa.getAllVirtualLedgers($select.search,$event)">
+                            <ui-select-match placeholder="{{'advice.ledger.label' | translate}}" allow-clear="true">{{$select.selected.name | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="ledger in pa.virtualLedgerOptionNames  | filter: $select.search">
+                                <span ng-bind="ledger.name | camelCase"></span>
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-sm btn-default greenbtn add-payee-button" ng-click="pa.addNewLedger()"> <b>QL</b> <i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+                <!--Project Name-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.project.label'| translate"></span></label>
+                    <div class="col-md-7">
+                        <!--<input type="text" required="" placeholder="Enter Purpose"  ng-model="pa.advice.selectedPurpose" class="form-control" >-->
+                        <ui-select  ng-model="pa.advice.selectedProject"  on-select="pa.hideProjectName()"  name="projName" theme="bootstrap" class="mandatory-mark" ng-keyup="pa.getAllProjects($select.search,$event)"required>
+                            <ui-select-match placeholder="Select project" allow-clear="true">{{$select.selected.projectName | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="purposeObj in pa.projects | filter: $select.search  | orderBy:'projectName'"
+                                               uib-popover="{{pa.hovered}}" popover-placement="right-top" popover-trigger="'mouseenter'"
+                                               on-highlight="pa.getProjectFullName(purposeObj.projectName)">
+                                {{purposeObj.projectName | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+
+                        <div ng-show="pa.isFormSave || newAdviceForm.projName.$touched || newAdviceForm.projName.$dirty ">
+                            <span ng-show ="newAdviceForm.projName.$error.required" class="text-danger" ng-bind="'advice.selectProject.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--requested by-->
+                <div class="form-group ">
+                    <label class="control-label col-sm-4 color-dark-grey" ng-bind="'advice.requestedBy.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <input type="text" name="requestedBy"  placeholder="Requested by"  ng-maxlength="pa.nameLength "   ng-model="pa.advice.requestedBy" class="form-control"/>
+                        <span ng-show="(newAdviceForm.requestedBy.$touched || newAdviceForm.userFormSubmitted) && newAdviceForm.requestedBy.$error.maxlength"
+                              class="text-danger" ng-bind="'max.custom.error' | translate:{ max:pa.nameLength}"></span>
+                    </div>
+                </div>
+
+                <!--category-->
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey" ><span ng-bind="'advice.category.label' | translate"></span></label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="pa.advice.category" theme="bootstrap" ng-click="pa.getAllPaymentCategories();">
+                            <ui-select-match placeholder="Select category" allow-clear="true">{{$select.selected.value | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="category.key as category in pa.categories  | orderBy:'value'">
+                                {{category.value | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <!--mode of payment-->
+
+                <div class="form-group ">
+                    <label class="control-label col-md-4 color-dark-grey"> <span ng-bind="'advice.modeOfPayment.label'| translate"></span></label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="pa.advice.selectPaymentMode" theme="bootstrap" ng-change="pa.setPaymentModeHidenValueEmpty()"
+                                    class="{{($root.isLegacyRole() && $state.current.name === pa.viewStates.CREATE_LEGACY_ADVICE) ? 'mandatory-mark':''}}"
+                                    ng-required="($root.isLegacyRole()  && $state.current.name === pa.viewStates.CREATE_LEGACY_ADVICE)" name="modeOfPayment">
+                            <ui-select-match placeholder="{{'advice.modeOfPayment.label' | translate}}" allow-clear="true">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="paymentMode in pa.paymentModes | orderBy">
+                                {{paymentMode}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                        <div ng-show="pa.isFormSave || newAdviceForm.modeOfPayment.$touched || newAdviceForm.modeOfPayment.$dirty ">
+                            <span ng-show ="newAdviceForm.modeOfPayment.$error.required" class="text-danger" ng-bind="'label.payment.mode.required' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="form-group" ng-if="!pa.isLegacyUser && pa.advice.selectPaymentMode === 'Cash' " >
+                     <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.source.label'| translate">  </label>
+                     <div class="col-xs-7">
+                         <input type="text"  placeholder="Cash in hand" ng-model="pa.advice.cashAmt" class="form-control "
+                                ng-change="pa.amountDueNumToText(pa.advice.cashAmt)" maxlength="{{pa.amtMaxLength}}" indian-matric-converter>
+                         <div ng-show="pa.advice.cashAmt">
+                             <span class="color-blue font-family-style" ng-class="{'text-danger' : pa.invalidCashAmount===true }">{{pa.advice.cashAmt | filterAmount}} </span>
+                         </div>
+                     </div>
+                 </div>-->
+
+                <div class="form-group" ng-if="pa.advice.selectPaymentMode === pa.cash" >
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.source.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <input type="text" name="source" placeholder="Cash in hand" ng-model="pa.advice.cashAmt" class="form-control {{($root.isLegacyRole()) ? 'mandatory-mark':''}}"
+                               ng-required="($root.isLegacyRole())"  ng-change="pa.amountDueNumToText(pa.advice.cashAmt)" maxlength="{{pa.amtMaxLength}}" indian-matric-converter>
+
+                        <div ng-show="pa.advice.cashAmt">
+                            <span class="color-blue font-family-style" ng-class="{'text-danger' : pa.invalidCashAmount===true }">{{pa.advice.cashAmt | filterAmount}} </span>
+                        </div>
+                        <div ng-show="pa.isFormSave || newAdviceForm.source.$touched">
+                            <span ng-show="newAdviceForm.source.$error.required" class="text-danger" ng-bind="'source.field.required' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Bank-->
+                <div class="form-group " ng-if="pa.showBankLabel(pa.advice.selectPaymentMode)">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.bankName.label'| translate"></label>
+                    <div class="col-xs-7">
+                        <ui-select  ng-model="pa.advice.bank" name="bankName" theme="bootstrap"
+                                    class="{{($root.isLegacyRole()) ? 'mandatory-mark':''}}"
+                                    ng-required="($root.isLegacyRole())" ng-keyup="pa.getAllBanks($select.search,$event)" >
+                            <ui-select-match placeholder="{{'advice.bankName.label' | translate}}" allow-clear="true">{{$select.selected.accountName | camelCase}}</ui-select-match>
+                            <ui-select-choices repeat="item._id as item in pa.allBanks  | filter: $select.search  | orderBy:'accountName'">
+                                {{item.accountName | camelCase}}
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                        <div ng-show="pa.isFormSave || newAdviceForm.bankName.$touched || newAdviceForm.bankName.$dirty ">
+                            <span ng-show ="newAdviceForm.bankName.$error.required" class="text-danger" ng-bind="'bank.account.name.required' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--cheque Number-->
+                <div class="form-group" ng-if="pa.showChequeLabel(pa.advice.selectPaymentMode)" ng-class="{showPaymentModeDependent:pa.advice.selectPaymentMode!=pa.cheque}">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.chequeNumber.label'| translate">  </label>
+                    <div class="col-xs-7">
+                        <input type="number"  placeholder="{{'cheque.number.place.holder' | translate}}"  ng-model="pa.advice.chequeNumber"
+                               class="form-control text-left {{($root.isLegacyRole()) ? 'mandatory-mark':''}}" name="chequeNumber"
+                               ng-required="($root.isLegacyRole())"
+                               ng-value="" aria-invalid="true" ng-pattern=pa.validChequeNumber>
+
+                        <span ng-show="newAdviceForm.chequeNumber.$dirty && newAdviceForm.chequeNumber.$error.required" class="text-danger" ng-bind="'cheque.number.required' | translate"></span>
+                        <span ng-show="(newAdviceForm.chequeNumber.$touched || newAdviceForm.adminSubmitted) && newAdviceForm.chequeNumber.$error.pattern"
+                              class="text-danger"  ng-bind="'invalid.chequeno.validation' | translate"></span>
+                    </div>
+                </div>
+
+                <!--disbursed date-->
+                <div class="form-group" ng-class="" ng-if="pa.isLegacyUser">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'advice.disburse.date.label'| translate">  </label>
+                    <div class="col-md-7">
+                        <datepicker date-format="dd-MMM-yyyy" >
+                            <input ng-model="pa.advice.disburserDate" type="text" class="form-control {{($root.isLegacyRole()) ? 'mandatory-mark':''}}"
+                                   placeholder="Disbursed Date" ng-required="($root.isLegacyRole())"
+                                   name="disburseDate" onkeydown="return false" ng-change="pa.setRequestedDate();"
+                            />
+                        </datepicker>
+                        <div ng-show="pa.isFormSave || newAdviceForm.disburseDate.$touched || newAdviceForm.disburseDate.$dirty">
+                            <span ng-show="newAdviceForm.disburseDate.$error.required" class="text-danger" ng-bind="'advice.disbursedDate.errMsg' | translate"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--urgent advice-->
+                <div class="form-group" ng-class="" ng-if="!pa.isLegacyUser">
+                    <label class="control-label col-md-4 color-dark-grey" ng-bind="'mark.advice.urgent.label'| translate">  </label>
+                    <div class="col-md-7">
+                        <ui-select  ng-model="pa.advice.urgent" theme="bootstrap">
+                            <ui-select-match placeholder="{{'advice.priority.label' | translate}}" allow-clear="true">{{$select.selected.key}}</ui-select-match>
+                            <ui-select-choices repeat="item.value as item in pa.advicePriority  | filter: $select.search track by $index" refresh-delay="0">
+                                <span ng-bind="item.key"></span>
+                            </ui-select-choices>
+                            <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                        </ui-select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-1 margin-left-30x " ng-click="pa.saveAdvice(pa.advice,newAdviceForm)" ng-if="!pa.isLegacyUser">
+                <button type="button" class="btn btn-primary"><span ng-bind="'button.save' | translate"></span></button>
+            </div>
+            <div class="col-md-offset-3 col-md-2 margin-left-30x " ng-click="pa.saveAdvice(pa.advice,newAdviceForm)" ng-if="pa.isLegacyUser">
+                <button type="button" class="btn greenbtn"><span ng-bind="'button.save.legacy' | translate"></span></button>
+            </div>
+            <div class="col-md-1" ng-if="!pa.isLegacyUser">
+                <button type="button" class="btn btn-default btn-submit greenbtn" ng-click="pa.submitAdvice(pa.advice,newAdviceForm)">
+                    <span ng-bind="'button.submit' | translate"></span></button>
+            </div>
+            <div class="col-md-1"><button type="reset" class="btn btn-warning" ng-click="pa.resetFields()" >
+                <span ng-bind="'button.reset' | translate"></span></button>
+            </div>
+            <div class="col-md-1" ng-if="!pa.isLegacyUser"><button type="button" class="btn redbtn" ng-click="pa.cancelFormdata()" >
+                <span ng-bind="'button.cancel' | translate"></span></button>
+            </div>
+        </div><br>
+    </form>
+</div>

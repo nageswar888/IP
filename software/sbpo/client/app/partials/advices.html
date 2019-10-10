@@ -1,0 +1,109 @@
+<div class="content-right">
+    <div class="avide-footer">
+        <div id="dishome" class="tab-pane fade in fade active">
+            <div class="col-md-12 col-sm-12 col-xs-12 avide-footer">
+                <div class="panel-group advice-panel padding-left-10" id="accordion">
+
+                    <div class="panel panel-default margin-top-10" ng-if="rac.groupCategory===undefined || rac.groupCategory==='Default'">
+                        <uib-accordion  close-others="true" ng-if="!rac.showAdvicesInTable">
+                            <div  ng-repeat="adviceDetails in rac.data" class="">
+                                <div ng-include="'/app/partials/eachAdvice.html'"></div>
+                            </div>
+                        </uib-accordion>
+                    </div>
+
+                    <div class="panel panel-default margin-top-10" ng-if="['project', 'payee', 'paymentType', 'category'].indexOf(rac.groupCategory) >= 0">
+                        <div  ng-repeat="(parentIndex, groupedData)  in rac.data" class="">
+                            <uib-accordion ng-if="groupedData.advices.length!==0" close-others="true" class="href-heading-acc">
+                                <div class=" col-md-1 group-advice-card-check-box "  ng-if="rac.canView();" uib-tooltip="{{ rac.tooltipText(groupedData) }}">
+                                    <input type="checkbox" ng-model="rac.isAll[parentIndex]" ng-true-value="true" ng-false-value="false" class="margin-0"
+                                           ng-click="rac.selectAllRows(parentIndex);"  ng-if="rac.canView();" ng-disabled="!groupedData.open"
+                                           ng-class="(rac.isAll[parentIndex] === true || rac.isChildSeleted[parentIndex] === true) ? 'pulse-check-box-button':''"/>
+                                </div>
+                                <div uib-accordion-group class="each-org top-panel-group group-by-color" ng-class="{'tab-expanded':groupedData.open}"
+                                     is-open="groupedData.open">
+                                    <uib-accordion-heading>
+                                        <div ng-click="rac.showAdvices(groupedData, parentIndex)" ng-class="{'left-border':rac.canView()}" class="row header-link">
+                                            <div class="col-sm-3">
+                                                    <span ng-if="rac.groupCategory==='project'">
+                                                        <label translate="view.advice.project.label" class="margine-left-200"></label>
+                                                        <span ng-bind="groupedData.project.projectName"></span>
+                                                    </span>
+                                                    <span ng-if="rac.groupCategory==='payee'">
+                                                        <label translate="advice.payee.label" class="margine-left-200"></label>
+                                                        <span ng-bind="groupedData.payee.user | nameFilter | camelCase"></span>
+                                                    </span>
+                                                    <span ng-if="rac.groupCategory==='paymentType'">
+                                                        <label translate="payment.type.label" class="margine-left-200"></label>
+                                                        <span ng-if="groupedData.paymentType" ng-bind="groupedData.paymentType.name"></span>
+                                                        <span ng-if="!groupedData.paymentType" ng-bind="'noneLabel' | translate"></span>
+                                                    </span>
+                                                    <span ng-if="rac.groupCategory==='category'">
+                                                        <label translate="advice.category.title" class="margine-left-200"></label>
+                                                        <span ng-if="groupedData.category" ng-bind="groupedData.category.name"></span>
+                                                        <span ng-if="!groupedData.category" ng-bind="'noneLabel' | translate"></span>
+                                                    </span>
+                                            </div>
+                                            <div class="col-sm-4" ng-if="( $root.groupByTypes.indexOf(rac.groupCategory) >= 0) && (!rac.showTotalAmount)">
+                                                <label translate="view.advice.project.total.label" class="margine-left-200"></label>
+                                                <i class="fa fa-inr" aria-hidden="true"></i>
+                                                <span ng-bind="groupedData.requestedAmount | indianAmtMatric"></span>
+                                            </div>
+                                            <div class="col-sm-1" ng-if="($root.groupByTypes.indexOf(rac.groupCategory) >= 0) && (groupedData.priorityCount > 0 && !rac.showTotalAmount)">
+                                                <i id="high-priority" class="fa fa-h-square fa-2x margine-left-200" title="High-Priority" aria-hidden="true"></i>&#58;
+                                                <span ng-bind="groupedData.priorityCount"></span>
+                                            </div>
+                                            <div class="col-sm-5" ng-if="rac.showTotalAmount">
+                                                    <span>
+                                                        <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                                                        <i class="fa fa-inr" aria-hidden="true"></i>
+                                                        <span ng-bind="groupedData.requestedAmount | indianAmtMatric"></span>
+                                                    </span>
+                                            </div>
+                                            <div class="col-sm-3 pull-right text-right">
+                                                <label translate="no.of.advices.label" class="margine-left-200"></label>
+                                                <span ng-bind="groupedData.advicesCount"></span>
+                                            </div>
+                                        </div>
+                                    </uib-accordion-heading>
+
+                                    <div  ng-repeat="adviceDetails in groupedData.advices" ng-if="!rac.showAdvicesInTable" class="">
+                                        <uib-accordion  close-others="true" ng-if="!rac.showAdvicesInTable" >
+                                            <div ng-include="'/app/partials/eachAdvice.html'"  class="href-heading-acc"></div>
+                                        </uib-accordion>
+                                    </div>
+                                    <div ng-if="rac.currentState !== 'searchAdvice'">
+                                        <span ng-show="$root.emptyAdvices === false && groupedData.advicesCount > rac.adviceLimit && ((rac.eachAdviceCount[parentIndex]) +rac.adviceLimit) < groupedData.advicesCount"><a href="" ng-click="rac.limitChangeforAdvice(groupedData._id,parentIndex,groupedData.advicesCount);rac.showAdvices(groupedData, parentIndex);" translate="advice.more.link"></a></span>
+                                        <span ng-show="$root.emptyAdvices === true || ((rac.eachAdviceCount[parentIndex]+rac.adviceLimit) > groupedData.advicesCount || (rac.eachAdviceCount[parentIndex]+rac.adviceLimit) === groupedData.advicesCount)  && (groupedData.advicesCount > rac.adviceLimit)" ><a href="" ng-click="rac.limitChangeforAdvice(groupedData._id,parentIndex,groupedData.advicesCount);rac.showAdvices(groupedData, parentIndex);"  translate="advice.less.link"></a></span>
+                                    </div>
+                                    <div ng-if="rac.showAdvicesInTable">
+                                        <advice-table table-params="groupedData.tableParams"
+                                                      view-advice-details="rac.viewAdviceDetails({advice: advice})"
+                                                      download-advice-pdf="rac.downloadAdvicePdf({adviceId: adviceId})"></advice-table>
+                                    </div>
+                                </div>
+                            </uib-accordion>
+                        </div>
+                        <div ng-if="rac.currentState === 'searchAdvice'">
+                            <!--<span ng-show="rac.groupByCriteriaList.totalProjectCount > (rac.groupByCriteriaList.groupSkip + rac.groupLimit) && rac.groupByCriteriaList.totalProjectCount > rac.groupLimit"> <a href="" ng-click="rac.limitChangeforProject(rac.groupByCriteriaList.groupSkip,'more');rac.setGroupByCriteriaParamsForSearch(groupedData);" translate="project.more.link"></a></span>
+                            <span ng-show="rac.showMore && (rac.groupByCriteriaList.totalProjectCount < (rac.groupByCriteriaList.groupSkip + rac.groupLimit) || (rac.groupByCriteriaList.totalProjectCount === (rac.groupByCriteriaList.groupSkip + rac.groupLimit))) && rac.groupByCriteriaList.totalProjectCount > rac.groupLimit"><a href="" ng-click="rac.lessChangeforProject(rac.groupByCriteriaList.groupSkip); rac.setGroupByCriteriaParamsForSearch (groupedData);" translate="project.less.link"></a></span>-->
+
+                            <span ng-show="rac.groupByCriteriaList.totalProjectCount > (rac.groupByCriteriaList.groupSkip + rac.groupLimit) && rac.groupByCriteriaList.totalProjectCount > rac.groupLimit"> <a href="" ng-click="rac.limitChangeforProject(rac.groupByCriteriaList.groupSkip,'more');rac.setGroupByCriteriaParamsForSearch(groupedData);" translate="project.more.link"></a></span>
+                            <span ng-show="rac.groupByCriteriaList.totalProjectCount <= rac.groupByCriteriaList.projects.length && rac.groupByCriteriaList.totalProjectCount > rac.groupLimit"><a href="" ng-click="rac.lessChangeforProject(rac.groupByCriteriaList.groupSkip); rac.setGroupByCriteriaParamsForSearch (groupedData);" translate="project.less.link"></a></span>
+                        </div>
+                        <div ng-if="rac.currentState !== 'searchAdvice'">
+                            <span ng-show="$root.emptyAdvices === true || rac.groupByCriteriaList.totalProjectCount === rac.groupByCriteriaList.projects.length && rac.groupByCriteriaList.totalProjectCount > rac.groupLimit "> <a href="" ng-click="rac.limitChangeforProject(rac.groupByCriteriaList.groupSkip);rac.setGroupByCriteriaParams(groupedData);" translate="project.less.link"></a></span>
+                            <span ng-show="$root.emptyAdvices === false && rac.groupByCriteriaList.totalProjectCount != rac.groupByCriteriaList.projects.length && rac.groupByCriteriaList.totalProjectCount > rac.groupLimit "><a href="" ng-click="rac.limitChangeforProject(rac.groupByCriteriaList.groupSkip); rac.setGroupByCriteriaParams(groupedData);" translate="project.more.link"></a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="refresh" ng-if="(rac.currentState !== 'searchAdvice') && rac.dataModified && ($root.refreshed === undefined || $root.refreshed===false)">
+            <div class="contain-refresh">
+                <i class="fa fa-refresh blink" aria-hidden="true"></i>
+                <a class="refresh-link"  ng-click="rac.refreshData()" href="#" translate="refresh.msg"></a>
+            </div>
+        </div>
+    </div>
+</div>

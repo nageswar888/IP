@@ -1,0 +1,21 @@
+<form name="epe.form" novalidate>
+<div style="max-width: 700px">
+    <div class="modal-header">
+        <h4 class="modal-title sub-heading" translate="confirmation.label"></h4>
+    </div>
+
+    <div class="modal-body">
+        <div id="projectErrorFlashMsgDiv" flash-message="4000" class=""></div>
+        <div class="row">
+            <h4 class="text-center" translate="user.delete.confirm"></h4>
+        </div>
+    </div>
+
+    <div class="modal-footer text-center">
+        <button type="reset" class="btn greenbtn"  ng-click="epe.editProjectAfterConfirmation()" translate="user.button.deleteUser">
+        </button>
+        <button type="button" ng-click="epe.closePopup()" class="btn redbtn" translate="user.button.no">
+        </button>
+    </div>
+</div>
+</form>

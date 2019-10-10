@@ -1,0 +1,61 @@
+<div style="max-width: 700px">
+    <form name="vm.form" role="form" class="form-horizontal formCss" ng-submit="vm.resetPasscode()" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title sub-heading" translate="forgot.passcode.heading"></h4>
+        </div>
+        <div class="modal-body">
+            <div id="errorFlashMsgDiv" flash-message="4000" class=""></div>
+            <!--passcode fields-->
+            <div class="row">
+
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <label  class="control-label col-sm-4" translate="login.pwd.label"> </label>
+                        <div class="col-sm-8">
+                            <input type="password" required placeholder="Enter password"  ng-model="vm.password"
+                                   class="form-control mandatory-mark" name="password">
+                            
+                             <span ng-show="(vm.form.password.$touched || vm.form.forgotPasscodeFormSubmmmited) && vm.form.password.$error.required"
+                                   ng-bind="'login.invalid.password.label'| translate " class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="passcode" translate="advice.passcode.label"></label>
+                        <div class="col-sm-8">
+                            <input type="password" required placeholder="Enter passcode"  ng-model="vm.passcode"
+                                   id="passcode" class="form-control mandatory-mark" name="passcode">
+                            
+                             <span ng-show="(vm.form.passcode.$touched || vm.form.forgotPasscodeFormSubmmmited) && vm.form.passcode.$error.required"
+                                   ng-bind="'passcode.required'| translate " class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" translate="forgot.confirm.passcode.label"></label>
+                        <div class="col-sm-8">
+                            <input type="password" required placeholder="Enter confirm passcode"  ng-model="vm.confirmPasscode"
+                                   id="resetPasscode" class="form-control mandatory-mark" name="confirmPasscode">
+                            
+                             <span ng-show="(vm.form.confirmPasscode.$touched || vm.form.forgotPasscodeFormSubmmmited) && vm.form.confirmPasscode.$error.required"
+                                   ng-bind="'confrm.passcode.required'| translate " class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--passcode fields-->
+
+
+        <div class="modal-footer text-center">
+            <button type="submit" class="btn greenbtn"  ng-click="" translate="button.submit">
+            </button>
+            <button type="button" ng-click="vm.closePopup()" class="btn redbtn" translate="button.cancel">
+            </button>
+        </div>
+    </form>
+</div>

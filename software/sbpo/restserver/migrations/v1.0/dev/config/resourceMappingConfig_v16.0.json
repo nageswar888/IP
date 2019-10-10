@@ -1,0 +1,14 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/user/verifyPassCode",
+      "roles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post", "get", "put", "delete"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post", "get", "put", "delete"]}
+      ]
+    }
+  ]
+}

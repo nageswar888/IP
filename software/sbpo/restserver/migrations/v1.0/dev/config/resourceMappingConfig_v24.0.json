@@ -1,0 +1,17 @@
+{
+  "resource-mapping":[
+    {
+      "resource": "/api/paymentRequests/byStatus",
+      "roles": [
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/paymentRequests/projects",
+      "roles": [
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["get"]}
+      ]
+    }
+  ]
+}

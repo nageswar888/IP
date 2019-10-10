@@ -1,0 +1,89 @@
+<div id="discollapseOne" class="panel-collapse collapse in">
+    <!--<div class="panel-body">-->
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <h2 class="advicecode">
+            <span class="advicecode" translate="payment.request.number.label"></span>
+            <span ng-bind="rpc.payment.paymentRequestNumber"></span>
+        </h2>
+        <div class="col-md-offset-1 col-md-10 col-sm-10 col-xs-10 advice-card">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="payment.req.card.requestOf.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rpc.payment.requestedUser.firstName | camelCase"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="payment.req.card.project.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rpc.payment.project.projectName"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="payment.req.card.pay.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rpc.payment.paymentType.name | camelCase"></p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+                <div ng-if="rpc.payment.adviceNumber" class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="advice.number.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rpc.payment.adviceNumber"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="payment.req.card.description.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rpc.payment.purpose | camelCase"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="payment.req.card.status.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rpc.payment.status | camelCase"></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-6 col-sm-6 col-xs-6" translate="payment.req.card.requestedDate.label"></label>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p ng-bind="rpc.payment.createdDate | dateFilter"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-10 col-sm-10 col-xs-10">
+            <div class="row form-group comment-overFlow">
+                <label class="text-right col-md-3 col-sm-3 col-xs-3 " translate="button.comments"></label>
+                <div class="col-md-9 col-sm-9 col-xs-9" ng-if="rpc.payment.comments.length==0">
+                    <p class="font-family-style grey-color" translate="advice.text.noComment"></p>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9 comment-font-style" >
+                    <div class="col-md-12 col-lg-12 col-sm-12" ng-hide="rpc.payment.comments.length==0" ng-repeat="comments in rpc.payment.comments | limitTo:rpc.limit">
+                        <i><a class="text-decuration-none" href="#"><b>{{comments.user.firstName | camelCase}} {{comments.user.lastName | camelCase}}</b></a> {{'comment.added.text'|translate}} {{comments.createdDate | dateFilterwithTime}}</i>
+                        <!--<p>{{'comment.added.text'|translate}} {{comments.createdDate | dateFilterwithTime}}</p>-->
+                        <p  class="font-family-style color-grey"  ng-bind="comments.text | camelCase"></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <a ng-if="rpc.payment.comments.length>2 && rpc.limit!==rpc.payment.comments.length" style="text-decoration: none;" href="#" ng-click="rpc.limitChange(rpc.payment.comments.length)" translate="comment.more.link"></a>
+                    <a ng-if="rpc.limit===rpc.payment.comments.length && rpc.payment.comments.length!=2" style="text-decoration: none;" href="#" ng-click="rpc.limitChange(2)" translate="coment.less.link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-align-center advice-card-progress">
+        <button type="button" class="btn btn-submit greenbtn"  ng-if="rpc.canViewButtons();" ng-click="rpc.processPaymentReq();"
+                translate="button.process"></button>
+        <button type="button" class="btn redbtn" ng-click="rpc.rejectPaymentRequest();"  ng-if="rpc.canViewButtons();"
+                translate="button.reject"></button>
+        <button type="button" class="btn redbtn" ng-click="rpc.deletePaymentRequestModal();" ng-if="rpc.canViewDeleteButton()"
+                translate="button.delete"></button>
+    </div>
+
+</div>

@@ -1,0 +1,39 @@
+<!--<div id="adviceFilterBox" ng-init="pac.freezeActionIcons()">
+    <div class="sortFilter">-->
+<div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+    <h3 class="text-center" translate="header.button.rejected.advice"></h3>
+</div>
+<div ng-hide="pac.message===null" class="row">
+    <div class="col-md-10 col-md-offset-1 "><div id="FlashMsgDiv" flash-message="2000"></div></div>
+</div>
+<div class="row padding-top-10 color-grey" ng-if="pac.showMessage">
+    <div class="grey-color text-align-center vertical-align-empty-err"><h4 class="" ng-bind="pac.noRecordMessage"></h4></div>
+</div>
+<div class="row margin-top-15" ng-if="$root.rejectedCount > 0">
+    <sort-advices group-by-status="pac.groupByStatus"
+                  get-advices-by-status="pac.getAdvicesByStatus(status,sortStatus,groupByStatus)"
+                  current-status="pac.currentStatus"
+                  delete-seleted-advices="pac.adviceToDelete"
+                  can-view-delete ="pac.canViewDeleteAdvicesOption()"
+                  download-all-advices-by-status ="pac.downloadAllAdvicesByStatus(status,type);">
+    </sort-advices>
+</div>
+<!--</div>-->
+<div class="margin-top-15" ng-if="$root.rejectedCount > 0"><!--class="groupFilter"-->
+    <uib-tabset active="active">
+        <uib-tab ng-repeat="tabs in pac.groupByFilters" heading="{{tabs.label | translate}}" ng-click="pac.groupByCriteria(tabs.key)">
+            <div class="row" ng-if="tabs.key === pac.groupByStatus">
+                <render-advices group-category="pac.groupByStatus" status="pac.status"
+                                data="pac.groupByCriteriaList.projects"  show-advices-in-table="false"
+                                get-delete-advices="pac.getDeleteAdvices(data)"
+                                can-view-delete ="pac.canViewDeleteAdvicesOption()"
+                                get-advices="pac.getAdvicesByStatus(pac.currentStatus, sortStatus, groupCategory, groupedData, projectId, payeeId)"
+                                group-by-criteria-list="pac.groupByCriteriaList">
+                </render-advices>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>
+
+<!--</div>-->
+

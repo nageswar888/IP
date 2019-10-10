@@ -1,0 +1,15 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/advices/listPayeeAdvices",
+      "disAllowRoles": [
+        {"name": "ROLE_INITIATOR", "permissions": ["post"]},
+        {"name": "ROLE_VIEWER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["post"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["post"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["post"]}
+      ]
+    }
+  ]
+}

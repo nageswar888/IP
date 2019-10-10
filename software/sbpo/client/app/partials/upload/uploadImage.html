@@ -1,0 +1,188 @@
+<div class="row">
+    <div class="col-sm-10">
+        <div id="customFlashMsgDiv" flash-message="2000" class=""></div>
+    </div>
+</div>
+<div class="row margin-top-30">
+    <div class="col-sm-12">
+        <div class="col-sm-3 vcenter">
+            <div class="form-group lbl-align">
+                <label translate="org.logo.label"></label>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-2 vcenter" ng-if="!!cfc.companyLogo.filename">
+            <img class="img-responsive load-image offset-1" src="data:{{cfc.companyLogo.filetype}};base64,{{cfc.companyLogo.base64}}" />
+            <div>
+                <a href="" ng-click="cfc.download(cfc.companyLogo,'logo')"><i href="" uib-tooltip="download" class="fa fa-download" aria-hidden="true"></i></a>
+                <a href="" ng-click="cfc.deleteStamps(cfc.companyLogo,'logo')"><i uib-tooltip="delete" class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="col-sm-7 vcenter margin-top-10">
+            <div class="form-group text-left">
+                <label id="companyLogoImgBtn" for="companyLogoImgId" class="upload-input-label-btn" translate="upload.file.label"></label>
+                <span ng-bind="cfc.logo.image.filename"></span>
+                <div ng-show="cfc.fileUploadErrors.logo"
+                      class="text-danger" ng-bind="'format.comp.logo.error' | translate:{type:'company logo'}"></div>
+                <input class="form-control browsel" id="companyLogoImgId" name="companyLogoImg" type="file" ng-change="cfc.saveImage(cfc.logo.image,'logo');"
+                       ng-model="cfc.logo.image"  base-sixty-four-input data-input="false" style="visibility: hidden">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3 vcenter">
+            <div class="form-group lbl-align">
+                <label translate="org.stamp.label"></label>
+            </div>
+        </div>
+
+        <div class="col-sm-2 vcenter" ng-if="!!cfc.companyStamp.filename">
+            <img class="img-responsive load-image offset-1" src="data:{{cfc.companyStamp.filetype}};base64,{{cfc.companyStamp.base64}}" />
+            <div>
+                <a href="" ng-click="cfc.download(cfc.companyStamp,'Company Stamp')"><i href="" uib-tooltip="download" class="fa fa-download" aria-hidden="true"></i></a>
+                <a href="" ng-click="cfc.deleteStamps(cfc.companyStamp,'Company Stamp')"><i uib-tooltip="delete" class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="col-sm-7 vcenter margin-top-10">
+            <div class="form-group text-left">
+                <label for="companyStampImg" class="upload-input-label-btn" translate="upload.file.label"></label>{{cfc.company.image.filename}}
+                <div ng-show="cfc.fileUploadErrors.company"
+                     class="text-danger" ng-bind="'format.image.error' | translate:{type:'stamp'}"></div>
+                <input class="form-control browsel" id="companyStampImg" type="file" ng-change="cfc.saveImage(cfc.company.image,cfc.companyStampType);"
+                       ng-model="cfc.company.image" base-sixty-four-input data-input="false" style="visibility: hidden">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3 vcenter">
+            <div class="form-group lbl-align">
+                <label translate="approved.stamp.label"></label>
+            </div>
+        </div>
+        <div class="col-sm-2 vcenter" ng-if="!!cfc.approvedStamp.filename"><img class="img-responsive load-image offset-1" src="data:{{cfc.approvedStamp.filetype}};
+                        base64,{{cfc.approvedStamp.base64}}" />
+            <div>
+                <a href="" ng-click="cfc.download(cfc.approvedStamp,'Approved Stamp')"><i href="" uib-tooltip="download" class="fa fa-download" aria-hidden="true"></i></a>
+                <a href="" ng-click="cfc.deleteStamps(cfc.approvedStamp,'Approved Stamp')"><i uib-tooltip="delete" class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="col-sm-7 vcenter margin-top-10">
+            <div class="form-group text-left">
+                <label for="approvedStampImg" class="upload-input-label-btn" translate="upload.file.label"></label>{{cfc.approved.image.filename}}
+                <div ng-show="cfc.fileUploadErrors.approved"
+                     class="text-danger" ng-bind="'format.image.error' | translate:{type:'approved stamp'}"></div>
+                <input class="form-control browsel" id="approvedStampImg" type="file" ng-change="cfc.saveImage(cfc.approved.image,cfc.approvedStampType);"
+                       ng-model="cfc.approved.image" base-sixty-four-input data-input="false" style="visibility: hidden">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3 vcenter">
+            <div class="form-group lbl-align">
+                <label translate="rejected.stamp.label"></label>
+            </div>
+        </div>
+        <div class="col-sm-2 vcenter" ng-if="!!cfc.rejectedStamp.filename"><img class="img-responsive load-image offset-1" src="data:{{cfc.rejectedStamp.filetype}};
+                        base64,{{cfc.rejectedStamp.base64}}" />
+            <div>
+                <a href="" ng-click="cfc.download(cfc.rejectedStamp,'Rejected Stamp')"><i href="" uib-tooltip="download" class="fa fa-download" aria-hidden="true"></i></a>
+                <a href="" ng-click="cfc.deleteStamps(cfc.rejectedStamp,'Rejected Stamp')"><i uib-tooltip="delete" class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+
+        <div class="col-sm-7 vcenter margin-top-10">
+            <div class="form-group text-left">
+                <label for="rejectedStampImg" class="upload-input-label-btn" translate="upload.file.label"></label>{{cfc.rejected.image.filename}}
+                <div ng-show="cfc.fileUploadErrors.rejected"
+                     class="text-danger" ng-bind="'format.image.error' | translate:{type:'rejected stamp'}"></div>
+                <input class="form-control browsel" id="rejectedStampImg" type="file" ng-change="cfc.saveImage(cfc.rejected.image,cfc.rejectedStampType);"
+                       ng-model="cfc.rejected.image" base-sixty-four-input data-input="false" style="visibility: hidden">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3 vcenter">
+            <div class="form-group lbl-align">
+                <label translate="void.stamp.label"></label>
+            </div>
+        </div>
+        <div class="col-sm-2 vcenter" ng-if="!!cfc.voidStamp.filename">
+            <img class="img-responsive load-image offset-1" src="data:{{cfc.voidStamp.filetype}};base64,{{cfc.voidStamp.base64}}" />
+            <div>
+                <a href="" ng-click="cfc.download(cfc.voidStamp,'Void Stamp')"><i href="" uib-tooltip="download" class="fa fa-download" aria-hidden="true"></i></a>
+                <a href="" ng-click="cfc.deleteStamps(cfc.voidStamp,'Void Stamp')"><i uib-tooltip="delete" class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+
+        <div class="col-sm-7 vcenter margin-top-10">
+            <div class="form-group text-left">
+                <label for="voidStampImg" class="upload-input-label-btn" translate="upload.file.label"></label>{{cfc.voidState.image.filename}}
+                <div ng-show="cfc.fileUploadErrors.voidState"
+                     class="text-danger" ng-bind="'format.image.error' | translate:{type:'void stamp'}"></div>
+                <input class="form-control browsel" id="voidStampImg" type="file" ng-change="cfc.saveImage(cfc.voidState.image,cfc.voidStampType);"
+                       ng-model="cfc.voidState.image" base-sixty-four-input data-input="false" style="visibility: hidden">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3 vcenter">
+            <div class="form-group lbl-align">
+                <label translate="disbursed.stamp.label"></label>
+            </div>
+        </div>
+        <div class="col-sm-2 vcenter" ng-if="!!cfc.disbursedStamp.filename">
+            <img class="img-responsive load-image offset-1" src="data:{{cfc.disbursedStamp.filetype}};base64,{{cfc.disbursedStamp.base64}}" />
+            <div>
+                <a href="" ng-click="cfc.download(cfc.disbursedStamp,'Disbursed Stamp')"><i href="" uib-tooltip="download" class="fa fa-download" aria-hidden="true"></i></a>
+                <a href="" ng-click="cfc.deleteStamps(cfc.disbursedStamp,'Disbursed Stamp')"><i uib-tooltip="delete" class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="col-sm-7 vcenter margin-top-10">
+            <div class="form-group text-left">
+                <label for="disbursedStampImg" class="upload-input-label-btn" translate="upload.file.label"></label>{{cfc.disbursed.image.filename}}
+                <div ng-show="cfc.fileUploadErrors.disbursed"
+                     class="text-danger" ng-bind="'format.image.error' | translate:{type:'disbursed stamp'}"></div>
+                <input class="form-control browsel" id="disbursedStampImg" type="file" ng-change="cfc.saveImage(cfc.disbursed.image,cfc.disbursedStampType);"
+                       ng-model="cfc.disbursed.image" base-sixty-four-input data-input="false" style="visibility: hidden">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8" ng-if="cfc.isSaveButtonShowing">
+            <button class="btn btn-submit btn-xl greenbtn"  ng-click="cfc.upload();">
+                <i class="glyphicon glyphicon-ok"></i>&nbsp;<span translate="button.save"></span>
+            </button>
+            <button class="btn btn-primary redbtn"
+                    ng-click="cfc.cancelUpload();" translate="button.cancel">
+            </button>
+        </div>
+    </div>
+</div>

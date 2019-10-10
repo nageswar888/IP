@@ -1,0 +1,31 @@
+<div style="max-width: 700px">
+    <div class="modal-header text-center">
+        <h3 class="modal-title" ng-bind="'edit.mobil.label' | translate"></h3>
+    </div>
+    <form name="editMobileForm" role="form" novalidate>
+        <div class="modal-body">
+            <div id="errorFlashMsgDiv" flash-message="4000" class=""></div>
+            <div class="row">
+                <div class="col-sm-9 col-md-offset-1">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">Mobile No</label>
+                        <div class="col-xs-9">
+
+                            <input type="text" name="mobileno" id='mobileno' class="form-control text-left" ng-model="mobile" placeholder="{{'mobile.label' | translate}}"
+                                   ng-minlength="10" ng-maxlength="10" ng-pattern="/^[0-9]{10,10}$/" required>
+                        <span ng-show="(editMobileForm.mobileno.$touched || editMobileForm.adminSubmitted) && (editMobileForm.mobileno.$error.pattern)" class="text-danger"
+                              class="text-danger" translate="Invalid.mob"></span>
+                            <span ng-show="editMobileForm.mobileno.$touched  && editMobileForm.mobileno.$error.required" translate="mobno.required" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer text-center">
+            <button type="button" ng-click="editMobile(editMobileForm)" class="btn greenbtn" translate="button.save">
+            </button>
+            <button ng-click="cancleEditForm()" class="btn redbtn" translate="button.cancel">
+            </button>
+        </div>
+    </form>
+</div>

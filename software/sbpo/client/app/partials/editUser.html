@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+
+        <div class="modal-header">
+            <h3 class="modal-title text-align-center" translate="edit.user.heading"></h3>
+        </div>
+        <div id="userFlashMsgDiv" flash-message="2000" class="flash-error-msg-padding"></div>
+
+
+        <div class="modal-body">
+            <form name="editUserForm" class="form-horizontal" role="form" ng-submit="ec.editUser(editUserForm)">
+                <div class="row margin-bottom-10x margin-to10x">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="first.name.label"></label></div>
+                            <div class="col-sm-8">
+                                <input type="text" name="firstName" class="form-control input-field-widt mandatory-mark"
+                                       ng-model="ec.user.firstName" placeholder="First name"
+                                       ng-maxlength="ec.nameLength " required>
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/"  ng-maxlength="ec.nameLength " required>-->
+                                <span ng-show="editUserForm.firstName.$dirty && editUserForm.firstName.$error.required"
+                                      class=" error-msg text-danger" ng-bind="'payee.name.required' | translate"></span>
+                                <!--<span ng-show="editUserForm.firstName.$dirty && editUserForm.firstName.$error.pattern"
+                                      class=" error-msg text-danger" ng-bind="'admin.user.name.alphabet.msg' | translate"></span>-->
+                                <span ng-show="(editUserForm.firstName.$touched || editUserForm.userFormSubmitted) && editUserForm.firstName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="middle.name.label"></label></div>
+                            <div class="col-sm-8">
+                                <input type="text" name="middleName" class="form-control input-field-widt" ng-model="ec.user.middleName"
+                                       ng-maxlength="ec.nameLength "   placeholder="Middle name" >
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/"  ng-maxlength="ec.nameLength "   placeholder="Middle name" >-->
+                                <!--<span ng-show="editUserForm.middleName.$dirty && editUserForm.middleName.$error.pattern" class=" error-msg text-danger"
+                                      ng-bind="'admin.user.mname.alphabet.msg' | translate"></span>-->
+                                <span ng-show="(editUserForm.middleName.$touched || editUserForm.userFormSubmitted) && editUserForm.middleName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row margin-bottom-10x margin-to10x">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="last.name.label"></label></div>
+                            <div class="col-sm-8">
+                                <input type="text" name="lastName" class="form-control input-field-widt mandatory-mark" ng-model="ec.user.lastName"
+                                       placeholder="Last name" ng-maxlength="ec.nameLength "  required>
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/"  placeholder="Last name" ng-maxlength="ec.nameLength "  required>-->
+                                <span ng-show="editUserForm.lastName.$dirty && editUserForm.lastName.$error.required" class=" error-msg text-danger"
+                                      ng-bind="'user.lastName.required' | translate"></span>
+                                <!--<span ng-show="editUserForm.lastName.$dirty && editUserForm.lastName.$error.pattern" class="text-danger"
+                                      ng-bind="'admin.user.lname.alphabet.msg' | translate"></span>-->
+                                <span ng-show="(editUserForm.lastName.$touched || editUserForm.userFormSubmitted) && editUserForm.lastName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="email.label"></label></div>
+                            <div class="col-sm-8">
+                                <input type="email" name="email" class="form-control input-field-widt mandatory-mark" ng-model="ec.user.email" placeholder="Email id" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-10x margin-to10x">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="mobile.no.label"></label></div>
+                            <div class="col-sm-8">
+                                <input type="text" name="phoneNumber" class="form-control input-field-widt mandatory-mark"
+                                       ng-model="ec.user.mobileno" ng-pattern="/^[0-9]{10,10}$/" placeholder="Phone number" required>
+                                <span ng-show="editUserForm.phoneNumber.$dirty && editUserForm.phoneNumber.$error.required" class="text-danger error-msg"
+                                      ng-bind="'mobno.required' | translate"></span>
+                                <span ng-show="(editUserForm.phoneNumber.$touched || editUserForm.phoneNumber.$dirty) && editUserForm.phoneNumber.$error.pattern"
+                                      class="text-danger" ng-bind="'Invalid.mob' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="col-sm-4 lbl-align"><label translate="user.roles.label"></label></div>
+                            <div class="col-sm-8">
+                                <ui-select name="roles" ng-model="ec.user.roles" multiple theme="bootstrap" class="input-field-widt mandatory-mark" on-remove="ec.removed()" required>
+                                    <ui-select-match  allow-clear="true" placeholder="Select role">{{$item.label}}</ui-select-match>
+                                    <ui-select-choices repeat="item.key as item in ec.roles | filter: $select.search | orderBy:'label'">
+                                        {{item.label}}
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span ng-show="(editUserForm.roles.$dirty || editUserForm.roles.$touched) && editUserForm.roles.$error.required" class="text-danger"
+                                      ng-bind="'role.required' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row margin-bottom-10x ">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group"  ng-if="ec.isPaymentRequesterRole">
+                            <label class="col-sm-4 lbl-align"  ng-bind="'user.project.label' | translate"></label>
+                            <div class="col-sm-8">
+                                <ui-select  ng-model="ec.user.project" name="projName" theme="bootstrap" class="mandatory-mark" required>
+                                    <ui-select-match placeholder="Select project" allow-clear="true">{{$select.selected.projectName}}</ui-select-match>
+                                    <ui-select-choices repeat="item in ec.projects | filter: $select.search"  refresh="ec.getAllProjects($select.search)" refresh-delay="0" >
+                                        <span ng-bind="item.projectName"></span>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                </ui-select>
+
+                                <span ng-show="(editUserForm.projName.$dirty || editUserForm.projName.$touched) && editUserForm.projName.$error.required" class="text-danger"
+                                      ng-bind="'advice.selectProject.errMsg' | translate"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer text-align-center">
+                    <button type="submit"  class="btn btn-submit greenbtn" translate="user.button.edit">
+                    </button>
+
+                    <button type="button" ng-click="ec.closeEditModal()" class="btn redbtn" translate="button.cancel">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

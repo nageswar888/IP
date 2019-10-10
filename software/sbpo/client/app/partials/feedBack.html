@@ -1,0 +1,67 @@
+<div id="feedbackMsgDiv" flash-message="2000" class=""></div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="feedbackform avide-footer col-md-10 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="feedheading text-center">
+                <img src="/app/images/feed.png" />
+                <p translate="feedback.heading"></p>
+            </div>
+        </div>
+
+        <form name="feedBackForm" role="form" ng-submit="fc.sendFeedbackMail(feedBackForm);" novalidate class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12 col-sm-12 col-xs-12 inlineradioinput">
+                    <label class="radio-inline"><input type="radio" ng-model="fc.feedbackValue" value="Bug" name="feedbackOption" checked="checked">
+                        <span translate="feedback.radio.bug"></span>
+                    </label>
+                    <label class="radio-inline"><input type="radio" ng-model="fc.feedbackValue" value="Suggestion" name="feedbackOption">
+                        <span translate="feedback.radio.enhancement"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label col-xs-3">
+                    <label translate="feedback.title.label"></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" name="title" ng-maxlength="fc.titleLength" placeholder="Enter title" ng-model="fc.title" class="form-control mandatory-mark" required>
+                    <div ng-show="feedBackForm.$submitted || feedBackForm.title.$touched" >
+                        <span ng-show="feedBackForm.title.$error.required " class="text-danger" translate="title.required.label"></span>
+                        <span ng-show="feedBackForm.title.$touched && feedBackForm.title.$error.maxlength"
+                              class="text-danger" ng-bind="'feedback.size.max' | translate:{maxlength:fc.titleLength}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-xs-3">
+                    <label translate="feedback.description.label"></label>
+                </div>
+                <div class="col-xs-9">
+                    <textarea class="form-control" rows="3" ng-model="fc.description"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-xs-3">
+                    <label translate="feedback.reportedby.label"></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" name="reportedBy" ng-maxlength="fc.reportedBYLength" placeholder="Reportedby"  class="form-control" ng-model="fc.reportedBy">
+                    <span ng-show="feedBackForm.reportedBy.$touched && feedBackForm.reportedBy.$error.maxlength"
+                          class="text-danger" ng-bind="'feedback.size.max' | translate:{maxlength:fc.reportedBYLength}"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-5 col-xs-9">
+                    <div class="colorbtn">
+                        <button type="submit" class="btn btn-primary greenbtn" translate="button.submit"></button>
+                        <button type="reset" class="btn btn-primary redbtn" ng-click="fc.RedirectPage();">
+                            <span ng-bind="'button.cancel' | translate"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

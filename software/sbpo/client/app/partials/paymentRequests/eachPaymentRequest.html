@@ -1,0 +1,35 @@
+<div class="col-md-1 sub-advice-card-check-box"  ng-if="rprc.canView();">
+    <input type="checkbox"  class="margin-0" ng-if="rprc.canView();" ng-model="rprc.paymentReqSelection[paymentRequestDetails._id]"
+           ng-click="rprc.deletePaymentRequests();rprc.enableDisableParentChekBox(rprc.paymentReqSelection[paymentRequestDetails._id],parentIndex)"/>
+</div>
+<div uib-accordion-group class="each-org top-panel-group group-by-color remove-plus" ng-class="{'tab-expanded':paymentRequestDetails.open}" is-open="paymentRequestDetails.open">
+    <uib-accordion-heading>
+        <div ng-click="rprc.getPaymentRequestById(paymentRequestDetails)" class="row header-link" ng-class="{'left-border':rprc.canView()}">
+            <div class="col-md-4 advice-card-payee-header">
+                <b ng-if="paymentRequestDetails.payee.user !== undefined"
+                   class="advicename" ng-bind="paymentRequestDetails.payee.user | nameFilter | camelCase"></b>
+            </div>
+            <div class="col-md-2" ng-if="paymentRequestDetails.status=='REJECTED'" >
+                <div class="color-red" title="Rejected" >
+                    <i class="fa fa-ban font-aws-icon-size" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div title="Processed" class="" ng-if="paymentRequestDetails.status=='APPROVED'" >
+                    <i class="fa fa-check-circle-o font-aws-icon-size" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="col-md-5 advice-card-money-header">
+                <span>
+                    <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;
+                    <span class="noprice" ng-bind="paymentRequestDetails.amount | indianAmtMatric"></span>&nbsp;
+                    (<span ng-bind="paymentRequestDetails.amount | filterAmount"></span>)
+                </span>
+            </div>
+
+        </div>
+    </uib-accordion-heading>
+    <div class="" ng-if="paymentRequestDetails.open">
+        <render-payment-request payment="paymentRequestDetails"></render-payment-request>
+    </div>
+</div>

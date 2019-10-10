@@ -1,0 +1,15 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/logo/downloadLogo",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]}
+      ]
+    },{
+      "resource": "/api/organization/deleteStamps",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post", "get", "put", "delete"]}
+      ]
+    }
+  ]
+}

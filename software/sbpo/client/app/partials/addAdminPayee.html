@@ -1,0 +1,179 @@
+<div id="addpayee" class="tab-pane fade in fade active" name="addPayeeForm" >
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div id="payeeFlashMsgDiv" flash-message="2000" class=""></div>
+            </div>
+            <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center margin-bottom-10">
+                <h3 translate="button.add.payee"></h3>
+            </div>
+            </div>
+            <div class="row">
+            <form name="aapc.forms" role="form" ng-submit="aapc.submitAdminPayee()" class="form-horizontal" novalidate>
+                <div class="row margin-bottom-10">
+                    <div class="col-md-8">
+                        <span class="heading-font" ng-bind="'payee.add.user.details.label' | translate"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="firstName" class="control-label col-xs-3" ng-bind="'first.name.label' | translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="firstName" id="firstName" class="form-control mandatory-mark" ng-model="aapc.admin.firstName"
+                                       ng-maxlength="{{aapc.payeeNameMaxLength}}" placeholder="{{'first.name.label' | translate}}" required>
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength="{{aapc.payeeNameMaxLength}}" placeholder="{{'first.name.label' | translate}}" required>-->
+                                <span ng-show="(aapc.forms.firstName.$touched || aapc.forms.adminSubmitted) && aapc.forms.firstName.$error.required"
+                                      ng-bind="'user.firstName.required'| translate " class="text-danger">
+                                </span>
+                                <span ng-show="(aapc.forms.firstName.$touched || aapc.forms.adminSubmitted) && aapc.forms.firstName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                                <!--<span ng-show="(aapc.forms.firstName.$touched || aapc.forms.adminSubmitted) && aapc.forms.firstName.$error.pattern" class="text-danger" ng-bind="'admin.user.name.alphabet.msg' | translate"></span>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName" class="control-label col-xs-3" ng-bind="'last.name.label' | translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="lastName" id='lastName' class="form-control mandatory-mark" ng-model="aapc.admin.lastName"
+                                        ng-maxlength="{{aapc.payeeNameMaxLength}}" placeholder="{{'last.name.label' | translate}}" required>
+                                    <!--   ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength="{{aapc.payeeNameMaxLength}}" placeholder="{{'last.name.label' | translate}}" required>-->
+                                <span ng-show="(aapc.forms.lastName.$touched || aapc.forms.adminSubmitted) && aapc.forms.lastName.$error.required" class="text-danger"
+                                      ng-bind="'user.lastName.required' | translate"></span>
+                                <span ng-show="(aapc.forms.lastName.$touched || aapc.forms.adminSubmitted) && aapc.forms.lastName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                                <!--<span ng-show="(aapc.forms.lastName.$touched || aapc.forms.adminSubmitted) && aapc.forms.lastName.$error.pattern"
+                                      class="text-danger" ng-bind="'admin.user.lname.alphabet.msg' | translate"></span>-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobileno" class="control-label col-xs-3" ng-bind="'mobile.label' | translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="mobileno" id='mobileno' class="form-control mandatory-mark" ng-model="aapc.admin.mobileno"
+                                       ng-pattern="/^[0-9]{10,10}$/" ng-maxlength="10" ng-minlength="10"  placeholder="{{'mobile.no.label' | translate}}" required>
+                        <span ng-show="(aapc.forms.mobileno.$touched || aapc.forms.adminSubmitted ) && aapc.forms.mobileno.$error.required" class=" text-danger"
+                              ng-bind="'mobno.required' | translate"></span>
+                        <span ng-show="(aapc.forms.mobileno.$touched || aapc.forms.adminSubmitted) && aapc.forms.mobileno.$error.pattern"
+                              class="text-danger"  ng-bind="'Invalid.mob' | translate"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="middleName" class="control-label col-xs-3"  ng-bind="'middle.name.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="middleName" id='middleName' class="form-control" ng-model="aapc.admin.middleName"
+                                       ng-maxlength="{{aapc.payeeNameMaxLength}}" placeholder="Middle name" >
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/"  ng-maxlength="{{aapc.payeeNameMaxLength}}" placeholder="Middle name" >-->
+                                <!--<span ng-show="(aapc.forms.middleName.$touched || aapc.forms.adminSubmitted) && aapc.forms.middleName.$error.pattern"
+                                      class="text-danger" ng-bind="'admin.user.mname.alphabet.msg' | translate"></span>-->
+                                <span ng-show="(aapc.forms.middleName.$touched || aapc.forms.adminSubmitted) && aapc.forms.middleName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="control-label col-xs-3" ng-bind="'user.email.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="email" name="email" id='email' class="form-control mandatory-mark" ng-model="aapc.admin.email" placeholder="{{'email.label' | translate}}"
+                                       ng-minlength="4" required>
+                        <span ng-show="(aapc.forms.email.$touched || aapc.forms.adminSubmitted) && aapc.forms.email.$error.required"
+                              translate="email.required" class="text-danger"></span>
+                        <span ng-show="(aapc.forms.email.$touched || aapc.forms.email.$dirty || aapc.forms.adminSubmitted) && aapc.forms.email.$error.email"
+                              class="text-danger" translate="invalid.email.message"></span>
+                        <span ng-show="(aapc.forms.email.$touched || aapc.forms.adminSubmitted) && aapc.forms.email.$error.minlength"
+                              class="text-danger" translate="invalid.email.minlength"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nickName" class="control-label col-xs-3" ng-bind="'user.nickName.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="nickName" id='nickName' class="form-control mandatory-mark" ng-model="aapc.admin.nickName"
+                                       placeholder="{{'nickName.label' | translate}}" ng-maxlength="{{aapc.payeeNickNameMaxLength}}" required>
+                                <span ng-show="(aapc.forms.nickName.$touched || aapc.forms.adminSubmitted) && aapc.forms.nickName.$error.required"
+                                      translate="nickName.required" class="text-danger"></span>
+                                <span ng-show="(aapc.forms.nickName.$touched || aapc.forms.adminSubmitted) && aapc.forms.nickName.$error.maxlength"
+                                      class="text-danger" ng-bind="'max.custom.error' | translate:{ max:aapc.payeeNickNameMaxLength}"></span>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="payeeNumber" class="control-label col-xs-3"  ng-bind="'admin.payee.num.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="payeeNumber" id='payeeNumber' class="form-control mandatory-mark" ng-model="aapc.admin.payeeNumber"
+                                       ng-pattern="/^[0-9]{8}$/"  placeholder="{{'payee.num.label' | translate}}" required>
+                        <span ng-show="(aapc.forms.payeeNumber.$touched || aapc.forms.adminSubmitted ) && aapc.forms.payeeNumber.$error.required"
+                              class=" text-danger"
+                              ng-bind="'payee.number.required' | translate"></span>
+                        <span ng-show="(aapc.forms.payeeNumber.$touched || aapc.forms.adminSubmitted) && aapc.forms.payeeNumber.$error.pattern"
+                              class="text-danger" ng-bind="'payee.number.validation.msg' | translate"></span>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-10">
+                    <div class="col-md-9 col-sm-12">
+                        <span class="heading-font" ng-bind="'payee.add.bank.details.label' | translate"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="bankName" class="control-label col-xs-3"  ng-bind="'admin.payee.bank.name.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="bankName" id="bankName" class="form-control" ng-model="aapc.admin.bankName"
+                                       ng-maxlength="20"  placeholder="{{'payee.bank.name.label' | translate}}">
+                        <span ng-show="(aapc.forms.bankName.$touched || aapc.forms.bankName.$dirty || aapc.forms.adminSubmitted) && aapc.forms.bankName.$error.maxlength"
+                              class="text-danger" translate="name.size.max"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bankBranch" class="control-label col-xs-3"  ng-bind="'admin.payee.bank.branch.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="bankBranch" id="bankBranch" class="form-control" ng-model="aapc.admin.bankBranch"
+                                       ng-maxlength="20"  placeholder="{{'payee.bank.branch.label' | translate}}">
+                        <span ng-show="(aapc.forms.bankBranch.$touched || aapc.forms.bankBranch.$dirty || aapc.forms.adminSubmitted) && aapc.forms.bankBranch.$error.maxlength"
+                              class="text-danger" translate="name.size.max"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="ifscCode" class="control-label col-xs-3"  ng-bind="'admin.payee.ifsc.code.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="ifscCode" id="ifscCode" class="form-control" ng-model="aapc.admin.ifscCode"
+                                       ng-maxlength="20"  placeholder="{{'payee.ifsc.code.label' | translate}}">
+                        <span ng-show="(aapc.forms.ifscCode.$touched || aapc.forms.ifscCode.$dirty || aapc.forms.adminSubmitted) && aapc.forms.ifscCode.$error.maxlength"
+                              class="text-danger" translate="name.size.max"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountNo" class="control-label col-xs-3"  ng-bind="'admin.payee.account.num.label'|translate"></label>
+                            <div class="col-xs-9">
+                                <input type="text" name="accountNo" id="accountNo" class="form-control" ng-model="aapc.admin.accountNumber"
+                                       ng-maxlength="20"  placeholder="{{'payee.account.num.label' | translate}}">
+                                <span ng-show="(aapc.forms.accountNo.$touched || aapc.forms.accountNo.$dirty || aapc.forms.adminSubmitted) && aapc.forms.accountNo.$error.maxlength"
+                                      class="text-danger"  ng-bind="'account.max.length.error' | translate:{ max:20}" ></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-xs-offset-5 col-xs-6">
+                        <div class="colorbtn">
+                            <button type="submit" class="btn btn-primary greenbtn" translate="button.save"></button>
+                            <button type="submit" class="btn btn-primary redbtn"  ui-sref="admin.payeetbl" translate="button.cancel"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

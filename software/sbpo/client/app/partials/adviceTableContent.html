@@ -1,0 +1,56 @@
+<table id="allAdvicesTable"
+       ng-table="atc.tableParams"
+       class="table table-bordered table-striped all-advice-table" show-filter="false" >
+
+    <tr ng-repeat="advice in $data" ng-class-odd="'odd'" >
+
+        <td ng-if="!atc.hideColumns.payeeName" title="'Payee'"
+            sortable="'payee.user.firstName'" class="ng-table-fixedcolumn-right" header-class="'ng-table-fixedcolumn-right tableHeader'"
+            data-ng-click="atc.viewAdviceDetails({advice: advice})">
+            <span ng-bind="advice.payee.user | nameFilter | camelCase"></span>
+        </td>
+
+        <td title="'Requested Amount'" sortable="'requestedAmount'"  header-class="'tableHeader'"
+            data-ng-click="atc.viewAdviceDetails({advice: advice})" ng-bind="advice.requestedAmount | indianAmtMatric"></td>
+
+        <td ng-if="!atc.hideColumns.projectName" title="'Project'"
+            sortable="'project.projectName'" header-class="'tableHeader'" data-ng-click="atc.viewAdviceDetails({advice: advice})"
+            ng-bind="advice.project.projectName"></td>
+
+        <td class="{{PaymentAdviceNumber}}" title="'Payment Advice Number'"
+            sortable="'adviceNumber'" header-class="'tableHeader'" data-ng-click="atc.viewAdviceDetails({advice: advice})"
+            ng-bind="advice.adviceNumber"></td>
+
+        <td title="'Advice'"  header-class="'ng-table-search-fixedcolumn tableHeader'">
+            <a ng-if="advice.version == '1.0'" href="#" ng-if="advice.adviceStatus == 'Disbursed'"
+               data-ng-click="atc.downloadAdvicePdf(advice._id)">
+                <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+            </a>
+            <div ng-if="advice.version != '1.0'" uib-dropdown >
+                <div uib-dropdown-toggle >
+                    <a href="#" ng-if="advice.adviceStatus == 'Disbursed'">
+                        <i class="fa fa-files-o fa-2x" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <ul class="dropdown-menu download-tab remove-ul-padding pull-right" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                    <!--latest-->
+                    <li role="menuitem" class="li-padding-class cursor-pointer" data-ng-click="atc.downloadAdvicePdf(advice._id)">
+                        <div class="font-size-15px">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <span translate="label.advice.latest"></span>
+                        </div>
+                    </li>
+                    <li role="menuitem" class="li-padding-class cursor-pointer" data-ng-click="atc.downloadAdvicePdf(revision._id)"
+                        ng-repeat="revision in advice.revisions | reverse track by $index">
+                        <div class="font-size-15px">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <span ng-bind="revision.modifiedDate | dateFilterWithAMPM"></span>
+                            <span>{{revision.version | currency:"V":0}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+
+</table>

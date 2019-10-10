@@ -1,0 +1,28 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/lib/node_modules/npm/bin/npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '--scripts-prepend-node-path=auto' ]
+2 info using npm@3.5.2
+3 info using node@v10.16.0
+4 verbose stack Error: Cannot find module 'internal/util/types'
+4 verbose stack     at Function.Module._resolveFilename (internal/modules/cjs/loader.js:636:15)
+4 verbose stack     at Function.Module._load (internal/modules/cjs/loader.js:562:25)
+4 verbose stack     at Module.require (internal/modules/cjs/loader.js:690:17)
+4 verbose stack     at require (internal/modules/cjs/helpers.js:25:18)
+4 verbose stack     at evalmachine.<anonymous>:44:31
+4 verbose stack     at Object.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/cmd-shim/node_modules/graceful-fs/fs.js:11:1)
+4 verbose stack     at Module._compile (internal/modules/cjs/loader.js:776:30)
+4 verbose stack     at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+4 verbose stack     at Module.load (internal/modules/cjs/loader.js:653:32)
+4 verbose stack     at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+5 verbose cwd /home/sk-18/WebstormProjects/SBPO/software/sbpo/client
+6 error Linux 4.15.0-58-generic
+7 error argv "/usr/local/bin/node" "/usr/local/lib/node_modules/npm/bin/npm-cli.js" "install" "--scripts-prepend-node-path=auto"
+8 error node v10.16.0
+9 error npm  v3.5.2
+10 error code MODULE_NOT_FOUND
+11 error Cannot find module 'internal/util/types'
+12 error If you need help, you may report this error at:
+12 error     <https://github.com/npm/npm/issues>
+13 verbose exit [ 1, true ]

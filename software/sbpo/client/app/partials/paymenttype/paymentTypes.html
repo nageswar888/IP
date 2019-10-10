@@ -1,0 +1,87 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-7 col-sm-7 col-xs-7">
+        <div id="customFlashMsgDiv" flash-message="4000" class=""></div>
+        <form name="ptc.forms" role="form"   novalidate>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf padding-none fixed-table">
+                            <thead>
+                            <tr>
+                                <th translate="paymentType.label" class="text-left"></th>
+                                <th translate="description.label" class="text-left"></th>
+                                <th translate="action.label" class="text-left"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr ng-repeat="paymentType in ptc.paymentTypes track by $index">
+                                <td>
+                                    <span ng-if="!paymentType.edit" ng-bind="paymentType.name | camelCase"></span>
+                                    <input ng-if="paymentType.edit" type="text" name="paymentType_{{$index}}" id="paymentType"
+                                           class="form-control mandatory-mark text-left"
+                                           ng-model="paymentType.name" placeholder="{{'paymentType.label' | translate}}"
+                                           ng-maxlength="{{ptc.paymentTypeNameMaxlen}}" required>
+                                    <span ng-show="((ptc.forms['paymentType_' + $index].$dirty || ptc.forms['paymentType_' + $index].$touched) &&
+                                     paymentType.edit) &&  ptc.forms['paymentType_' + $index].$error.maxlength"
+                                          class="text-danger" ng-bind="'max.custom.error' | translate:{ max:20}"></span>
+                                    <span ng-show="(ptc.forms['paymentType_' + $index].$touched || ptc.forms.$submitted) &&  ptc.forms['paymentType_' + $index].$error.required"
+                                          class="text-danger" ng-bind="'paymentType.required' | translate"></span>
+                                </td>
+                                <td>
+                                    <span ng-if="!paymentType.edit" ng-bind="paymentType.description | camelCase"></span>
+
+                                <textarea ng-if="paymentType.edit"  type="text" rows="1"
+                                          class="form-control  height-35px text-left"
+                                          ng-model="paymentType.description"
+                                          placeholder="{{'description.label' | translate}}">
+                                </textarea>
+                                </td>
+                                <td>
+                                    <a ng-if="paymentType.edit" href="" ng-click="ptc.removePaymentType($index, paymentType);" uib-tooltip="close"
+                                       class="color-red">
+                                        <i class="fa fa-1x fa-times" aria-hidden="true"></i>
+                                    </a>
+                                    <div ng-if="!paymentType.edit">
+                                        <a href="javascript:;" ng-click="ptc.editPaymentType(paymentType)" uib-tooltip="edit" class="margin-right-5">
+                                            <img src="/app/images/action1.png"/>
+                                        </a>
+                                        <a href="javascript:;" ng-click="ptc.deletePaymentType(paymentType.id)" uib-tooltip="delete">
+                                            <img src="/app/images/action2.png" />
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-10 col-sm-10">
+                <div class="col-sm-6">
+                    <button class="btn btn-default"  type="button" uib-tooltip="Add Payment Type" ng-click="ptc.addPaymentType();">
+                        <i class="fa fa-1x fa-plus" aria-hidden="true"></i>&nbsp;<span translate="button.add"></span>
+                    </button>
+                </div>
+                <div class="col-sm-6" ng-if="ptc.isContainEditedRows()">
+                    <button class="btn btn-submit btn-xl greenbtn pull-right" uib-tooltip="Save payment Type" ng-click="ptc.savePaymentType()">
+                        <i class="glyphicon glyphicon-ok"></i>&nbsp;<span translate="button.save"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5 col-sm-5 col-xs-5">
+        <div class="row bs-example">
+            <div class="col-md-12 col-sm-12 text-center">
+                <i class="fa fa-question-circle fa-2x" aria-hidden="true" uib-tooltip="Help text"></i>
+            </div>
+            <div class="help-text">
+                <ul class="help-list">
+                    <li translate="label.payment.help1"></li>
+                    <li translate="label.payment.help2"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

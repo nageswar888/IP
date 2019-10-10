@@ -1,0 +1,168 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center" translate="payee.edit.heading"></h3>
+        </div>
+        <div id="payeeEditFlashMsgDiv" flash-message="2000" class="flash-error-msg-padding"></div>
+
+        <div class="modal-body">
+            <form name="editPayeeForm" class="form-horizontal" role="form" id="editPayeeForm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" ng-bind="'first.name.label' | translate"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="firstName" id="firstName" class="form-control mandatory-mark text-left" ng-model="payee.user.firstName"
+                                        ng-maxlength="{{payeeNameMaxLength}}" placeholder="{{'first.name.label' | translate}}" required>
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength="{{payeeNameMaxLength}}" placeholder="{{'first.name.label' | translate}}" required>-->
+                                <span ng-show="(editPayeeForm.firstName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.firstName.$error.required"
+                                      ng-bind="'user.firstName.required'| translate " class="text-danger">
+                                </span>
+                                <span ng-show="(editPayeeForm.firstName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.firstName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                                <!--<span ng-show="(editPayeeForm.firstName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.firstName.$error.pattern" class="text-danger" ng-bind="'admin.user.name.alphabet.msg' | translate"></span>-->
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"  ng-bind="'last.name.label' | translate"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="lastName" id='lastName' class="form-control mandatory-mark text-left" ng-model="payee.user.lastName"
+                                        ng-maxlength="{{payeeNameMaxLength}}" placeholder="{{'last.name.label' | translate}}" required>
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength="{{payeeNameMaxLength}}" placeholder="{{'last.name.label' | translate}}" required>-->
+                                <span ng-show="(editPayeeForm.lastName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.lastName.$error.required" class="text-danger"
+                                      ng-bind="'user.lastName.required' | translate"></span>
+                                <span ng-show="(editPayeeForm.lastName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.lastName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                                <!--<span ng-show="(editPayeeForm.lastName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.lastName.$error.pattern"
+                                      class="text-danger" ng-bind="'admin.user.lname.alphabet.msg' | translate"></span>-->
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"  ng-bind="'mobile.label' | translate"></label>
+                            <div class="col-sm-8"><input type="text" name="mobileno" id='mobileno' class="form-control mandatory-mark text-left" ng-model="payee.user.phoneNumber"
+                                                         ng-pattern="/^[0-9]{10,10}$/" ng-maxlength="{{payeeMobileMaxLength}}" ng-minlength="{{payeeMobileMinLength}}"  placeholder="{{'mobile.no.label' | translate}}" required>
+                        <span ng-show="(editPayeeForm.mobileno.$touched || editPayeeForm.adminSubmitted ) && editPayeeForm.mobileno.$error.required" class=" text-danger"
+                              ng-bind="'mobno.required' | translate"></span>
+                        <span ng-show="(editPayeeForm.mobileno.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.mobileno.$error.pattern"
+                              class="text-danger"  ng-bind="'Invalid.mob' | translate"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" translate="user.nickName.label"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="nickName" id="nickName" class="form-control text-left mandatory-mark"
+                                       ng-model="payee.nickName" placeholder="{{'nickName.label' | translate}}"
+                                       ng-maxlength="{{payeeNickNameMaxLength}}" required>
+                                <span ng-show="(editPayeeForm.nickName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.nickName.$error.required"
+                                      translate="nickName.required" class="text-danger"></span>
+                                <span ng-show="(editPayeeForm.nickName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.nickName.$error.maxlength"
+                                      class="text-danger" ng-bind="'max.custom.error' | translate:{ max:payeeNickNameMaxLength}"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"  ng-bind="'middle.name.label'|translate"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="middleName" id='middleName' class="form-control  text-left" ng-model="payee.user.middleName"
+                                        ng-maxlength="{{payeeNameMaxLength}}" placeholder="Middle name" >
+                                       <!--ng-pattern="/^[a-zA-Z\s]*$/"  ng-maxlength="{{payeeNameMaxLength}}" placeholder="Middle name" >-->
+                                <!--<span ng-show="(editPayeeForm.middleName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.middleName.$error.pattern"
+                                      class="text-danger" ng-bind="'admin.user.mname.alphabet.msg' | translate"></span>-->
+                                <span ng-show="(editPayeeForm.middleName.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.middleName.$error.maxlength"
+                                      class="text-danger" ng-bind="'name.size.max' | translate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" translate="user.email.label"></label>
+                            <div class="col-sm-8"><input type="email" name="email" id='email' class="form-control text-left mandatory-mark" ng-model="payee.user.email" placeholder="{{'email.label' | translate}}"
+                                                         ng-minlength="{{emailMaxLength}}" disabled>
+                            <span ng-show="(editPayeeForm.email.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.email.$error.required"
+                                  translate="email.required" class="text-danger"></span>
+                                <span ng-show="(editPayeeForm.email.$touched || editPayeeForm.email.$dirty || editPayeeForm.adminSubmitted) && editPayeeForm.email.$error.email" class="text-danger" translate="invalid.email.message"></span>
+                                <span ng-show="(editPayeeForm.email.$touched || editPayeeForm.adminSubmitted) && editPayeeForm.email.$error.minlength" class="text-danger" translate="invalid.email.minlength"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"  ng-bind="'admin.payee.num.label'|translate"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="payeeNumber" id='payeeNumber' class="form-control  text-left" ng-model="payee.payeeNumber"
+                                       placeholder="{{'payee.num.label' | translate}}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <br/>
+                        <h4><span ng-bind="'payee.edit.bank.details.label' | translate"></span></h4>
+                        <br/>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" translate="admin.payee.bank.name.label"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="bankName" id="bankName" class="form-control text-left" ng-model="payee.bankName"
+                                       ng-maxlength="{{bankNameMaxLength}}"  placeholder="{{'payee.bank.name.label' | translate}}">
+                        <span ng-show="(editPayeeForm.bankName.$touched || editPayeeForm.bankName.$dirty || editPayeeForm.adminSubmitted) && editPayeeForm.bankName.$error.maxlength" class="text-danger"
+                              translate="name.size.max"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" translate="admin.payee.bank.branch.label"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="bankBranch" id="bankBranch" class="form-control text-left" ng-model="payee.bankBranch"
+                                       ng-maxlength="{{bankBranchMaxLength}}"  placeholder="{{'payee.bank.branch.label' | translate}}">
+                        <span ng-show="(editPayeeForm.bankBranch.$touched || editPayeeForm.bankBranch.$dirty || editPayeeForm.adminSubmitted) && editPayeeForm.bankBranch.$error.maxlength" class="text-danger"
+                              translate="name.size.max"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" translate="admin.payee.ifsc.code.label"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="ifscCode" id="ifscCode" class="form-control text-left" ng-model="payee.ifscCode"
+                                       ng-maxlength="{{ifscCodeMaxLength}}"  placeholder="{{'payee.ifsc.code.label' | translate}}">
+                        <span ng-show="(editPayeeForm.ifscCode.$touched || editPayeeForm.ifscCode.$dirty || editPayeeForm.adminSubmitted) && editPayeeForm.ifscCode.$error.maxlength" class="text-danger"
+                              translate="name.size.max"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" translate="admin.payee.account.num.label"></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="accountNo" id="accountNo" class="form-control text-left" ng-model="payee.accountNumber"
+                                       ng-maxlength="{{accountNumMaxLength}}"  placeholder="{{'payee.account.num.label' | translate}}">
+                        <span ng-show="(editPayeeForm.accountNo.$touched || editPayeeForm.accountNo.$dirty || editPayeeForm.adminSubmitted) && editPayeeForm.accountNo.$error.maxlength" class="text-danger"
+                              translate="name.size.max"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-align-center">
+                    <button type="button" ng-click="editPayeeDetail(editPayeeForm)" class="btn btn-submit greenbtn" translate="user.button.edit">
+                    </button>
+
+                    <button ng-click="cancle()" class="btn redbtn" translate="button.cancel">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+

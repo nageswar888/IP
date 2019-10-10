@@ -1,0 +1,33 @@
+<div class="fixedsi-de avide-header sideleft-menu"  id="style-4">
+    <ul class="link-side force-overflow" ng-if="!$root.isMasterAdmin()">
+        <li>
+            <a href="#" class="active" ng-click="backToHomePage()"><i class="fa fa-home" aria-hidden="true"></i><span translate="button.home"></span></a>
+        </li>
+    </ul>
+    <ul class="link-side force-overflow" ng-if="$root.isMasterAdmin()">
+        <li>
+            <a href="#" ng-click="backToHomePage()">
+                <i class="fa fa-home" aria-hidden="true"></i><span translate="button.home"></span></a>
+        </li>
+        <li>
+            <a  ui-sref="admin.userTable"  ng-class="{'active':$state.current.name === 'admin.userTable'}">
+                <i class="fa fa-user" aria-hidden="true"></i><span translate="button.user"></span></a>
+        </li>
+        <li>
+            <a ui-sref="admin.payeetbl" ng-class="{'active':$state.current.name === 'admin.payeetbl'}">
+                <i class="fa fa-inr" aria-hidden="true"></i><span translate="button.payee"></span></a>
+        </li>
+        <li>
+            <a ui-sref="admin.banktbl" ng-class="{'active':$state.current.name === 'admin.banktbl'}">
+                <i class="fa fa-university " aria-hidden="true"></i><span translate="button.account"></span></a>
+        </li>
+        <li>
+            <a ui-sref="admin.projecttbl" ng-class="{'active':$state.current.name === 'admin.projecttbl'}">
+                <i class="fa fa-folder-open-o" aria-hidden="true"></i><span translate="button.project"></span></a>
+        </li>
+        <li>
+            <a ui-sref="admin.notification" ng-class="{'active':$state.current.name === 'admin.notification'}">
+                <i class="fa fa-gear" aria-hidden="true"></i><span translate="sbpo.settings.label"></span></a>
+        </li>
+    </ul>
+</div>

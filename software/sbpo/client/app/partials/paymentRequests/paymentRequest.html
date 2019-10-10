@@ -1,0 +1,56 @@
+<div class="row margin-top-15" >
+    <!--<div class="row" id="adviceFilterBox">&lt;!&ndash;ng-init="prc.freezeActionIcons()"&ndash;&gt;
+        <div class="sortFilter">-->
+    <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+        <h3 class="text-center" translate="header.list.paymentRequest"></h3>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10" ng-if="$root.totalPaymentReqCount > 0">
+        <div class="col-md-7" ng-if="$root.totalPaymentReqCount > 0">
+            <sort-payment-request group-by-status="prc.groupByCriteria"
+                                  get-all-payment-request="prc.getAllPaymentRequest(sortCriteria,groupByCriteria,currentUser)">
+            </sort-payment-request>
+        </div>
+        <div class="col-sm-3 col-md-3 padding-left-8" ng-if="$root.totalPaymentReqCount > 0">
+            <div class="btn-group" uib-dropdown>
+                <div uib-dropdown-toggle >
+                    <button class="btn download-drop-down-btn">
+                        <i class="fa fa-download" aria-hidden="true" ></i>
+                        <span translate="btn.label.download"></span>
+                    </button>
+                </div>
+                <ul class="dropdown-menu download-tab remove-ul-padding" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                    <li role="menuitem" class="li-padding-class">
+                        <div class="font-size-15px" data-ng-click="prc.download('excel');">
+                            <span translate="download.in.excel"></span> <i class="fa fa-file-excel-o fa-1x" aria-hidden="true"></i>
+                        </div>
+                    </li>
+                    <li role="menuitem" class="li-padding-class">
+                        <div class="font-size-15px" data-ng-click="prc.download('project-excel');">
+                            <span translate="download.all.request.per.project.excel"></span> <i class="fa fa-file-excel-o fa-1x" aria-hidden="true"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-2" ng-if="prc.canView();" >
+            <button class="btn download-drop-down-btn pull-right"  data-ng-click="prc.deletePaymentRequests();"
+                    ng-disabled="prc.paymentReqToDelete.length <= 0">
+                <i class="fa fa-trash-o" aria-hidden="true" ></i>
+                <span translate="btn.label.delete.all"></span>
+            </button>
+        </div>
+    </div>
+    <!--</div>
+    </div>-->
+    <div class="row" ng-hide="prc.message===null">
+        <div id="paymentRequestFlashMessage" flash-message="4000" ></div>
+    </div>
+    <render-payment-requests data="prc.paymentRequests"
+                             sort-criteria="prc.sortCriteria"
+                             get-all-payment-request="prc.getAllPaymentRequest(sortCriteria,groupByCriteria,projectId)"
+                             set-delete-payment-request="prc.setDeletePaymentRequest(data)"
+                             can-view-delete ="prc.canView()"></render-payment-requests>
+    <div class="row  color-grey" ng-if="prc.isShowNoRecordMessage">
+        <div class="grey-color text-align-center empty-record"><h4 ng-bind="prc.noRecordMessage"></h4></div>
+    </div>
+</div>

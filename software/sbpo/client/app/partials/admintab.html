@@ -1,0 +1,59 @@
+<div class="row margin-bottom-10x margin-to10x">
+    <div class="col-sm-10">
+        <div ng-if="$root.isMasterAdmin()">
+            <div class="col-sm-1 ">
+                <button type="button" class="btn btn-success" ng-click="backToHomePage()">
+                    <i class="fa fa-home " aria-hidden="true"></i>&nbsp;&nbsp;{{'button.home'|translate}}
+                </button>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-success "  ui-sref=".userTable"
+                            ng-class="{'active-btn':$state.current.name === 'admin.userTable'}">
+                        <i class="fa fa-user-plus " aria-hidden="true"></i>&nbsp;&nbsp;{{'button.user'|translate}}
+                    </button>
+                </div>
+                <div class="col-sm-7">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-success"  ui-sref=".payeetbl"
+                                ng-class="{'active-btn':$state.current.name === 'admin.payeetbl'}">
+                            <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;&nbsp;{{'button.payee' |translate}}
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-success"  ui-sref=".banktbl"
+                                ng-class="{'active-btn':$state.current.name === 'admin.banktbl'}">
+                            <i class="fa fa-university " aria-hidden="true"></i>&nbsp;&nbsp;{{'button.account' |translate}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-success"  ui-sref=".projecttbl"
+                            ng-class="{'active-btn':$state.current.name === 'admin.projecttbl'}">
+                        <i class="fa fa-product-hunt " aria-hidden="true"></i>&nbsp;&nbsp;{{'button.project' |translate}}
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-success"  ui-sref=".notification"
+                            ng-class="{'active-btn':$state.current.name === 'admin.notification'}">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;&nbsp;{{'button.notification' |translate}}
+                    </button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-success"  ui-sref=".customFields"
+                            ng-class="{'active-btn':$state.current.name === 'admin.customFields'}">
+                        {{'button.custom.field' |translate}}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-2"></div>
+
+</div>

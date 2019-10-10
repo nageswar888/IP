@@ -1,0 +1,63 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <!-- <h1>Virtual Ledgers</h1>-->
+            <div id="ledgerFlashMsgDiv" class="margin-top-15" flash-message="2000"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <form name="lc.ledgerForm" role="form" class="form-horizontal" novalidate>
+                <div class="col-sm-10 padding-left-0">
+                    <table class="col-md-12 table-bordered table-striped table-condensed cf padding-none ">
+                        <thead>
+                        <tr>
+                            <th translate="ledger.list.ledger.label"></th>
+                            <th translate="action.label"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="ledger in lc.ledgers track by $index" class="show-hide-content">
+                            <td class="col-md-4">
+                                <span ng-if="!ledger.edit" ng-bind="ledger.name | camelCase"></span>
+                                <input ng-if="ledger.edit" type="text" ng-model="ledger.name" name="name{{$index}}" id="name" class="form-control mandatory-mark text-left"
+                                       ng-pattern="lc.ledgerNamePattern" ng-maxlength="{{lc.ledgerNameMaxlength}}" placeholder="{{'ledger.list.ledger.label' | translate}}" required>
+                                <span ng-if="ledger.edit" ng-show="(lc.ledgerForm['name'+$index].$touched) && lc.ledgerForm['name'+$index].$error.maxlength"
+                                      class="text-danger" ng-bind="'max.custom.error' | translate:{ max:lc.ledgerNameMaxlength}"></span>
+                            </td>
+                            <td class="col-md-3">
+                                <a ng-if="ledger.edit" href="" ng-click="lc.removeLedger($index, ledger);" uib-tooltip="close"
+                                   class="color-red">
+                                    <i class="fa fa-1x fa-times" aria-hidden="true"></i>
+                                </a>
+                                <div ng-if="!ledger.edit">
+                                    <a href="javascript:;" ng-click="lc.editLedger(ledger)" uib-tooltip="edit" class="margin-right-5">
+                                        <img src="/app/images/action1.png"/>
+                                    </a>
+                                    <a href="javascript:;" ng-click="lc.deleteLedger(ledger)" uib-tooltip="delete">
+                                        <img src="/app/images/action2.png"/>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10 form-group">
+                        <div class="col-md-6">
+                            <button class="btn btn-default" type="button" uib-tooltip="add Ledger" ng-click="lc.addLedger()" aria-hidden="true">
+                                <i class="fa fa-1x fa-plus" aria-hidden="true"></i>&nbsp;<span translate="button.add"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-3 pull-right">
+                            <button ng-if="lc.isContainEditedRows(lc.ledgers)" class="btn btn-primary greenbtn" type="button" uib-tooltip="save Ledger" uib-tooltip="add Ledger" ng-click="lc.saveLedger()" aria-hidden="true">
+                                <span translate="button.save"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,164 @@
+<header class="sticky" id="header" ng-if="!$root.isAuthenticated();">
+    <div class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="logo">
+                <img ng-hide="$root.isAuthenticated();" ng-click="$root.backToHomePage();" class="img-responsive" src="/images/logo.png">
+                <img ng-if="$root.isAuthenticated();" class="img-responsive" ng-click="$root.backToHomePage();" src="/images/logo.png">
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-if="$root.isAuthenticated();">
+    <div class="container-fluid header-top" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" ng-click="$root.backToHomePage();"><img class="img-responsive" src="/app/images/logo.png" ></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" uib-dropdown>
+                    <a class="dropdown-toggle toggle-rigtmenu" uib-dropdown-toggle href="#">
+                        <div class="leftname">{{$root.loggedInUserName()}}<br>
+                            <div class="profile-role">
+                                <span tooltips
+                                      tooltip-side="bottom" tooltip-template="{{$root.getMultiRoles() | limitRolesFilter}}" class="ellipsis">
+                                    (<span ng-bind="$root.getMultiRoles() | limitRolesFilter"></span>)
+                                </span>
+                                </div>
+                        </div>
+                        <div class="leftimg text-right">
+                            <!--<img src="images/pic.png">-->
+                            <i class="fa fa-4x fa-user-circle-o" aria-hidden="true"></i>&nbsp;<span class="caret margin-top-25-ve"></span></div>
+                    </a>
+                    <ul class="dropdown-menu headdrop" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                        <li role="menuitem">
+                            <div class="ADmin">
+                                {{$root.loggedInUserName()}}<br><small>({{ $root.getMultiRoles() | rolesFilter}})</small>
+                            </div>
+                        </li>
+                        <li role="menuitem" ui-sref="profile">
+                            <a href="#"><i class="fa fa-fw fa-user"></i><span translate="sbpo.profile.label"></span></a>
+                        </li>
+                        <li role="menuitem" ui-sref="admin.userTable" ng-if="$root.isMasterAdmin()">
+                            <a href="#"><i class="fa fa-fw fa-cog"></i><span translate="sbpo.label.admin"></span></a>
+                        </li>
+                        <li role="menuitem"  ui-sref="feedback">
+                            <a href="#"><i class="fa fa-comments-o"></i><span translate="app.feedback.label"></span></a>
+                        </li>
+                        <li role="menuitem" class="divider"></li>
+                        <li role="menuitem" ng-click="$root.signout()">
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> <span translate="app.logout.label"></span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#" ng-click="$root.signout()"><img class="logout-img" src="/images/logout.png"></a></li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+
+    <!--<nav class="navbar navbar-default header">
+        <div class="container-fluid ">
+            <div class="row" style="height: 74px">
+
+            <div class="col-sm-8">
+                <div class="navbar-header app-name-margin-top-left" ng-hide="$root.isAuthenticated();">
+                    <a class="navbar-brand font-italic project-title" ><img src="/app/images/iPASS_new.png" class="logo-img"></a>
+                </div>
+                <div class="navbar-header app-name-margin-top-left" ng-if="$root.isAuthenticated();" ng-include="'/app/partials/logo/logo.html'"></div>
+            </div>
+
+            <div class="col-sm-2">
+            </div>
+
+            <div class="col-sm-2">
+                <div class="row" ng-if="$root.isAuthenticated();">
+                    <div class="col-sm-8">
+                        <div class="user-details-name font-size-15px">
+                            <div >{{$root.loggedInUserName()}}</div>
+                            <div >({{ $root.getMultiRoles() | rolesFilter}})</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="btn-group pull-right" uib-dropdown ng-if="$root.isAuthenticated();">
+                            <div class="user-logo-div" id="split-button2" uib-dropdown-toggle >
+                                <img ng-src="" src="/app/images/User_updated.png"  class="user-logo" >
+                                <img src="/app/images/menu-arrow.png" class="menu-arrow" >
+                            </div>
+                            <ul class="dropdown-menu user-logo-dropdown remove-ul-padding" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                <li role="menuitem">
+                                    <div class="user-details font-size-15px">
+                                        <div >{{$root.loggedInUserName()}}</div>
+                                        <div >({{ $root.getMultiRoles() | rolesFilter}})</div>
+                                    </div>
+                                </li>
+                                <li role="menuitem" class="admin-profile li-padding-class" ui-sref="profile">
+                                    <div class="font-size-15px">
+                                        <i class="fa fa-user-md fa-user-font" aria-hidden="true"></i>
+                                        <span class="left-padding-10px link-class" translate="sbpo.profile.label"></span>
+                                    </div>
+                                </li>
+                                <li role="menuitem" class="admin-profile li-padding-class" ng-if="$root.isMasterAdmin()">
+                                    <div ui-sref="admin.userTable" class="font-size-15px">
+                                        <img src="/app/images/menu-account.png" class="">
+                                        <span class="left-padding-10px link-class" translate="sbpo.settings.label"></span>
+                                    </div>
+                                </li>
+                                <li role="menuitem" class="log-out li-padding-class" ui-sref="feedback">
+                                    <div  ng-click="changeState()" class="font-size-15px">
+                                        <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                        <a href="#" class="left-padding-10px link-class" translate="app.feedback.label"></a>
+                                    </div>
+                                </li>
+                                <li role="menuitem" class="log-out li-padding-class">
+                                    <div ng-click="$root.signout()" class="font-size-15px">
+                                        <img src="/app/images/menu-logout.png" >
+                                        <a href="#" class="left-padding-10px link-class" translate="app.logout.label"></a>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </nav>-->
+
+<!--<div class="row header-button-group" ng-if="$root.canShowHeader() && $root.isAuthenticated();">
+    <button ng-if="hc.canViewCreateAdvice()" type="button"  ui-sref="createAdvice"
+            ng-class="{'active-btn':$root.$state.current.name === 'createAdvice'}"
+            class="btn btn-success">{{'header.button.create.advice' | translate}}
+    </button>
+    <button ng-if="hc.canViewLegacyAdvice()" type="button"  ui-sref="createLegacyAdvice"
+            ng-class="{'active-btn':$root.$state.current.name === 'createLegacyAdvice'}"
+            class="btn btn-success">{{'header.button.create.legacy.advice' | translate}}
+    </button>
+    <button type="button" ng-click="hc.getAdviceCount();" ui-sref="advice.pending-approval({status:'Pending'})"
+            ng-if="hc.canViewDraftAdvice()" ng-class="{'active-btn':$root.$state.current.name === 'advice.pending-approval'}"
+            class="btn btn-success">
+        <span ng-if="$root.isInitiatorRole()">{{'header.button.draft.advice' | translate}}</span>
+        <span ng-if="!$root.isInitiatorRole()">{{'header.button.pending.advice' | translate}}</span> ({{$root.pendingCount}})
+    </button>
+    <button type="button" ng-click="hc.getAdviceCount();" ui-sref="advice.inprogress({status: 'Inprogress'})"
+            ng-class="{'active-btn':$root.$state.current.name === 'advice.inprogress'}"
+            class="btn btn-success" ng-if="hc.canViewInprogressAdvice()">
+        {{'header.button.progress.advice' | translate}} ({{$root.totalInprogressCount}})
+    </button>
+    <button type="button" ng-click="hc.getAdviceCount();" ui-sref="advice.rejected({status: 'Rejected'})"
+            ng-class="{'active-btn':$root.$state.current.name === 'advice.rejected'}"
+            class="btn btn-success">
+        {{'header.button.rejected.advice' | translate}} ({{$root.rejectedCount}})
+    </button>
+    <button type="button" ui-sref="searchAdvice" class="btn btn-success"
+            ng-class="{'active-btn':$root.$state.current.name === 'searchAdvice'}">{{'button.search.advice'|translate}}</button>
+</div>-->

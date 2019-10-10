@@ -1,0 +1,19 @@
+<br><br><br><div class="row">
+    <div id="customsuccessFlashMsgDiv" flash-message="4000" class=""></div>
+    <div class="col-sm-12">
+        <div class="col-sm-4">
+            <div class="form-group lbl-align">
+                <label translate="org.logo.label"></label>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="form-group text-left">
+                <label id="add-computer-button" for="logoImg" class="upload-input-label-btn" translate="upload.file.label"></label>{{cfc.logo.image.filename}}
+                <input class="form-contro browsel" id="logoImg" type="file" ng-change="cfc.uploadLogoImage();"
+                       ng-model="cfc.logo.image" base-sixty-four-input data-input="false" style="visibility: hidden">
+            </div>
+        </div>
+
+    </div>
+</div>

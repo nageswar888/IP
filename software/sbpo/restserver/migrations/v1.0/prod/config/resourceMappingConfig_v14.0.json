@@ -1,0 +1,22 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/virtualLedgers/list",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]}
+      ]
+    },
+    {
+      "resource": "/api/virtualLedgers/save",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["post"]}
+      ]
+    },
+    {
+      "resource": "/api/virtualLedgers/delete/:id",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["delete"]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+<div class="row">
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center" translate="project.edit.label"></h3>
+        </div>
+        <div id="projectEditFlashMsgDiv" flash-message="5000" class="flash-error-msg-padding"></div>
+        <div class="modal-body">
+            <form name="editProjectForm" role="form" class="form-horizontal" ng-submit="editProject(editProjectForm)" novalidate>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="project.name.label"></label></div>
+                                <div class="col-sm-8"><input type="text" name="projectname" id="projectname" class="form-control mandatory-mark text-left" ng-model="admin.projectName"
+                                                             ng-maxlength="{{projectNameMaxlen}}"     placeholder="Project name" required>
+                        <span ng-show="editProjectForm.projectname.$dirty && editProjectForm.projectname.$error.required" class="text-danger error-msg"
+                              ng-bind="'project.name.required' | translate"></span>
+                             <span ng-show="editProjectForm.projectname.$dirty && editProjectForm.projectname.$error.pattern"
+                                   class="text-danger error-msg" ng-bind="'admin.project.name.alphabet.msg' | translate"></span>
+                                    <span ng-show="editProjectForm.projectname.$dirty  &&  editProjectForm.projectname.$error.maxlength"
+                                          class="text-danger" ng-bind="'max.custom.error' | translate:{ max:50}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="project.location.label"></label></div>
+                                <div class="col-sm-8">
+                                    <input type="text" name="projectlocation" id='projectlocation' class="form-control mandatory-mark text-left"
+                                           ng-model="admin.projectLocation" placeholder="Project location" ng-maxlength="{{projectLocationMaxlen}}"
+                                           ng-minlength="{{projectLocationMinlen}}" required>
+                                    <span ng-show="editProjectForm.projectlocation.$dirty && editProjectForm.projectlocation.$error.required"
+                                          class="text-danger error-msg" ng-bind="'project.location.required' | translate"></span>
+                                    <span ng-show="editProjectForm.projectlocation.$dirty  &&  editProjectForm.projectlocation.$error.maxlength"
+                                          class="text-danger" ng-bind="'max.custom.error' | translate:{ max:projectLocationMaxlen}"></span>
+                                    <span ng-show="editProjectForm.projectlocation.$dirty  &&  editProjectForm.projectlocation.$error.minlength"
+                                          class="text-danger" ng-bind="'min.custom.error' | translate:{ min:projectLocationMinlen}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10x margin-to10x">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="project.startDate.label"></label></div>
+                                <div class="col-sm-8">
+                                    <datepicker date-format="dd-MMM-yyyy">
+                                        <input ng-model="admin.startDate" type="text" placeholder="Start date" name="startdate" class="form-control mandatory-mark text-left"
+                                               ng-pattern="/^(([0-9])|([0-2][0-9])|([3][0-1]))\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\-\d{4}$/" required/>
+                                    </datepicker>
+                                    <span ng-show="editProjectForm.startdate.$dirty && editProjectForm.startdate.$error.required" class="text-danger" ng-bind="'startDate.required' | translate"></span>
+                            <span ng-show="(editProjectForm.startdate.$touched || editProjectForm.userFormSubmitted) && editProjectForm.startdate.$error.pattern"
+                                  class="text-danger" ng-bind="'date.invalid.msg' | translate"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4 lbl-align"><label translate="project.endDate.label"></label></div>
+                                <div class="col-sm-8">
+                                    <datepicker date-format="dd-MMM-yyyy">
+                                        <input ng-model="admin.endDate" type="text" placeholder="End date" name="enddate" class="form-control text-left" ng-pattern="/^(([0-9])|([0-2][0-9])|([3][0-1]))\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\-\d{4}$/" ng-change="setDateRangeFalse();"/>
+                                    </datepicker>
+                            <span ng-show="(editProjectForm.enddate.$touched || editProjectForm.userFormSubmitted) && editProjectForm.enddate.$error.pattern"
+                                  class="text-danger" ng-bind="'date.invalid.msg' | translate"></span>
+                                    <div ng-show="invalidRange">
+                                        <span ng-show="editProjectForm.enddate.$error.notMatch" class="text-danger" translate="edit.project.endDate.error"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h4 translate="add.emails.mobiles.label" class="sub-heading margin-top-15 text-center"></h4>
+                    <div class="col-md-12 col-sm-12 col-xs-12 margin-top-30">
+                        <!--for email-->
+                        <div class="col-sm-6 padding-left-0">
+                            <table class="col-md-12 table-bordered table-striped table-condensed cf padding-none ">
+                                <thead>
+                                <tr>
+                                    <th translate="user.email.label"></th>
+                                    <th translate="action.label"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="email in editEmailGroup track by $index" class="show-hide-content">
+                                    <td class="head-con show-hide-content col-md-9">
+                                        <span ng-if="!email.edit" ng-bind="email.contact"></span>
+                                        <input ng-if="email.edit" type="email" name="addEmail" id='addEmail' class="form-control text-left"
+                                               ng-model="email.contact" placeholder="{{'email.label' | translate}}"
+                                               ng-minlength="4" required>
+                                    </td>
+                                    <td>
+                                        <a ng-if="email.edit" href="" ng-click="removeContact($index, email, editEmailGroup, 'email');" uib-tooltip="close"
+                                           class="color-red">
+                                            <i class="fa fa-1x fa-times" aria-hidden="true"></i>
+                                        </a>
+                                        <div ng-if="!email.edit">
+                                            <a href="javascript:;" ng-click="editContact(email)" uib-tooltip="edit" class="margin-right-5">
+                                                <img src="/app/images/action1.png"/>
+                                            </a>
+                                            <a href="javascript:;" ng-click="deleteContacts($index,email)" uib-tooltip="delete">
+                                                <img src="/app/images/action2.png"/>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-12 col-sm-12 col-xs-12 margin-top-10 form-group">
+                                <div class="col-md-6">
+                                    <button class="btn btn-default" type="button" uib-tooltip="add email" ng-click="addEmail()" aria-hidden="true">
+                                        <i class="fa fa-1x fa-plus" aria-hidden="true"></i>&nbsp;<span translate="button.add"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--For Mobile-->
+                        <div class="col-sm-5">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf padding-none ">
+                                    <thead>
+                                    <tr>
+                                        <th translate="mobile.no.label"></th>
+                                        <th translate="action.label"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="mobile in editPhoneGroup track by $index" class="show-hide-content">
+                                        <td>
+                                            <span ng-if="!mobile.edit" ng-bind="mobile.contact"></span>
+                                            <input ng-if="mobile.edit" type="text" name="addPhoneno" id='addPhoneno' class="form-control text-left"
+                                                   ng-model="mobile.contact" placeholder="{{'mobile.no.label' | translate}}"
+                                                   ng-minlength="10" ng-maxlength="10" ng-pattern="/^[0-9]{10,10}$/"
+                                                   required>
+                                        </td>
+
+                                        <td>
+                                            <a ng-if="mobile.edit" href="" ng-click="removeContact($index, mobile ,editPhoneGroup, 'mobile');" uib-tooltip="close"
+                                               class="color-red">
+                                                <i class="fa fa-1x fa-times" aria-hidden="true"></i>
+                                            </a>
+                                            <div ng-if="!mobile.edit">
+                                                <a href="javascript:;" ng-click="editContact(mobile)" uib-tooltip="edit" class="margin-right-5">
+                                                    <img src="/app/images/action1.png"/>
+                                                </a>
+                                                <a href="javascript:;" ng-click="deleteContacts($index,mobile)" uib-tooltip="delete">
+                                                    <img src="/app/images/action2.png"/>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group margin-top-10">
+                                <div class="col-md-6">
+                                    <button type="button" uib-tooltip="add mobile no." class="btn btn-default" ng-click="addMobile()" aria-hidden="true">
+                                        <i class="fa fa-1x fa-plus" aria-hidden="true"></i>&nbsp;<span translate="button.add"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer text-align-center">
+                    <button type="submit"  class="btn btn-submit greenbtn" translate="user.button.edit">
+                    </button>
+
+                    <button ng-click="cancel()" type="button" class="btn redbtn" translate="button.cancel">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

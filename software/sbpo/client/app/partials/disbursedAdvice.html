@@ -1,0 +1,92 @@
+<!--NOTE:Not being used-->
+<div class="approve-popup">
+    <div class="row">
+        <div class="col-md-offset-4 col-sm-offset-3 col-lg-offset-4 col-xs-5 col-md-5 col-lg-5 ">
+            <h4 class="col-lg-6 col-lg-6"> Disburse Advice</h4>
+        </div>
+    </div>
+    <hr/>
+    <form name="approveAdviceForm" class="" novalidate>
+        <div class="row">
+            <div class="">
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.payee.name) === false)">
+                    <label translate="advice.payee.label"></label>
+                    {{advice.payee.name}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.requestedAmount) === false)">
+                    <label translate="payment.advice.requested.amount.label"></label>
+                    {{advice.requestedAmount}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6"  ng-show="(isEmpty(advice.requestedDate) === false)">
+                    <label translate="approve.advice.req.date.label"></label>
+                    {{advice.requestedDate | date:"dd/MM/yyyy"}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.requestedBy) === false)">
+                    <label translate="advice.req.by.label"></label>
+                    {{advice.requestedBy}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6"  ng-show="(isEmpty(advice.initiatedBy) === false)">
+                    <label translate="advice.initiated.by.label"></label>
+                    {{advice.initiatedBy}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.description) === false)">
+                    <label translate="advice.description.label"></label>
+                    {{advice.description}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.secondLevelApprover) === false)">
+                    <label translate="advice.second.level.approver.name.label"></label>
+                    {{advice.secondLevelApprover.firstName +" "+ advice.secondLevelApprover.lastName}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.user.firstName) === false)">
+                    <label translate="advice.third.level.approver.name.label"></label>
+                    {{advice.thirdLevelApprover.firstName +" "+ advice.thirdLevelApprover.lastName}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6"  ng-show="(isEmpty(advice.disburser) === false)">
+                    <label translate="advice.disburser.name.label"></label>
+                    {{advice.disburser.firstName +" "+ advice.disburser.lastName}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6"  ng-show="(isEmpty(advice.paymentType) === false)">
+                    <label translate="approve.payment.type.label"></label>
+                    {{advice.paymentType}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6"  ng-show="(isEmpty(advice.billAmountDue) === false)">
+                    <label translate="bill.due.label"></label>
+                    {{advice.billAmountDue}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.type) === false)">
+                    <label translate="approve.payment.mode.label"></label>
+                    {{advice.type}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.projectName) === false)">
+                    <label translate="advice.purpose.label"></label>
+                    {{advice.projectName}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.adviceStatus) === false)">
+                    <label translate="approve.advice.status.label"></label>
+                    {{advice.adviceStatus}}
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4" ng-show="(isEmpty(advice.disburserDate) === false)">
+                    <label translate="approve.money.disbursed.date.label"></label>
+                    {{advice.disburserDate | date:"dd/MM/yyyy"}}
+                </div>
+                <div class="col-md-6 col-xs-6 col-lg-6" ng-show="(isEmpty(advice.disburserDate) === false)">
+                    <label translate="approve.payment.advice.number.label"></label>
+                    {{advice.adviceNumber}}
+                </div>
+
+            </div>
+        </div>
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-offset-4 col-lg-4 col-md-4 col-xs-4 col-sm-4 ">
+                <button type="button" class="btn btn-success" ng-click="disbursered()">
+                    <span ng-bind="'button.disburse.label' | translate"></span>
+                </button>
+                <button type="button" class="btn btn-danger" ng-click="closePopup();">
+                    <span ng-bind="'button.cancel' | translate"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

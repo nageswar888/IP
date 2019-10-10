@@ -1,0 +1,203 @@
+<div ng-if="sac.selectedResultTab.key === 'graphView'">
+    <!--Data for display graph-->
+    <ul class="cd-breadcrumb" id="graph-breadcrum">
+        <li  ng-show="sac.graphQuery.year" class="f-left">
+            <a href="#" class=" {{sac.years}}"
+               data-toggle="fadein"
+               ng-click="sac.backToYearGraph();"
+               translate="graph.breadcrumb.years.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.month" class="f-left">
+            <a href="#" class="left-margin {{sac.months}}"
+               ng-click="sac.bactToMonthGraph();"
+               translate="graph.breadcrumb.months.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.weeks" class="f-left">
+            <a href="#" class=" {{sac.weeks}}"
+               ng-click="sac.bactToWeekGraph();"
+               translate="graph.breadcrumb.weeks.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.week" class="f-left">
+            <a href="#" class=" {{sac.days}}"
+               ng-click="sac.bactToDayGraph();"
+               translate="graph.breadcrumb.days.label"></a>
+        </li>
+        <li ng-show="sac.graphQuery.day" class="f-left">
+            <a href="#" class=" {{sac.day}}"
+               ng-click="sac.bactToPerDayAdviceGraph();"
+               translate="graph.breadcrumb.day.label"></a></li>
+        <span class="clearfix"></span>
+    </ul>
+
+    <!--Years graph-->
+    <div class="fadeout" ng-show="(sac.showHideYearGraph && sac.showGraph==='year') ">
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                <span translate="advice.rs.label"></span>
+                <span ng-bind="sac.totalAmount | indianAmtMatric"></span>
+                (<span ng-bind="sac.totalAmount | filterAmount"></span>)
+                <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                                 download-as-matrix = "sac.downloadAsMatrix(type)"
+                                 graph-query="sac.graphQuery[sac.showGraph]"
+                                 advice-count="sac.totalAdviceCount",
+                                 download-limit="sac.downloadLimit",
+                                 advice="sac.copiedAdvice"></download-advice>
+            </span>
+        </div>
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+                <span ng-bind="sac.totalAdviceCount"></span>
+            </span>
+        </div>
+
+        <div class="graphdiv row">
+            <div class="col-md-8">
+                <nvd3 options="sac.yearOptions" data="sac.yearsGraphData"></nvd3>
+            </div>
+        </div>
+    </div>
+
+    <!--year graph-->
+    <div class=" fadeout" id="yearGraph" ng-show="(sac.showHideMonthGraph && sac.showGraph==='month')">
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                <span translate="advice.rs.label"></span>
+                <span ng-bind="sac.totalAmount | indianAmtMatric"></span>&nbsp;
+                (<span ng-bind="sac.totalAmount | filterAmount"></span>)
+                <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                                 download-as-matrix = "sac.downloadAsMatrix(type)"
+                                 graph-query="sac.graphQuery[sac.showGraph]"
+                                 advice-count="sac.totalAdviceCount",
+                                 download-limit="sac.downloadLimit",
+                                 advice="sac.copiedAdvice"></download-advice>
+            </span>
+        </div>
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+                <span ng-bind="sac.totalAdviceCount"></span>
+            </span>
+        </div>
+        <div class="graphdiv row">
+            <div class="col-md-8">
+                <nvd3 options="sac.options" data="sac.yearData"></nvd3>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Weeks graph-->
+    <div class="row fadeout" id="weeksGraph" ng-show="(sac.showHideWeekGraph && sac.showGraph==='weeks')">
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                <span translate="advice.rs.label"></span>
+                <span ng-bind="sac.totalAmount | indianAmtMatric"></span>&nbsp;
+                (<span ng-bind="sac.totalAmount | filterAmount"></span>)
+                <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                                 download-as-matrix = "sac.downloadAsMatrix(type)"
+                                 graph-query="sac.graphQuery[sac.showGraph]"
+                                 advice-count="sac.totalAdviceCount",
+                                 download-limit="sac.downloadLimit",
+                                 advice="sac.copiedAdvice"></download-advice>
+            </span>
+        </div>
+
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+                <span ng-bind="sac.totalAdviceCount"></span>
+            </span>
+        </div>
+        <div class="col-md-12">
+            <div class="float-left back-btn-marginleft" >
+            </div>
+            <div class="float-left">
+                <!--<h3 class="grap-heading float-left"> Week Graph</h3>-->
+            </div>
+        </div>
+        <div class="graphdiv row">
+            <div class="col-md-8">
+                <nvd3 options='sac.monthOptions' data='sac.monthData'></nvd3>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Week graph-->
+    <div class="row fadeout" id="weekGraph" ng-show="(sac.showHideDayGraph && sac.showGraph==='week')">
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                    <span translate="advice.rs.label"></span>
+                    <span ng-bind="sac.totalAmount | indianAmtMatric"></span>&nbsp;
+                    (<span ng-bind="sac.totalAmount | filterAmount"></span>)
+                    <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                                     download-as-matrix = "sac.downloadAsMatrix(type)"
+                                     graph-query="sac.graphQuery[sac.showGraph]"
+                                     advice-count="sac.totalAdviceCount"
+                                     download-limit="sac.downloadLimit",
+                                     advice="sac.copiedAdvice"></download-advice>
+            </span>
+        </div>
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+                <span ng-bind="sac.totalAdviceCount"></span>
+            </span>
+        </div>
+        <div class="col-md-12">
+            <div class="float-left backto-weeks-btn-marginleft" >
+            </div>
+            <div class="float-left">
+                <h3 class="grap-heading float-left"> </h3>
+            </div>
+        </div>
+        <!--<h3 class="" style="margin-left: 7% !important;"> {{sac.weekGraphheading}}</h3>-->
+        <div class="graphdiv row">
+            <div class="col-md-8">
+                <nvd3 options='sac.weekOptions' data='sac.weekData'></nvd3>
+            </div>
+        </div>
+    </div>
+
+    <!--Per Day graph-->
+    <div class="row fadeout" id="dayGraph"   ng-show="(sac.showHidePerDayAdviceGraph && sac.showGraph==='day')">
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                        <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+                        <span translate="advice.rs.label"></span>
+                        <span ng-bind="sac.totalAmount | indianAmtMatric"></span>&nbsp;
+                       (<span ng-bind="sac.totalAmount | filterAmount"></span>)
+                        <download-advice download-all-per-project="sac.downloadAllPerProject(type)"
+                                         download-as-matrix = "sac.downloadAsMatrix(type)"
+                                         advice-count="sac.totalAdviceCount"
+                                         download-limit="sac.downloadLimit",
+                                         graph-query="sac.graphQuery[sac.showGraph]" advice="sac.copiedAdvice"></download-advice>
+            </span>
+        </div>
+        <div class="col-sm-12">
+            <span class="total-margin-left">
+                <label> <span translate="advice.totalAdvice.count.label"></span>:&nbsp;</label>
+                <span ng-bind="sac.totalAdviceCount"></span>
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <div class="float-left backto-weeks-btn-marginleft" >
+            </div>
+            <div class="float-left">
+                <h3 class="grap-heading float-left"></h3>
+            </div>
+        </div>
+        <div class="graphdiv row">
+            <div class="col-md-8">
+                <nvd3 options='sac.perDayOptions' data='sac.perDayGraphData'></nvd3>
+            </div>
+        </div>
+    </div>
+    <!--End Data for display graph-->
+</div>

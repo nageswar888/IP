@@ -1,0 +1,40 @@
+<div style="max-width: 700px">
+    <div class="modal-header text-center">
+        <h3 class="modal-title" ng-bind="editHeading"></h3>
+    </div>
+    <form name="editCustomFieldForm" role="form">
+        <div class="modal-body">
+            <div id="errorFlashMsgDiv" flash-message="4000" class=""></div>
+            <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                      <input  type="text" name="category" id="category" class="form-control mandatory-mark text-left"
+                              ng-model="customData.name" placeholder="{{'category.label' | translate}}" required>
+                      <span ng-show="editCustomFieldForm.category.$dirty && editCustomFieldForm.category.$error.required" class="text-danger"
+                            translate="category.required">
+                                        </span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <textarea  type="text" rows="1" name="description" id='description'
+                                       class="form-control height-35px  text-left" ng-model="customData.description"
+                                       placeholder="{{'description.label' | translate}}">
+
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer text-center">
+            <button type="button" ng-click="editCustomField(editCustomFieldForm)" class="btn btn-submit btn-xl" translate="user.button.edit">
+            </button>
+
+            <button ng-click="cancle()" class="btn btn-danger btn-xl" translate="button.cancel">
+            </button>
+        </div>
+    </form>
+</div>

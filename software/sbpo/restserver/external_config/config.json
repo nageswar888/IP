@@ -1,0 +1,31 @@
+{
+  "db": {
+    "username":"",
+    "password":"",
+    "url":"mongodb://localhost/paas_dev"
+  },
+  "mail" :{
+    "auth":  {
+            "email" : "nageswararao.koppula@india.semanticbits.com",
+             "pass": "9951506361"
+         },
+         "addUserSubject": "Your new iPASS Account",
+         "forgotPassworSubject":"Reset iPASS Password",
+         "disbursedSubject":"iPASS advice disbursed",
+         "paymentRequestCreate":"iPASS payment request",
+         "paymentRequestRejected":"iPASS payment request rejected",
+         "approvedPaymentRequest":"iPASS payment request approved",
+         "newOrganization":"Welcome to iPASS",
+         "bugNotification":"iPASS Bug Notification",
+         "enhancementNotification":"iPASS Enhancement Notification",
+         "iPASSDevTeam":"iPASS dev team",
+         "serverIp":"http://52.90.224.76",
+         "feedBackMail":{
+            "email":"nageswararao.koppula@india.semanticbits.com"
+         }
+     },
+  "sysAdmin":"nageswararao.koppula@india.semanticbits.com",
+
+  "maxDownloadLimit":7
+  }
+

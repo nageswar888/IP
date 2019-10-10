@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <base href="/">
+  <title>iPASS</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--favicon-->
+  <!--favicon-->
+  <link rel="shortcut icon" href="images/fav.png" type="">
+  <link rel="icon" href="images/fav.png" type="">
+
+  <link rel="stylesheet" href="app/css/bootstrap.min.css">
+  <link rel="stylesheet" href="app/css/style.css">
+  <link rel="stylesheet" href="app/css/animate.css">
+  <link rel="stylesheet" href="app/css/font-awesome.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
+  <link rel="stylesheet" type="text/css" href="node_modules/ng-table/bundles/ng-table.css" />
+
+  <link href="bower_components/angularjs-datepicker/src/css/angular-datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link href="bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-tooltips/dist/angular-tooltips.min.css"/>
+  <link rel="stylesheet" type="text/css" href="bower_components/angularjs-datepicker/src/css/angular-datepicker.css"/>
+  <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css">
+  <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.min.css">
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+  <link rel="stylesheet" href="bower_components/angular-backtop/dist/angular-backtop.css">
+  <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+
+</head>
+<body ng-class="{'bodybg': !isAuthenticated()}" class="height-auto">
+  <div id="spindiv" data-loading></div>
+  <header-component></header-component>
+  <div class="wrapper">
+    <div class="container-fluid" ng-if="isAuthenticated()">
+      <div class="col-md-2 col-sm-2 col-xs-12 padding-none">
+        <div ng-if="$root.isAuthenticated();">
+          <sub-menu></sub-menu>
+        </div>
+      </div>
+      <div class="col-md-10 col-sm-10 col-xs-12" ng-if="$root.isNotLoginState();">
+        <div class="right-cobtant avide-header avide-footer">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+           <!-- <div class="head-con">
+              <sub-menu></sub-menu>
+            </div>-->
+            <div  class="content-right">
+              <div class="tab-content avide-footer">
+                <div id="home" ui-view class="tab-pane fade in fade active padding-bottom-40 no-animate"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" ng-if="!isAuthenticated()">
+      <div id="home " ui-view class="tab-pane fade in fade active padding-bottom-40 "></div>
+    </div>
+  </div>
+<div class="padding-bottom-40">
+  <div ng-include="'/app/partials/footer.html'"></div>
+</div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <!--<script src="js/vendor.bundle.js"></script>-->
+  <!--<script src="js/templates.bundle.js"></script>-->
+  <!--<script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-deferred-bootstrap/angular-deferred-bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/nvd3/build/nv.d3.js"></script>
+  <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+  <script src="bower_components/spin.js/spin.js"></script>
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-loader/angular-loader.js"></script>
+  <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-ui-select/dist/select.min.js"></script>
+  <script src="bower_components/angularjs-datepicker/dist/angular-datepicker.min.js"></script>
+  <script src="bower_components/angular-translate/angular-translate.js"></script>
+  <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+  <script src="bower_components/angular-acl/angular-acl.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+  <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+  <script src="bower_components/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
+  <script src="bower_components/chart.js/dist/Chart.js"></script>
+  <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angularjs-datepicker/src/js/angular-datepicker.js"></script>
+  <script src="node_modules/ng-table/bundles/ng-table.min.js"></script>
+  <script src="bower_components/angular-datetime/dist/datetime.js"></script>
+  <script src="bower_components/angular-datetime/src/main.js"></script>
+  <script src="bower_components/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js"></script>
+  <script src="bower_components/lodash/dist/lodash.js"></script>
+  <script src="bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="bower_components/angular-material/angular-material.min.js"></script>
+  <script src="bower_components/angular-dateParser/dist/angular-dateparser.js"></script>-->
+
+  <script src="js/app.bundle.js"></script>
+</body>
+</html>

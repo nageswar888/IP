@@ -1,0 +1,312 @@
+<div class="row">
+    <div class="col-md-12 text-align-center">
+        <h4 translate="advice.details.header.label"></h4>
+    </div>
+</div>
+<div class="row">
+    <div id="FlashMsgDiv" flash-message="4000" class=""></div>
+</div>
+<div class="row view-advice-pay-details" ng-if="pa.showChequeLabel(pa.advice.type)">
+    <div class="col-md-12 view-advice-bank">{{pa.advice.bank.bankName}}</div>
+    <div class="col-md-12 view-advice-date text-align-right"><label translate="advice.date.label"></label> <b>:</b> {{pa.advice.disburserDate | date:"dd-MMM-yyyy"}}</div>
+    <div class="col-md-12 view-advice-pay">
+        <label translate="advice.pay.label"></label>
+        <span ng-bind="pa.getFullName(pa.advice.payee.user) | camelCase"></span>
+    </div>
+
+    <div class="col-md-6 margin-bottom-10">
+        <label translate="advice.rupees.label"></label>  <i class="font-family-style">{{pa.advice.requestedAmount | filterAmount}}</i>
+    </div>
+
+    <div class="col-md-6 view-advice-amount">
+        <label translate="advice.rs.label"></label>
+        {{pa.advice.requestedAmount | indianAmtMatric}}
+    </div>
+
+    <div class="col-md-12">
+        <label translate="advice.cheque.no.label"></label> {{pa.advice.chequeNumber}}
+    </div>
+
+    <div class="col-md-12" ng-if="(pa.advice.bank.accountType !== pa.accountType.CASH_ON_HAND)">
+        <label translate="advice.acc.no.label"></label> {{pa.advice.bank.accountNo}}
+    </div>
+    <div class="col-md-12" ng-if="(pa.advice.bank.accountType !== pa.accountType.CASH_ON_HAND)">
+        <label translate="bank.branch.label.colun"></label> {{pa.advice.bank.branchName}}
+    </div>
+    <div class="col-md-12" ng-if="(pa.advice.bank.accountType !== pa.accountType.CASH_ON_HAND)">
+        <label translate="bank.ifsc.label.colun"></label> {{pa.advice.bank.ifscCode}}
+    </div>
+
+</div>
+
+<div class="row view-advice-pay-details" ng-if="pa.advice.type==pa.bankLabels[0]">
+    <div class="col-md-12 view-advice-bank">{{pa.advice.type}}</div>
+    <div class="col-md-12 view-advice-date text-align-right"><label translate="advice.date.label"></label> : {{pa.advice.disburserDate | date:"dd-MMM-yyyy"}}</div>
+    <div class="col-md-12 view-advice-pay">
+        <label translate="advice.pay.label"></label>
+        <span ng-bind="pa.getFullName(pa.advice.payee.user) | camelCase"></span>
+    </div>
+    <div class="col-md-6">
+        <label translate="advice.rupees.label"></label><i class="font-family-style">   {{pa.advice.requestedAmount | filterAmount}}</i>
+    </div>
+
+    <div class="col-md-6 view-advice-amount">
+        <label translate="advice.rs.label"></label>
+        {{pa.advice.requestedAmount | indianAmtMatric }}
+    </div>
+
+    <div class="col-md-12" ng-if="(pa.advice.bank.accountType !== pa.accountType.CASH_ON_HAND)">
+        <label translate="view.advice.credit.bankName"></label> {{pa.advice.bank.accountName | camelCase}}
+    </div>
+</div>
+<div class="row view-advice-pay-details" ng-if="pa.advice.type==pa.bankLabels[1]">
+    <div class="col-md-12 view-advice-bank">{{pa.advice.type}}</div>
+    <div class="col-md-12 view-advice-date text-align-right"><label translate="advice.date.label"></label> : {{pa.advice.disburserDate | date:"dd-MMM-yyyy"}}</div>
+    <div class="col-md-12 view-advice-pay">
+        <label translate="advice.pay.label"></label>
+        <span ng-bind="pa.getFullName(pa.advice.payee.user) | camelCase"></span>
+    </div>
+    <div class="col-md-6">
+        <label translate="advice.rupees.label"></label><i class="font-family-style"> {{pa.advice.requestedAmount | filterAmount}}</i>
+    </div>
+    <div class="col-md-6 view-advice-amount">
+        <label translate="advice.rs.label"></label>
+        {{pa.advice.requestedAmount | indianAmtMatric }}
+    </div>
+    <div class="col-md-12" ng-if="(pa.advice.bank.accountType !== pa.accountType.CASH_ON_HAND)">
+        <label>Bank Account Name</label>  <b>:</b> {{pa.advice.bank.accountName | camelCase}}
+    </div>
+
+</div>
+<!-- bank label for debit by bank-->
+<div class="row view-advice-pay-details" ng-if="pa.advice.type==pa.bankLabels[5]">
+    <div class="col-md-12 view-advice-bank">{{pa.advice.type}}</div>
+    <div class="col-md-12 view-advice-date text-align-right"><label translate="advice.date.label"></label> : {{pa.advice.disburserDate | date:"dd-MMM-yyyy"}}</div>
+    <div class="col-md-12 view-advice-pay">
+        <label translate="advice.pay.label"></label>
+        <span ng-bind="pa.getFullName(pa.advice.payee.user) | camelCase"></span>
+    </div>
+    <div class="col-md-6">
+        <label translate="advice.rupees.label"></label><i class="font-family-style">   {{pa.advice.requestedAmount | filterAmount}}</i>
+    </div>
+
+    <div class="col-md-6 view-advice-amount">
+        <label translate="advice.rs.label"></label>
+        {{pa.advice.requestedAmount | indianAmtMatric }}
+    </div>
+
+    <div class="col-md-12" ng-if="(pa.advice.bank.accountType !== pa.accountType.CASH_ON_HAND)">
+        <label translate="view.advice.credit.bankName"></label> {{pa.advice.bank.accountName | camelCase}}
+        <!--<label translate="view.advice.credit.bankName"></label> {{pa.advice.bank.bankName}}-->
+    </div>
+</div>
+<div class="row view-advice-cash" ng-show="pa.advice.type==pa.cashLabel">
+    <div class="watermark">
+        <p><img src="/app/images/moneyimages-3.jpeg"></p>
+    </div>
+</div>
+<div class="row view-advice-maincontent" >
+    <div class="col-md-12 text-align-center padding-top-5px">
+        <label translate="advice.title.paymentAdviceNumber"></label> <b>:</b> {{pa.advice.adviceNumber}}
+        <span ng-if="pa.hasEditableRoles() && pa.advice.version !== '1.0' ">{{pa.advice.version | currency:"v":0}}</span>
+    </div>
+
+    <div class="col-md-12 padding-top-5px text-align-right">
+        <label translate="advice.req.date.label"></label> {{pa.advice.requestedDate | date:"dd-MMM-yyyy"}}
+    </div>
+
+    <div class="col-md-12" ng-if="pa.advice.type==='Cash' || !pa.advice.type">
+        <label>{{'advice.amountRequested.label' | translate}} : </label>
+        <span ng-bind="pa.advice.requestedAmount | indianAmtMatric"/>
+    </div>
+    <div class="col-md-6 margin-bottom-10" ng-if="pa.advice.type==='Cash' || !pa.advice.type">
+        ({{pa.advice.requestedAmount | filterAmount}})
+    </div>
+
+    <div class="col-md-12">
+        <label>{{'admin.submenu.payee.label' | translate}} : </label>
+        <span ng-bind="pa.getFullName(pa.advice.payee.user) | camelCase"/>
+
+        <i class="fa fa-eye" aria-hidden="true" title="View" ng-if="$root.isDesRole();" ng-click="pa.viewPayee(pa.advice.payee)"></i>
+    </div>{{pa.advice.status}}
+    <div class="col-md-12">
+        <label>{{'advice.ledger.label' | translate}} : </label>
+        <span ng-bind="pa.advice.ledger.name | camelCase"/>
+    </div>
+    <div class="col-md-12">
+        <label>{{'approve.payment.type.label' | translate}} : </label>
+        <span ng-bind="pa.showPaymentType | camelCase"/>
+    </div>
+    <div class="col-md-12">
+        <label>{{'advice.category.label' | translate}} : </label>
+        <span ng-bind="pa.showCategory | camelCase"/>
+    </div>
+
+    <div class="col-md-12">
+        <label>{{'payment.request.project.label' | translate}} : </label>
+        <span ng-bind="pa.advice.project.projectName | camelCase"/>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+
+            <div class="col-md-6">
+                <label translate="view.payment.mode.label"></label> {{pa.advice.type}}
+            </div>
+            <div class="col-md-6 text-align-right" >
+                <label  translate="advice.disbursed.date.label"></label> <b>:</b>
+                <span ng-bind="pa.advice.disburserDate | date:'dd-MMM-yyyy' || 'empty' "></span>
+            </div>
+
+            <div class="col-md-12" ng-if="pa.advice.type==='Cash'">
+                <div class="row">
+                    <div  class="col-md-6">
+                        <label translate="advice.source.label.coloun"></label></label> {{ (pa.advice.others | indianAmtMatric) || "empty" }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" >
+                <div class="row">
+                    <div class="col-md-6 text-align-left">
+                        <label  translate="mark.advice.urgent.label"></label> <b>:</b>
+                        <span ng-bind="pa.showPriority"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label  translate="advice.billAmtDue.label"></label> <b>:</b>
+                <span ng-if="pa.advice.billAmountDue">{{pa.advice.billAmountDue | indianAmtMatric}}</span>
+                <span ng-if="(pa.advice.billAmountDue === ''|| pa.advice.billAmountDue === undefined || pa.advice.billAmountDue === null) " translate="not.specified"></span>
+            </div>
+            <div class="col-md-6 margin-bottom-10" ng-if="pa.advice.billAmountDue">
+                ({{pa.advice.billAmountDue | filterAmount}})
+            </div>
+            <div class="col-md-12" >
+                <div class="row">
+                    <div class="col-md-6 text-align-left">
+                        <label  translate="advice.description.label"></label> <b>:</b>
+                        <span ng-bind="pa.advice.description"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <label translate="view.advice.requestedBy.label"></label> <span ng-bind="pa.advice.requestedBy | camelCase"></span>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-1" ng-show="pa.advice.adviceStatus!== $root.allAdviceStatus[0]">
+            <div class="col-md-4 margin-top-26">
+                <div class="col-lg-2" ng-if="!!pa.advice.user.signature">
+                    <img  class="load-image" src="data:{{pa.advice.user.signature.filetype}};base64,{{pa.advice.user.signature.base64}}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 margin-bottom-10 margin-top-10">
+        <label translate="advice.initiatedBy.label"></label> <span ng-bind="pa.advice.initiatedBy | camelCase"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 view-advice-signature" ng-show="($root.adviceStatusWithOutSubmitted.indexOf(pa.advice.adviceStatus) !==-1)">
+                <div class="col-lg-7 col-md-7">
+                    <div class="col-md-12">
+                        <span ng-bind="pa.getFullName(pa.advice.secondLevelApprover) | camelCase"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <span translate="label.role.level2"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2" ng-if="!!pa.advice.secondLevelApprover.signature">
+                    <img  class="load-image offset-1" src="data:{{pa.advice.secondLevelApprover.signature.filetype}};base64,{{pa.advice.secondLevelApprover.signature.base64}}"/>
+                </div>
+                <div class="col-lg-1 col-md-2" ng-if="!pa.approvedStamp">
+                    <img src="/app/images/APPROVED" class="stamp-image-size">
+                </div>
+                <div class="col-lg-1 col-md-2" ng-if="!!pa.approvedStamp">
+                    <img  class="stamp-image-size offset-1" src="data:{{pa.approvedStamp.filetype}};base64,{{pa.approvedStamp.base64}}"/>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 view-advice-signature" ng-show="($root.adviceStatusWithOUtSubmittedLevel2.indexOf(pa.advice.adviceStatus) !==-1)">
+                <div class="col-lg-7 col-md-7">
+                    <div class="col-md-12">
+                        <span ng-bind="pa.getFullName(pa.advice.thirdLevelApprover) | camelCase"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <span translate="label.role.level3"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2" ng-if="!!pa.advice.thirdLevelApprover.signature">
+                    <img  class="load-image offset-1" src="data:{{pa.advice.thirdLevelApprover.signature.filetype}};base64,{{pa.advice.thirdLevelApprover.signature.base64}}"/>
+                </div>
+                <div class="col-lg-2 col-md-2" ng-if="!pa.approvedStamp">
+                    <img src="/app/images/APPROVED" class="stamp-image-size">
+                </div>
+                <div class="col-lg-2 col-md-2" ng-if="!!pa.approvedStamp">
+                    <img  class="stamp-image-size offset-1" src="data:{{pa.approvedStamp.filetype}};base64,{{pa.approvedStamp.base64}}"/>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 view-advice-signature" ng-show="(pa.advice.adviceStatus === $root.allAdviceStatus[5])">
+                <div class="col-lg-7 col-md-7">
+                    <div class="col-md-12">
+                        <span ng-bind="pa.getFullName(pa.advice.disburser) | camelCase"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <span translate="label.role.disburser"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2" ng-if="!!pa.advice.disburser.signature">
+                    <img  class="load-image offset-1" src="data:{{pa.advice.disburser.signature.filetype}};base64,{{pa.advice.disburser.signature.base64}}"/>
+                </div>
+                <div class="col-lg-2 col-md-2" ng-if="!pa.disbursedStamp">
+                    <img src="/app/images/DISBURSED" class="stamp-image-size">
+                </div>
+                <div class="col-lg-2 col-md-2" ng-if="!!pa.disbursedStamp">
+                    <img  class="stamp-image-size offset-1" src="data:{{pa.disbursedStamp.filetype}};base64,{{pa.disbursedStamp.base64}}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<form name="pa.viewAdviceForm" novalidate>
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-6">
+            <button type="button" class="btn btn-default btn-comment" ng-click="pa.scrollDown();" onclick="$('.comment').toggle()">
+                <span ng-bind="'button.comments' | translate"></span>
+            </button>
+            <button ng-if="previousState.url !== '/advice/search' " type="button" class="btn btn-danger redbtn"
+                    ng-click="backToPriviousPage()">
+                <span ng-bind="'button.cancel' | translate"></span>
+            </button>
+            <button ng-if="previousState.url === '/advice/search'" class="btn btn-default" ng-click="pa.backToSearch()"
+                    translate="back.btn.label"></button>
+            <button type="button" class="btn btn-sumbit greenbtn" ng-click="pa.editDisbursedAdvice()"
+                    ng-if="(pa.advice.isActive &&  pa.canEdit)">
+                <span ng-bind="'button.edit' | translate"></span>
+            </button>
+            <button type="button" class="btn btn-submit greenbtn" ng-if="pa.canApprove" ng-click="pa.approveModal(pa.advice)"
+                    translate="button.approve.label"></button>
+            <button type="button" class="btn btn-submit greenbtn" ng-if="pa.canDisburse" ng-click="pa.disburseredModal(pa.advice)"
+                    translate="button.disburse.label"></button>
+            <button type="button" class="btn btn-submit greenbtn" ng-if="$root.isInitiator() &&  pa.advice.adviceStatus === $root.allAdviceStatus[0]"
+                    ng-click="pa.submitModal(pa.advice)" translate="button.submit"></button>
+        </div>
+
+        <div class="col-md-6 col-lg-6 col-sm-6"></div>
+
+        <div class="col-md-12 col-lg-12 col-sm-12 comment margin-5px display-none">
+            <div class="col-md-12 col-lg-12 col-sm-12 comment-body">
+                <div class="col-md-12 col-lg-12 col-sm-12" id="commentId" ng-if="pa.advice.comments==null || pa.advice.comments.length === 0">{{'advice.text.noComment' | translate}}</div>
+                <div class="col-md-12 col-lg-12 col-sm-12" id="commentId" ng-if="pa.advice.comments !==null || pa.advice.comments.length > 0" ng-repeat="comments in pa.advice.comments">
+                    <a class="text-decuration-none" href="#"><b ng-bind=" pa.getFullName(comments.user) | camelCase"></b></a>
+                    {{'comment.added.text'|translate}} {{comments.createdDate | dateFilterwithTime}}<br>
+                    <p class="font-family-style">{{comments.text | camelCase}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</form>

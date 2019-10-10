@@ -1,0 +1,28 @@
+<div id="paymentHistoryTable" class="tab-pane fade in fade active">
+     <span>
+        <label> <span translate="advice.totalAmount.label"></span>:&nbsp;</label>
+        <span translate="advice.rs.label"></span>
+        <span ng-bind="phc.totalAmount | indianAmtMatric"></span>
+        (<span ng-bind="phc.totalAmount | filterAmount"></span>)
+    </span>
+    <div class="col-md-12 col-sm-12 col-xs-12 padding-none">
+        <div id="no-more-tables deatail-table">
+            <table ng-table="phc.tableParams"
+                   class="col-md-12 table-bordered table-striped table-condensed cf padding-none">
+                <tr ng-repeat="advice in $data" ng-if="!phc.noRecordMessage">
+                    <td title="'Project'"  ng-bind="advice.project.projectName"  data-ng-click="phc.viewAdviceDetails(advice)"></td>
+                    <td title="'Amount'"   ng-bind="advice.requestedAmount | indianAmtMatric"  data-ng-click="phc.viewAdviceDetails(advice)"></td>
+                    <td title="'Status'"  ng-bind="advice.adviceStatus"  data-ng-click="phc.viewAdviceDetails(advice)"></td>
+                    <td title="'Disbursed Date'"   ng-bind="advice.disburserDate | dateFilter"  data-ng-click="phc.viewAdviceDetails(advice)"></td>
+                    <td title="'Payment Advice Number'" ng-bind="advice.adviceNumber"  data-ng-click="phc.viewAdviceDetails(advice)"></td>
+                    <td title="'Advice'"  header-class="'ng-table-search-fixedcolumn tableHeader'">
+                        <a href="#" ng-if="advice.adviceStatus == 'Disbursed'" data-ng-click="phc.downloadAdvicePdf(advice._id)">
+                            <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="content-right">
+    <div class="avide-footer">
+        <div id="dishome" class="tab-pane fade in fade active">
+            <!--<div id="adviceFilterBox">&lt;!&ndash;ng-init="rprc.freezeActionIcons()"&ndash;&gt;
+                <div class="paymentFilter">-->
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+                <div class="col-md-4 margin-top-4-ve" ng-if="rprc.CanViewprojectsDropDown();">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 padding-right-0 color-dark-grey"  ng-bind="'payment.req.card.project.label'| translate">
+                        </label>
+                        <div class="col-md-7 padding-left-0">
+                            <ui-select  ng-model="rprc.project.selected" theme="bootstrap" name="projects"
+                                        ng-change="rprc.getAllPaymentRequestByStatus(rprc.sortCriteria, rprc.groupByCriteria,rprc.currentStatus, rprc.project.selected._id)">
+                                <ui-select-match>
+                                    {{$select.selected.projectName | camelCase}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="project in rprc.projects | filter: $select.search">
+                                    {{project.projectName | camelCase}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" ng-if="rprc.CanViewAddPaymentRequest();" class="btn btn-primary greenbtn pull-right margin-right-0" ui-sref="newPaymentRequest">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;
+                    <span translate="button.paymentRequest"></span>
+                </button>
+                <!--</div>
+                        </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 avide-footer">
+    <div class="panel-group advice-panel padding-left-10" id="accordion">
+        <div class="panel panel-default margin-top-10">
+            <div  ng-repeat="(parentIndex, groupedPaymentReqData)  in rprc.paymentRequestsList.projects">
+                <uib-accordion ng-if="rprc.data.length>0" close-others="rprc.closeOthers" class="href-heading-acc">
+                    <div class="col-md-1 group-advice-card-check-box"  ng-if="rprc.canView();"  uib-tooltip="{{ rprc.tooltipText(groupedPaymentReqData) }}">
+                        <input type="checkbox" ng-if="rprc.canView();" ng-model="rprc.isAll[parentIndex]" ng-true-value="true" ng-false-value="false"
+                               ng-click="rprc.selectAll(parentIndex);" ng-disabled="!groupedPaymentReqData.open" class="margin-0"
+                               ng-class="(rprc.isAll[parentIndex] === true || rprc.isChildSeleted[parentIndex] === true) ? 'pulse-check-box-button':''"/>
+                    </div>
+                    <div uib-accordion-group class="each-org top-panel-group" ng-class="{'tab-expanded':groupedPaymentReqData.open}"
+                         is-open="groupedPaymentReqData.open">
+                        <uib-accordion-heading>
+                            <div ng-click="rprc.showPaymentRequests(groupedPaymentReqData, parentIndex,rprc.currentStatus,rprc.project.selected._id)" ng-class="{'left-border':rprc.canView()}" class="row header-link">
+                                <div class="col-sm-3">
+                                    <label translate="view.advice.project.label"></label>
+                                    <span ng-bind="groupedPaymentReqData.project.projectName"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label translate="view.advice.project.total.label"></label>
+                                    <i class="fa fa-inr" aria-hidden="true"></i>
+                                    <span ng-bind="groupedPaymentReqData.requestedAmount  | indianAmtMatric"></span>
+                                </div>
+                                <div class="col-sm-4 pull-right text-right">
+                                    <label translate="no.of.paymentRequest.label"></label>
+                                    <span ng-bind="groupedPaymentReqData.paymentRequestCount"></span>
+                                </div>
+                            </div>
+                        </uib-accordion-heading>
+                        <div ng-repeat="paymentRequestDetails in rprc.paymentRequestsList.projects[parentIndex].advices track by $index" class="">
+                            <uib-accordion  close-others="rprc.closeOthers">
+                                <div ng-include="'/app/partials/paymentRequests/eachPaymentRequest.html'"></div>
+                            </uib-accordion>
+                        </div>
+                        <div>
+                            <span ng-show="rprc.emptyPaymentReq === true || groupedPaymentReqData.paymentRequestCount === rprc.paymentRequestsList.projects[parentIndex].advices.length && groupedPaymentReqData.paymentRequestCount >  rprc.paymentRequestsList.adviceLimit"> <a href="" ng-click="rprc.limitChangeForAdvice(parentIndex);rprc.showPaymentRequests(groupedPaymentReqData, parentIndex,rprc.currentStatus,rprc.project.selected._id)" translate="payment.request.less.link"></a></span>
+                            <span ng-show="rprc.emptyPaymentReq === false && groupedPaymentReqData.paymentRequestCount !== rprc.paymentRequestsList.projects[parentIndex].advices.length && groupedPaymentReqData.paymentRequestCount >  rprc.paymentRequestsList.adviceLimit"><a href="" ng-click="rprc.limitChangeForAdvice(parentIndex);rprc.showPaymentRequests(groupedPaymentReqData, parentIndex,rprc.currentStatus,rprc.project.selected._id)" translate="payment.request.more.link"></a></span>
+                        </div>
+                    </div>
+                </uib-accordion>
+            </div>
+            <div>
+                <span  ng-show="(rprc.emptyPaymentReqProject === true && rprc.count > 0)  || rprc.paymentRequestsList.totalProjectCount === rprc.paymentRequestsList.projects.length && rprc.paymentRequestsList.totalProjectCount > rprc.paymentRequestsList.projectLimit" > <a href="" ng-click="rprc.limitChangeforProject(rprc.paymentRequestsList.projectSkip);rprc.getAllPaymentRequestByStatus(rprc.sortCriteria, rprc.groupByCriteria,rprc.currentStatus, rprc.project.selected._id)" translate="project.less.link"></a></span>
+                <span ng-show="rprc.emptyPaymentReqProject === false && rprc.paymentRequestsList.totalProjectCount !== rprc.paymentRequestsList.projects.length && rprc.paymentRequestsList.totalProjectCount > rprc.paymentRequestsList.projectLimit"><a href="" ng-click="rprc.limitChangeforProject(rprc.paymentRequestsList.projectSkip); rprc.getAllPaymentRequestByStatus(groupedPaymentReqData, parentIndex,rprc.currentStatus,rprc.project.selected._id);" translate="project.more.link"></a></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row  color-grey" ng-if="rprc.isShowNoRecordMessage">
+    <div class="grey-color text-align-center empty-record"><h4 ng-bind="rprc.noRecordMessage"></h4></div>
+</div>

@@ -1,0 +1,90 @@
+<div class="tab-pane fade in fade active">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10">
+            <h3 class="text-center" translate="payment.history.label"></h3>
+        </div>
+        <form name="phc.paymentHistoryForm" ng-submit="phc.getPaymentHistory()" class="form-horizontal" novalidate>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label class="control-label col-md-2">
+                            <span translate="search.payee.label"></span>
+                        </label>
+                        <div class="col-md-4">
+                            <div class="" ng-if="$root.isPayee() === false">
+                                <ui-select class="mandatory-mark" ng-model="phc.advice.model.payee" name="payeeName" required>
+                                    <ui-select-match placeholder="Select payee" allow-clear="true">
+                                        <span ng-bind="$select.selected.nickName  | camelCase"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="payee in phc.payees | filter:$select.search" refresh="phc.getAllPayees($select.search)" refresh-delay="0">
+                                        <span ng-bind="payee.nickName | camelCase"></span>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice translate="label.noMatching.found"></ui-select-no-choice>
+                                </ui-select>
+                                <span ng-show ="(phc.paymentHistoryForm.payeeName.$touched || phc.paymentHistoryForm.$submitted) && phc.paymentHistoryForm.payeeName.$error.required" class="text-danger"
+                                      ng-bind="'advice.selectPayee.errMsg' | translate"></span>
+                            </div>
+                            <div ng-if="$root.isPayee() === true" class="padding-top-5px" ng-bind="$root.getCurrentLoggedInUser() | nameFilter | camelCase"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <label class="control-label col-md-2">
+                            <span translate="duration.label"></span>
+                        </label>
+                        <div class="col-md-2">
+                            <label class="radio-inline"><input type="radio" ng-model="phc.sinceBeginning" ng-click="phc.setDateNull();" value="beginning" name="BeginningOption" checked="checked">
+                                <span translate="since.beginning"></span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="control-label col-md-1">
+                                <span translate="or.label"></span>
+                            </div>
+                            <label class="control-label col-md-3">
+                                <span translate="date.range.label"></span></span>
+                            </label>
+                            <div class="col-md-8">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <datepicker date-format="dd-MMM-yyyy" class="input-width">
+                                        <input ng-model="phc.advice.model.fromDate" class="form-control mandatory-mark " type="text" placeholder="From" name="fromDate"
+                                               ng-change="phc.setDateRangeFalse();"   onkeydown="return false"/>
+                                    </datepicker>
+                                        <span class="input-group-addon" style="background-color: transparent;border: 0;padding:2px;">
+                                            <b><span>-</span></b>
+                                        </span>
+                                    <datepicker date-format="dd-MMM-yyyy" class="input-width">
+                                        <input ng-model="phc.advice.model.toDate" type="text" class="form-control mandatory-mark" placeholder="To" name="toDate" onkeydown="return false" ng-change="phc.setDateRangeFalse();"/>
+                                    </datepicker>
+                                </div>
+                                <div ng-show="phc.paymentHistoryForm.fromDate.$touched || phc.paymentHistoryForm.$submitted" >
+                                    <span ng-show="phc.isValidDateRange" class="text-danger error-margin" translate="date.range.validation.message"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group text-center">
+                    <button type="submit" class="btn greenbtn"  translate="get.payment.history.btn.label"></button>
+                    <button type="reset" class="btn btn-warning" ng-click="phc.resetPaymentHistory()">
+                        <span ng-bind="'button.reset' | translate"></span>
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div ng-show="phc.noRecordMessage" class="col-md-12 col-sm-12 col-xs-12 text-center margin-top-15">
+        <h4 class="grey-color" translate="payment.history.not.found.message"></h4>
+    </div>
+    <div ng-show="(phc.paymentHistory.length > 0 && !phc.noRecordMessage)">
+        <download-advice  graph-query="" advice="phc.advice"></download-advice>
+        <div  ng-include="'/app/partials/paymentHistory/paymentHistoryTable.html'">
+        </div>
+    </div>
+</div>

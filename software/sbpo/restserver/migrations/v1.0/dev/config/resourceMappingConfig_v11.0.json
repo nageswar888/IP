@@ -1,0 +1,33 @@
+{
+  "resource-mapping": [
+    {
+      "resource": "/api/count/users",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]}
+
+      ]
+    },
+    {
+      "resource": "/api/count/payees",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["get"]}
+
+      ]
+    },
+    {
+      "resource": "/api/count/banks",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]}
+
+      ]
+    },
+    {
+      "resource": "/api/count/projects",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["get"]}
+
+      ]
+    }
+  ]
+}

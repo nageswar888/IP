@@ -1,0 +1,18 @@
+{
+  "resource-mapping":[
+    {
+      "resource": "/api/resetPasscode",
+      "roles": [
+        {"name": "ROLE_MASTERADMIN", "permissions": ["put"]},
+        {"name": "ROLE_VIEWER", "permissions": ["put"]},
+        {"name": "ROLE_INITIATOR", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL2APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_LEVEL3APPROVER", "permissions": ["put"]},
+        {"name": "ROLE_DISBURSER", "permissions": ["put"]},
+        {"name": "LEGACY_DATA_OPERATOR", "permissions": ["put"]},
+        {"name": "ROLE_PAYMENT_REQUESTER", "permissions": ["put"]},
+        {"name": "ROLE_PAYEE", "permissions": ["put"]}
+      ]
+    }
+  ]
+}
